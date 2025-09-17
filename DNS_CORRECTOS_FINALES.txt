@@ -1,0 +1,15 @@
+BORRA TODO Y AGREGA SOLO ESTOS 5 RECORDS:
+
+Type: A    Name: @    Content: 185.199.108.153    Proxy: OFF (nube gris)
+Type: A    Name: @    Content: 185.199.109.153    Proxy: OFF (nube gris)  
+Type: A    Name: @    Content: 185.199.110.153    Proxy: OFF (nube gris)
+Type: A    Name: @    Content: 185.199.111.153    Proxy: OFF (nube gris)
+Type: CNAME    Name: www    Content: dabtcavila.github.io    Proxy: OFF (nube gris)
+
+BORRA CUALQUIER A RECORD QUE TENGA:
+❌ 198.49.23.144
+❌ 198.49.23.145
+❌ 198.185.159.144
+❌ 198.185.159.145
+
+ESOS SON DE SQUARESPACE!

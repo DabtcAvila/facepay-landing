@@ -1,0 +1,37 @@
+AGREGAR ESTOS 5 RECORDS EN CLOUDFLARE:
+
+1. Type: A
+   Name: @
+   IPv4 address: 185.199.108.153
+   Proxy status: DNS only (nube GRIS, no naranja)
+   TTL: Auto
+
+2. Type: A
+   Name: @
+   IPv4 address: 185.199.109.153
+   Proxy status: DNS only (nube GRIS)
+   TTL: Auto
+
+3. Type: A
+   Name: @
+   IPv4 address: 185.199.110.153
+   Proxy status: DNS only (nube GRIS)
+   TTL: Auto
+
+4. Type: A
+   Name: @
+   IPv4 address: 185.199.111.153
+   Proxy status: DNS only (nube GRIS)
+   TTL: Auto
+
+5. Type: CNAME
+   Name: www
+   Target: dabtcavila.github.io
+   Proxy status: DNS only (nube GRIS)
+   TTL: Auto
+
+IMPORTANTE: 
+- El @ significa el dominio raíz (facepay.com.mx)
+- La nube debe estar GRIS (DNS only), NO naranja
+- Son 4 A records + 1 CNAME
+- Borra cualquier otro record que aparezca

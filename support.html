@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte - FacePay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <a href="/" class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 mb-8">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Volver a inicio
+            </a>
+            
+            <h1 class="text-4xl font-bold mb-4">Centro de Soporte</h1>
+            <p class="text-gray-400 mb-12">Estamos aquí para ayudarte con FacePay</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-900 rounded-xl p-6">
+                    <div class="text-3xl mb-4">📧</div>
+                    <h3 class="text-xl font-bold mb-2">Email</h3>
+                    <p class="text-gray-400 mb-4">Respuesta en 24-48 horas</p>
+                    <a href="mailto:support@facepay.com.mx" class="text-emerald-400 hover:text-emerald-300">support@facepay.com.mx</a>
+                </div>
+                
+                <div class="bg-gray-900 rounded-xl p-6">
+                    <div class="text-3xl mb-4">🐦</div>
+                    <h3 class="text-xl font-bold mb-2">Twitter</h3>
+                    <p class="text-gray-400 mb-4">Actualizaciones y soporte rápido</p>
+                    <a href="https://twitter.com/facepay" target="_blank" class="text-emerald-400 hover:text-emerald-300">@facepay</a>
+                </div>
+            </div>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-emerald-400">Preguntas Frecuentes</h2>
+                
+                <div class="space-y-6">
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Qué es FacePay?</summary>
+                        <p class="text-gray-400 mt-4">FacePay es una wallet de criptomonedas que usa Face ID para autenticación. Envía dinero usando usernames simples (@juan) en lugar de direcciones complejas, sin pagar gas fees gracias a StarkNet L2.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Es seguro usar Face ID para crypto?</summary>
+                        <p class="text-gray-400 mt-4">Sí. Face ID se procesa localmente en el Secure Enclave de tu iPhone. Nunca enviamos datos biométricos a servidores. Tu cara solo desbloquea las claves privadas encriptadas en tu dispositivo.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Qué pasa si pierdo mi teléfono?</summary>
+                        <p class="text-gray-400 mt-4">Durante la configuración, te proporcionamos una frase de recuperación de 12 palabras. Guárdala en un lugar seguro. Con ella puedes recuperar tu wallet en cualquier dispositivo nuevo.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Por qué no pago gas fees?</summary>
+                        <p class="text-gray-400 mt-4">Usamos Account Abstraction en StarkNet. FacePay paga los gas fees por ti para transacciones normales. Para operaciones complejas de DeFi, puede haber fees mínimos.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Puedo cambiar mi username?</summary>
+                        <p class="text-gray-400 mt-4">Tu username es único y permanente una vez registrado en blockchain. Elige cuidadosamente durante la configuración inicial.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Qué criptomonedas soporta?</summary>
+                        <p class="text-gray-400 mt-4">Actualmente soportamos ETH, USDC, USDT y DAI en StarkNet L2. Pronto añadiremos más tokens y bridges desde Ethereum L1.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Cómo deposito fondos?</summary>
+                        <p class="text-gray-400 mt-4">Puedes: 1) Recibir de otro usuario de FacePay, 2) Bridge desde Ethereum L1, 3) Comprar con tarjeta (próximamente), 4) Transferir desde otro wallet StarkNet.</p>
+                    </details>
+
+                    <details class="bg-gray-900 rounded-xl p-6 cursor-pointer">
+                        <summary class="font-bold text-lg">¿Es FacePay regulado?</summary>
+                        <p class="text-gray-400 mt-4">FacePay es un wallet no-custodial. No somos un banco ni exchange. Tú controlas tus claves privadas. Cumple con las leyes crypto de tu país.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-emerald-400">Reportar un Problema</h2>
+                <div class="bg-gray-900 rounded-xl p-6">
+                    <p class="text-gray-400 mb-4">Para reportar bugs o problemas técnicos, envía un email con:</p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2">
+                        <li>Tu username de FacePay</li>
+                        <li>Modelo de iPhone y versión de iOS</li>
+                        <li>Descripción detallada del problema</li>
+                        <li>Screenshots si es posible</li>
+                        <li>Hash de transacción si aplica</li>
+                    </ul>
+                    <a href="mailto:bugs@facepay.com.mx" class="inline-block mt-6 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-semibold">
+                        Reportar Bug
+                    </a>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-emerald-400">Recursos Adicionales</h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <a href="https://starknet.io" target="_blank" class="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition">
+                        <h4 class="font-bold mb-2">StarkNet Docs</h4>
+                        <p class="text-gray-400 text-sm">Aprende sobre la L2</p>
+                    </a>
+                    <a href="https://github.com/facepay" target="_blank" class="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition">
+                        <h4 class="font-bold mb-2">GitHub</h4>
+                        <p class="text-gray-400 text-sm">Código open source</p>
+                    </a>
+                    <a href="/privacy.html" class="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition">
+                        <h4 class="font-bold mb-2">Privacidad</h4>
+                        <p class="text-gray-400 text-sm">Cómo protegemos tus datos</p>
+                    </a>
+                </div>
+            </section>
+
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500">
+                © 2024 FacePay. Todos los derechos reservados.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

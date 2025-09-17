@@ -1,0 +1,12 @@
+{
+  "name": "facepay-landing",
+  "version": "1.0.0",
+  "description": "FacePay - Pagos Crypto con Face ID",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["facepay", "crypto", "starknet", "face-id", "payments"],
+  "author": "FacePay Team",
+  "license": "MIT"
+}

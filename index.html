@@ -135,51 +135,102 @@
     }
     
     .hero-title {
-        font-size: clamp(3rem, 8vw, 7rem);
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 2rem;
-        background: linear-gradient(135deg, #ffffff 0%, var(--primary) 40%, var(--accent) 70%, var(--secondary) 100%);
+        font-size: clamp(3.5rem, 9vw, 8rem);
+        font-weight: 900;
+        line-height: 0.95;
+        margin-bottom: 3rem;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+        text-align: center;
+    }
+    
+    .hero-title .highlight {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        position: relative;
+    }
+    
+    .hero-title .highlight::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 2px;
+        animation: underlineGrow 2s ease-in-out infinite alternate;
     }
     
     .hero-subtitle {
-        font-size: clamp(1.2rem, 3vw, 1.4rem);
-        color: var(--text-muted);
-        margin-bottom: 3rem;
-        max-width: 700px;
+        font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 4rem;
+        max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+        font-weight: 400;
+        line-height: 1.5;
     }
     
-    /* BRUTAL SIGNATURE Face ID Scanner */
+    /* MINIMALIST WOW Face ID */
     .face-id-showcase {
         position: relative;
-        width: 380px;
-        height: 380px;
-        margin: 4rem auto;
+        width: 300px;
+        height: 300px;
+        margin: 5rem auto;
         display: flex;
         align-items: center;
         justify-content: center;
     }
     
-    .face-scanner-container {
+    .face-scanner {
         position: relative;
-        width: 250px;
-        height: 250px;
-        border-radius: 20px;
-        background: 
-            linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(15, 15, 15, 0.7) 100%),
-            linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-        border: 2px solid rgba(99, 102, 241, 0.3);
+        width: 180px;
+        height: 180px;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: scannerBreathe 4s ease-in-out infinite;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
+        background: radial-gradient(circle at center, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
+        animation: minimalistPulse 3s ease-in-out infinite;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .face-icon {
+        font-size: 4rem;
+        animation: iconGlow 2.5s ease-in-out infinite alternate;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .scan-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid transparent;
+        border-top: 2px solid var(--primary);
+        border-radius: 50%;
+        animation: ringRotate 2s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .face-scanner:hover .scan-ring {
+        opacity: 1;
+    }
+    
+    .face-scanner:hover {
+        border-color: var(--primary);
+        background: radial-gradient(circle at center, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        transform: scale(1.05);
+    }
+    
+    .face-scanner:hover .face-icon {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 25px rgba(99, 102, 241, 1));
     }
     
     .face-display {
@@ -433,17 +484,40 @@
         line-height: 1.6;
     }
     
-    /* BRUTAL SIGNATURE Animations */
-    @keyframes scannerBreathe {
+    /* MINIMALIST WOW Animations */
+    @keyframes minimalistPulse {
         0%, 100% { 
             transform: scale(1);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.2);
         }
         50% { 
-            transform: scale(1.08);
-            border-color: rgba(16, 185, 129, 0.6);
-            box-shadow: 0 0 50px rgba(16, 185, 129, 0.4), 0 0 100px rgba(99, 102, 241, 0.2);
+            transform: scale(1.02);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+    }
+    
+    @keyframes iconGlow {
+        0% { 
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.4));
+        }
+        100% { 
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8));
+        }
+    }
+    
+    @keyframes ringRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes underlineGrow {
+        0% { 
+            width: 0%;
+            opacity: 0.6;
+        }
+        100% { 
+            width: 100%;
+            opacity: 1;
         }
     }
     
@@ -686,7 +760,7 @@
                 
                 <h1 class="hero-title">
                     Send crypto like<br>
-                    <span style="color: var(--primary);">@john</span> → <span style="color: var(--secondary);">@sarah</span>
+                    <span class="highlight">@john → @sarah</span>
                 </h1>
                 
                 <p class="hero-subtitle">
@@ -705,40 +779,11 @@
                     </a>
                 </div>
                 
-                <!-- BRUTAL SIGNATURE Face ID Scanner -->
+                <!-- MINIMALIST WOW Face ID -->
                 <div class="face-id-showcase">
-                    <!-- Signature Brackets with Dots -->
-                    <div class="bracket bracket-tl"></div>
-                    <div class="bracket bracket-tr"></div>
-                    <div class="bracket bracket-bl"></div>
-                    <div class="bracket bracket-br"></div>
-                    
-                    <!-- Main Scanner Container -->
-                    <div class="face-scanner-container">
-                        <!-- Scanning Grid Background -->
-                        <div class="scan-grid"></div>
-                        
-                        <!-- Recognition Beam -->
-                        <div class="recognition-beam"></div>
-                        
-                        <!-- Face Display -->
-                        <div class="face-display">👤</div>
-                        
-                        <!-- Data Stream Particles -->
-                        <div class="data-particles">
-                            <div class="data-point" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
-                            <div class="data-point" style="top: 30%; right: 20%; animation-delay: 0.3s;"></div>
-                            <div class="data-point" style="bottom: 25%; left: 25%; animation-delay: 0.6s;"></div>
-                            <div class="data-point" style="bottom: 35%; right: 15%; animation-delay: 0.9s;"></div>
-                            <div class="data-point" style="top: 60%; left: 10%; animation-delay: 1.2s;"></div>
-                            <div class="data-point" style="top: 70%; right: 12%; animation-delay: 1.5s;"></div>
-                        </div>
-                        
-                        <!-- Status Indicator -->
-                        <div class="status-indicator"></div>
-                        
-                        <!-- Scanning Text -->
-                        <div class="scanning-text">Scanning Face</div>
+                    <div class="face-scanner">
+                        <div class="face-icon">👤</div>
+                        <div class="scan-ring"></div>
                     </div>
                 </div>
                 

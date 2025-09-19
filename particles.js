@@ -1,7 +1,8 @@
 /**
- * FACEPAY PROFESSIONAL PARTICLE SYSTEM
- * Advanced WebGL particle engine with 60fps performance
- * Apple-level visual effects with hardware acceleration
+ * FACEPAY ELEGANTE PARTICLE SYSTEM V2.0
+ * Advanced WebGL particle engine with crypto symbols, connections & depth layers
+ * Apple-level visual effects with hardware acceleration + Performance adaptive
+ * Features: 👤⚡💸@ symbols, connection lines, mouse interaction, parallax
  */
 
 class FacePayParticleSystem {
@@ -10,28 +11,53 @@ class FacePayParticleSystem {
         this.gl = null;
         this.program = null;
         this.particles = [];
+        this.connections = [];
+        this.layers = [];
         this.particleBuffer = null;
         this.colorBuffer = null;
         this.isRunning = false;
         this.frameCount = 0;
-        this.mouse = { x: 0, y: 0 };
+        this.lastFrameTime = 0;
+        this.fps = 60;
+        this.mouse = { x: 0, y: 0, isMoving: false, lastMoveTime: 0 };
         this.time = 0;
+        this.performanceLevel = 'auto';
         
-        // Configuration
+        // Canvas fallback context
+        this.ctx2d = null;
+        this.symbolTextures = new Map();
+        
+        // Advanced Configuration
         this.config = {
-            particleCount: options.particleCount || 500,
+            particleCount: options.particleCount || 300,
             particleSize: options.particleSize || 2.0,
-            speed: options.speed || 0.5,
-            turbulence: options.turbulence || 0.1,
+            speed: options.speed || 0.3,
+            turbulence: options.turbulence || 0.08,
+            // FacePay Color Harmony
             colors: options.colors || [
-                [16, 185, 129],   // Emerald
-                [52, 211, 153],   // Light emerald
-                [167, 243, 208],  // Very light emerald
-                [6, 78, 59],      // Dark emerald
+                [0, 255, 136],     // FacePay Green
+                [16, 185, 129],    // Emerald
+                [52, 211, 153],    // Light emerald
+                [167, 243, 208],   // Very light emerald
+                [59, 130, 246],    // Blue accent
+                [34, 197, 94],     // Success green
             ],
+            // Crypto Symbols
+            symbols: options.symbols || ['@', '💸', '⚡', '👤', '✨', '🔥', '💎', '🚀'],
+            symbolProbability: options.symbolProbability || 0.3,
+            // Interaction Features
             interactive: options.interactive !== false,
+            mouseAttraction: options.mouseAttraction !== false,
+            mouseRepulsion: options.mouseRepulsion || false,
+            connectionLines: options.connectionLines !== false,
+            connectionDistance: options.connectionDistance || 120,
+            // Visual Effects
             glowEffect: options.glowEffect !== false,
-            mouseRepulsion: options.mouseRepulsion !== false
+            parallaxLayers: options.parallaxLayers !== false,
+            depthLayers: options.depthLayers || 3,
+            // Performance
+            maxFPS: options.maxFPS || 60,
+            adaptivePerformance: options.adaptivePerformance !== false
         };
         
         this.init();
@@ -39,17 +65,69 @@ class FacePayParticleSystem {
 
     async init() {
         this.createCanvas();
+        this.detectPerformance();
         await this.initWebGL();
         this.setupShaders();
+        this.initSymbolTextures();
+        this.generateLayers();
         this.generateParticles();
         this.setupEventListeners();
         this.start();
-        console.log('✨ Particle System initialized with', this.config.particleCount, 'particles');
+        console.log(`✨ FacePay Particle System V2.0 initialized`);
+        console.log(`📊 Performance: ${this.performanceLevel} | Particles: ${this.config.particleCount} | Layers: ${this.config.depthLayers}`);
+    }
+
+    detectPerformance() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+        
+        let score = 100; // Base score
+        
+        // Check WebGL support
+        if (!gl) {
+            score -= 40;
+            this.performanceLevel = 'low';
+            return;
+        }
+        
+        // Device factors
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const cores = navigator.hardwareConcurrency || 2;
+        const memory = navigator.deviceMemory || 2;
+        
+        // GPU information
+        const renderer = gl.getParameter(gl.RENDERER).toLowerCase();
+        const vendor = gl.getParameter(gl.VENDOR).toLowerCase();
+        
+        // Reduce score based on factors
+        if (isMobile) score -= 30;
+        if (cores < 4) score -= 20;
+        if (memory < 4) score -= 15;
+        if (renderer.includes('intel') && !renderer.includes('iris')) score -= 25;
+        if (renderer.includes('adreno') || renderer.includes('mali')) score -= 20;
+        
+        // Set performance level and adjust config
+        if (score >= 80) {
+            this.performanceLevel = 'high';
+            this.config.particleCount = Math.min(this.config.particleCount, 400);
+        } else if (score >= 50) {
+            this.performanceLevel = 'medium';
+            this.config.particleCount = Math.min(this.config.particleCount, 250);
+            this.config.connectionLines = true;
+        } else {
+            this.performanceLevel = 'low';
+            this.config.particleCount = Math.min(this.config.particleCount, 150);
+            this.config.connectionLines = false;
+            this.config.glowEffect = false;
+            this.config.depthLayers = 2;
+        }
+        
+        canvas.remove();
     }
 
     createCanvas() {
         this.canvas = document.createElement('canvas');
-        this.canvas.className = 'particle-system-canvas';
+        this.canvas.className = 'facepay-particle-canvas';
         this.canvas.style.cssText = `
             position: fixed;
             top: 0;
@@ -58,7 +136,8 @@ class FacePayParticleSystem {
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.85;
+            mix-blend-mode: screen;
         `;
         
         // Set actual canvas size
@@ -68,6 +147,44 @@ class FacePayParticleSystem {
         this.canvas.style.height = window.innerHeight + 'px';
         
         document.body.appendChild(this.canvas);
+    }
+
+    initSymbolTextures() {
+        if (!this.canvas) return;
+        
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCanvas.width = 64;
+        tempCanvas.height = 64;
+        
+        this.config.symbols.forEach(symbol => {
+            tempCtx.clearRect(0, 0, 64, 64);
+            tempCtx.font = '32px -apple-system, system-ui';
+            tempCtx.textAlign = 'center';
+            tempCtx.textBaseline = 'middle';
+            tempCtx.fillStyle = '#00ff88';
+            tempCtx.fillText(symbol, 32, 32);
+            
+            this.symbolTextures.set(symbol, tempCanvas.toDataURL());
+        });
+        
+        tempCanvas.remove();
+    }
+
+    generateLayers() {
+        this.layers = [];
+        
+        for (let i = 0; i < this.config.depthLayers; i++) {
+            const layer = {
+                id: i,
+                depth: (i + 1) / this.config.depthLayers, // 0.33, 0.66, 1.0
+                speed: 0.5 + (i * 0.3), // Different speeds for parallax
+                opacity: 0.3 + (i * 0.3), // Back layers more transparent
+                particleSize: 1 + (i * 1.5), // Larger particles in front
+                particles: []
+            };
+            this.layers.push(layer);
+        }
     }
 
     async initWebGL() {
@@ -212,23 +329,49 @@ class FacePayParticleSystem {
 
     generateParticles() {
         this.particles = [];
+        const particlesPerLayer = Math.floor(this.config.particleCount / this.config.depthLayers);
         
-        for (let i = 0; i < this.config.particleCount; i++) {
-            const particle = {
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * this.config.speed,
-                vy: (Math.random() - 0.5) * this.config.speed,
-                size: Math.random() * this.config.particleSize + 1,
-                color: this.config.colors[Math.floor(Math.random() * this.config.colors.length)],
-                alpha: Math.random() * 0.8 + 0.2,
-                life: Math.random() * 100,
-                maxLife: Math.random() * 200 + 100,
-                oscillation: Math.random() * Math.PI * 2,
-                oscillationSpeed: Math.random() * 0.02 + 0.01
-            };
-            this.particles.push(particle);
-        }
+        this.layers.forEach((layer, layerIndex) => {
+            layer.particles = [];
+            const count = layerIndex === this.layers.length - 1 ? 
+                this.config.particleCount - (particlesPerLayer * layerIndex) : particlesPerLayer;
+            
+            for (let i = 0; i < count; i++) {
+                const hasSymbol = Math.random() < this.config.symbolProbability;
+                const symbol = hasSymbol ? this.config.symbols[Math.floor(Math.random() * this.config.symbols.length)] : null;
+                
+                const particle = {
+                    id: `${layerIndex}_${i}`,
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * this.config.speed * layer.speed,
+                    vy: (Math.random() - 0.5) * this.config.speed * layer.speed,
+                    size: (Math.random() * this.config.particleSize + 1) * layer.particleSize,
+                    baseSize: (Math.random() * this.config.particleSize + 1) * layer.particleSize,
+                    color: this.config.colors[Math.floor(Math.random() * this.config.colors.length)],
+                    alpha: (Math.random() * 0.6 + 0.2) * layer.opacity,
+                    baseAlpha: (Math.random() * 0.6 + 0.2) * layer.opacity,
+                    life: Math.random() * 100,
+                    maxLife: Math.random() * 300 + 200,
+                    oscillation: Math.random() * Math.PI * 2,
+                    oscillationSpeed: Math.random() * 0.015 + 0.005,
+                    layer: layerIndex,
+                    depth: layer.depth,
+                    symbol: symbol,
+                    // Connection properties
+                    connections: [],
+                    connectionOpacity: 0,
+                    // Mouse interaction
+                    mouseDistance: Infinity,
+                    mouseInfluence: 0,
+                    targetScale: 1,
+                    currentScale: 1
+                };
+                
+                layer.particles.push(particle);
+                this.particles.push(particle);
+            }
+        });
 
         this.createBuffers();
     }
@@ -269,64 +412,141 @@ class FacePayParticleSystem {
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(alphas), this.gl.DYNAMIC_DRAW);
     }
 
+    calculateConnections() {
+        if (!this.config.connectionLines) return;
+        
+        this.connections = [];
+        
+        for (let i = 0; i < this.particles.length; i++) {
+            const particle1 = this.particles[i];
+            particle1.connections = [];
+            
+            for (let j = i + 1; j < this.particles.length; j++) {
+                const particle2 = this.particles[j];
+                
+                // Only connect particles in same or adjacent layers for performance
+                if (Math.abs(particle1.layer - particle2.layer) > 1) continue;
+                
+                const dx = particle1.x - particle2.x;
+                const dy = particle1.y - particle2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < this.config.connectionDistance) {
+                    const opacity = Math.max(0, 1 - (distance / this.config.connectionDistance));
+                    const connection = {
+                        particle1,
+                        particle2,
+                        opacity: opacity * 0.3, // Base connection opacity
+                        distance
+                    };
+                    
+                    particle1.connections.push(connection);
+                    this.connections.push(connection);
+                }
+            }
+        }
+    }
+
     updateParticles(deltaTime) {
         const positions = [];
         const alphas = [];
+        const mouseX = this.mouse.x;
+        const mouseY = this.mouse.y;
+        
+        // Calculate connections first
+        if (this.frameCount % 3 === 0) { // Update connections every 3 frames for performance
+            this.calculateConnections();
+        }
 
         this.particles.forEach(particle => {
             // Update particle physics
             particle.life += deltaTime * 60;
             particle.oscillation += particle.oscillationSpeed;
             
-            // Add turbulence
-            const turbulenceX = Math.sin(particle.oscillation) * this.config.turbulence;
-            const turbulenceY = Math.cos(particle.oscillation * 1.5) * this.config.turbulence;
+            // Mouse interaction
+            const dx = mouseX - particle.x;
+            const dy = mouseY - particle.y;
+            particle.mouseDistance = Math.sqrt(dx * dx + dy * dy);
+            
+            // Mouse attraction/repulsion
+            if (this.config.mouseAttraction && particle.mouseDistance < 150) {
+                const force = (150 - particle.mouseDistance) * 0.0008;
+                const angle = Math.atan2(dy, dx);
+                
+                if (this.config.mouseRepulsion) {
+                    particle.vx -= Math.cos(angle) * force;
+                    particle.vy -= Math.sin(angle) * force;
+                } else {
+                    particle.vx += Math.cos(angle) * force * 0.3;
+                    particle.vy += Math.sin(angle) * force * 0.3;
+                }
+                
+                // Scale effect
+                particle.targetScale = 1 + (150 - particle.mouseDistance) * 0.006;
+                particle.mouseInfluence = Math.min(1, (150 - particle.mouseDistance) * 0.01);
+            } else {
+                particle.targetScale = 1;
+                particle.mouseInfluence *= 0.95; // Fade out
+            }
+            
+            // Smooth scale animation
+            particle.currentScale += (particle.targetScale - particle.currentScale) * 0.1;
+            
+            // Add turbulence with depth-based variation
+            const turbulenceStrength = this.config.turbulence * particle.depth;
+            const turbulenceX = Math.sin(particle.oscillation) * turbulenceStrength;
+            const turbulenceY = Math.cos(particle.oscillation * 1.3) * turbulenceStrength;
             
             particle.vx += turbulenceX;
             particle.vy += turbulenceY;
             
-            // Mouse repulsion
-            if (this.config.mouseRepulsion) {
-                const dx = this.mouse.x - particle.x;
-                const dy = this.mouse.y - particle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 100) {
-                    const force = (100 - distance) * 0.001;
-                    particle.vx -= (dx / distance) * force;
-                    particle.vy -= (dy / distance) * force;
-                }
-            }
+            // Apply drag
+            particle.vx *= 0.98;
+            particle.vy *= 0.98;
             
-            // Update position
-            particle.x += particle.vx;
-            particle.y += particle.vy;
+            // Update position with parallax
+            const parallaxFactor = 0.5 + (particle.depth * 0.5);
+            particle.x += particle.vx * parallaxFactor;
+            particle.y += particle.vy * parallaxFactor;
             
             // Boundary conditions with wrapping
-            if (particle.x > this.canvas.width + 50) {
-                particle.x = -50;
-            } else if (particle.x < -50) {
-                particle.x = this.canvas.width + 50;
+            const margin = 50;
+            if (particle.x > this.canvas.width + margin) {
+                particle.x = -margin;
+            } else if (particle.x < -margin) {
+                particle.x = this.canvas.width + margin;
             }
             
-            if (particle.y > this.canvas.height + 50) {
-                particle.y = -50;
-            } else if (particle.y < -50) {
-                particle.y = this.canvas.height + 50;
+            if (particle.y > this.canvas.height + margin) {
+                particle.y = -margin;
+            } else if (particle.y < -margin) {
+                particle.y = this.canvas.height + margin;
             }
             
-            // Update alpha based on life cycle
+            // Update alpha based on life cycle and mouse interaction
             const lifeCycle = particle.life / particle.maxLife;
             if (lifeCycle > 1) {
                 // Respawn particle
                 particle.life = 0;
                 particle.x = Math.random() * this.canvas.width;
                 particle.y = Math.random() * this.canvas.height;
-                particle.vx = (Math.random() - 0.5) * this.config.speed;
-                particle.vy = (Math.random() - 0.5) * this.config.speed;
+                const layer = this.layers[particle.layer];
+                particle.vx = (Math.random() - 0.5) * this.config.speed * layer.speed;
+                particle.vy = (Math.random() - 0.5) * this.config.speed * layer.speed;
+                
+                // Reassign symbol
+                if (Math.random() < this.config.symbolProbability) {
+                    particle.symbol = this.config.symbols[Math.floor(Math.random() * this.config.symbols.length)];
+                } else {
+                    particle.symbol = null;
+                }
             }
             
-            particle.alpha = Math.sin(lifeCycle * Math.PI) * 0.8 + 0.2;
+            // Calculate alpha with breathing effect
+            const breathing = Math.sin(lifeCycle * Math.PI) * 0.7 + 0.3;
+            const mouseGlow = 1 + (particle.mouseInfluence * 0.5);
+            particle.alpha = particle.baseAlpha * breathing * mouseGlow;
+            particle.size = particle.baseSize * particle.currentScale;
             
             positions.push(particle.x, particle.y);
             alphas.push(particle.alpha);
@@ -344,18 +564,26 @@ class FacePayParticleSystem {
 
     render(currentTime) {
         if (!this.gl || !this.program) {
-            this.fallbackRender();
+            this.fallbackRender(currentTime);
             return;
         }
 
         const deltaTime = currentTime - this.time;
         this.time = currentTime;
 
+        // FPS monitoring for adaptive performance
+        if (this.config.adaptivePerformance) {
+            this.monitorFPS(deltaTime);
+        }
+
         // Update particles
         this.updateParticles(deltaTime);
 
         // Clear canvas
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
+        // Render connection lines first (behind particles)
+        this.renderConnections();
 
         // Use shader program
         this.gl.useProgram(this.program);
@@ -388,51 +616,241 @@ class FacePayParticleSystem {
         this.gl.drawArrays(this.gl.POINTS, 0, this.particles.length);
     }
 
-    fallbackToCanvas2D() {
-        this.ctx = this.canvas.getContext('2d');
-        console.log('Using Canvas 2D fallback for particle system');
+    renderConnections() {
+        if (!this.config.connectionLines || !this.connections.length) return;
+        
+        // Simple line rendering for WebGL
+        this.gl.useProgram(null); // Use fixed function pipeline for lines
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+        
+        // Note: In a full implementation, you'd create a separate shader for lines
+        // For now, we'll handle this in the canvas fallback
     }
 
-    fallbackRender() {
-        if (!this.ctx) return;
+    monitorFPS(deltaTime) {
+        const currentFPS = 1000 / deltaTime;
+        this.fps = this.fps * 0.9 + currentFPS * 0.1; // Smooth FPS
+        
+        // Adaptive performance adjustments
+        if (this.fps < 30 && this.performanceLevel !== 'low') {
+            this.performanceLevel = 'low';
+            this.config.particleCount = Math.max(50, this.config.particleCount * 0.7);
+            this.config.connectionLines = false;
+            this.config.glowEffect = false;
+            console.log('🐌 Performance adapted to low mode');
+        } else if (this.fps > 50 && this.performanceLevel === 'low') {
+            this.performanceLevel = 'medium';
+            this.config.connectionLines = true;
+            console.log('⚡ Performance improved to medium mode');
+        }
+    }
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    fallbackToCanvas2D() {
+        this.ctx2d = this.canvas.getContext('2d');
+        console.log('🎨 Using enhanced Canvas 2D fallback for particle system');
+    }
 
-        this.particles.forEach(particle => {
-            const gradient = this.ctx.createRadialGradient(
-                particle.x, particle.y, 0,
-                particle.x, particle.y, particle.size
+    fallbackRender(currentTime) {
+        if (!this.ctx2d) return;
+
+        const deltaTime = currentTime - this.time || 16.67;
+        this.time = currentTime;
+
+        // Clear canvas with fade effect for trails
+        this.ctx2d.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        this.ctx2d.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx2d.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Update particles
+        this.updateParticles(deltaTime);
+
+        // Render connections first (behind particles)
+        this.renderConnectionLines2D();
+
+        // Render particles by layer (back to front)
+        this.layers.forEach(layer => {
+            this.renderLayerParticles2D(layer);
+        });
+    }
+
+    renderConnectionLines2D() {
+        if (!this.config.connectionLines || !this.connections.length) return;
+
+        this.ctx2d.save();
+        this.ctx2d.globalCompositeOperation = 'lighter';
+        
+        this.connections.forEach(connection => {
+            const { particle1, particle2, opacity } = connection;
+            
+            // Calculate gradient for connection line
+            const gradient = this.ctx2d.createLinearGradient(
+                particle1.x, particle1.y, 
+                particle2.x, particle2.y
             );
             
-            gradient.addColorStop(0, `rgba(${particle.color.join(',')}, ${particle.alpha})`);
-            gradient.addColorStop(1, `rgba(${particle.color.join(',')}, 0)`);
-
-            this.ctx.fillStyle = gradient;
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fill();
+            const color1 = `rgba(${particle1.color.join(',')}, ${opacity * particle1.alpha})`;
+            const color2 = `rgba(${particle2.color.join(',')}, ${opacity * particle2.alpha})`;
+            
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            
+            this.ctx2d.strokeStyle = gradient;
+            this.ctx2d.lineWidth = 0.5 + (opacity * 2);
+            this.ctx2d.lineCap = 'round';
+            
+            this.ctx2d.beginPath();
+            this.ctx2d.moveTo(particle1.x, particle1.y);
+            this.ctx2d.lineTo(particle2.x, particle2.y);
+            this.ctx2d.stroke();
         });
+        
+        this.ctx2d.restore();
+    }
 
-        // Update particles for Canvas 2D
-        this.updateParticles(16.67); // Assume 60fps
+    renderLayerParticles2D(layer) {
+        this.ctx2d.save();
+        this.ctx2d.globalCompositeOperation = 'lighter';
+        
+        layer.particles.forEach(particle => {
+            this.ctx2d.save();
+            this.ctx2d.translate(particle.x, particle.y);
+            this.ctx2d.scale(particle.currentScale, particle.currentScale);
+            
+            if (particle.symbol) {
+                // Render crypto symbol
+                this.renderSymbol2D(particle);
+            } else {
+                // Render regular particle with glow
+                this.renderGlowParticle2D(particle);
+            }
+            
+            this.ctx2d.restore();
+        });
+        
+        this.ctx2d.restore();
+    }
+
+    renderSymbol2D(particle) {
+        const glowSize = particle.size * 3;
+        
+        // Outer glow
+        if (this.config.glowEffect) {
+            const glowGradient = this.ctx2d.createRadialGradient(0, 0, 0, 0, 0, glowSize);
+            glowGradient.addColorStop(0, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.3})`);
+            glowGradient.addColorStop(0.5, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.1})`);
+            glowGradient.addColorStop(1, 'transparent');
+            
+            this.ctx2d.fillStyle = glowGradient;
+            this.ctx2d.beginPath();
+            this.ctx2d.arc(0, 0, glowSize, 0, Math.PI * 2);
+            this.ctx2d.fill();
+        }
+        
+        // Symbol text
+        this.ctx2d.font = `${particle.size * 1.2}px -apple-system, system-ui, sans-serif`;
+        this.ctx2d.textAlign = 'center';
+        this.ctx2d.textBaseline = 'middle';
+        
+        // Text shadow/glow
+        this.ctx2d.shadowColor = `rgba(${particle.color.join(',')}, ${particle.alpha})`;
+        this.ctx2d.shadowBlur = particle.size * 0.8;
+        this.ctx2d.fillStyle = `rgba(${particle.color.join(',')}, ${particle.alpha})`;
+        this.ctx2d.fillText(particle.symbol, 0, 0);
+        
+        // Clear shadow for next render
+        this.ctx2d.shadowBlur = 0;
+    }
+
+    renderGlowParticle2D(particle) {
+        // Multi-layered glow effect
+        if (this.config.glowEffect) {
+            // Outer glow
+            const outerGradient = this.ctx2d.createRadialGradient(0, 0, 0, 0, 0, particle.size * 4);
+            outerGradient.addColorStop(0, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.2})`);
+            outerGradient.addColorStop(0.3, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.1})`);
+            outerGradient.addColorStop(1, 'transparent');
+            
+            this.ctx2d.fillStyle = outerGradient;
+            this.ctx2d.beginPath();
+            this.ctx2d.arc(0, 0, particle.size * 4, 0, Math.PI * 2);
+            this.ctx2d.fill();
+            
+            // Inner glow
+            const innerGradient = this.ctx2d.createRadialGradient(0, 0, 0, 0, 0, particle.size * 2);
+            innerGradient.addColorStop(0, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.6})`);
+            innerGradient.addColorStop(0.7, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.3})`);
+            innerGradient.addColorStop(1, 'transparent');
+            
+            this.ctx2d.fillStyle = innerGradient;
+            this.ctx2d.beginPath();
+            this.ctx2d.arc(0, 0, particle.size * 2, 0, Math.PI * 2);
+            this.ctx2d.fill();
+        }
+        
+        // Core particle
+        const coreGradient = this.ctx2d.createRadialGradient(0, 0, 0, 0, 0, particle.size);
+        coreGradient.addColorStop(0, `rgba(${particle.color.join(',')}, ${particle.alpha})`);
+        coreGradient.addColorStop(0.7, `rgba(${particle.color.join(',')}, ${particle.alpha * 0.8})`);
+        coreGradient.addColorStop(1, `rgba(${particle.color.join(',')}, 0)`);
+        
+        this.ctx2d.fillStyle = coreGradient;
+        this.ctx2d.beginPath();
+        this.ctx2d.arc(0, 0, particle.size, 0, Math.PI * 2);
+        this.ctx2d.fill();
     }
 
     setupEventListeners() {
-        // Mouse tracking
+        // Enhanced mouse tracking
         if (this.config.interactive) {
-            document.addEventListener('mousemove', (e) => {
+            let mouseTimeout;
+            
+            const handleMouseMove = (e) => {
                 const rect = this.canvas.getBoundingClientRect();
                 this.mouse.x = (e.clientX - rect.left) * window.devicePixelRatio;
                 this.mouse.y = (e.clientY - rect.top) * window.devicePixelRatio;
+                this.mouse.isMoving = true;
+                this.mouse.lastMoveTime = performance.now();
+                
+                // Clear previous timeout
+                clearTimeout(mouseTimeout);
+                
+                // Set mouse as not moving after 100ms of no movement
+                mouseTimeout = setTimeout(() => {
+                    this.mouse.isMoving = false;
+                }, 100);
+            };
+            
+            document.addEventListener('mousemove', handleMouseMove);
+            
+            // Touch support for mobile
+            document.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    const syntheticEvent = {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    };
+                    handleMouseMove(syntheticEvent);
+                }
+            }, { passive: true });
+            
+            // Mouse leave - reset mouse influence
+            document.addEventListener('mouseleave', () => {
+                this.mouse.isMoving = false;
             });
         }
 
-        // Window resize
+        // Window resize with debouncing
+        let resizeTimeout;
         window.addEventListener('resize', () => {
-            this.handleResize();
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.handleResize();
+            }, 250);
         });
 
-        // Performance monitoring
+        // Performance and visibility monitoring
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 this.pause();
@@ -440,6 +858,17 @@ class FacePayParticleSystem {
                 this.resume();
             }
         });
+
+        // Reduced motion support
+        if (window.matchMedia) {
+            const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (motionQuery.matches) {
+                this.config.speed *= 0.5;
+                this.config.turbulence *= 0.3;
+                this.config.connectionLines = false;
+                console.log('⚡ Reduced motion mode activated');
+            }
+        }
     }
 
     handleResize() {
@@ -554,70 +983,183 @@ class FacePayParticleSystem {
     }
 }
 
-// Preset configurations
-const PARTICLE_PRESETS = {
+// FacePay Elegante Preset Configurations
+const FACEPAY_PARTICLE_PRESETS = {
     minimal: {
-        particleCount: 100,
-        particleSize: 1,
-        speed: 0.3,
-        turbulence: 0.05,
-        interactive: false
+        particleCount: 80,
+        particleSize: 1.2,
+        speed: 0.25,
+        turbulence: 0.04,
+        interactive: false,
+        connectionLines: false,
+        glowEffect: false,
+        depthLayers: 2,
+        symbolProbability: 0.2,
+        mouseAttraction: false,
+        adaptivePerformance: true
     },
-    standard: {
-        particleCount: 300,
-        particleSize: 2,
-        speed: 0.5,
-        turbulence: 0.1,
-        interactive: true
+    elegante: {
+        particleCount: 180,
+        particleSize: 1.8,
+        speed: 0.35,
+        turbulence: 0.08,
+        interactive: true,
+        connectionLines: true,
+        connectionDistance: 100,
+        glowEffect: true,
+        depthLayers: 3,
+        symbolProbability: 0.3,
+        mouseAttraction: true,
+        mouseRepulsion: false,
+        adaptivePerformance: true
     },
     premium: {
-        particleCount: 500,
-        particleSize: 3,
-        speed: 0.7,
+        particleCount: 280,
+        particleSize: 2.2,
+        speed: 0.45,
+        turbulence: 0.12,
+        interactive: true,
+        connectionLines: true,
+        connectionDistance: 120,
+        glowEffect: true,
+        depthLayers: 3,
+        symbolProbability: 0.4,
+        mouseAttraction: true,
+        mouseRepulsion: false,
+        parallaxLayers: true,
+        adaptivePerformance: true
+    },
+    impresionante: {
+        particleCount: 400,
+        particleSize: 2.8,
+        speed: 0.6,
         turbulence: 0.15,
         interactive: true,
+        connectionLines: true,
+        connectionDistance: 140,
         glowEffect: true,
-        mouseRepulsion: true
+        depthLayers: 4,
+        symbolProbability: 0.5,
+        mouseAttraction: true,
+        mouseRepulsion: false,
+        parallaxLayers: true,
+        adaptivePerformance: true
     },
-    performance: {
-        particleCount: 150,
+    mobile: {
+        particleCount: 120,
         particleSize: 1.5,
-        speed: 0.4,
-        turbulence: 0.08,
-        interactive: false,
-        glowEffect: false
+        speed: 0.3,
+        turbulence: 0.06,
+        interactive: true,
+        connectionLines: true,
+        connectionDistance: 80,
+        glowEffect: true,
+        depthLayers: 2,
+        symbolProbability: 0.25,
+        mouseAttraction: true,
+        adaptivePerformance: true
     }
 };
 
 // Auto-initialize based on device performance
 document.addEventListener('DOMContentLoaded', () => {
-    // Detect device performance level
-    const getPerformancePreset = () => {
+    // Advanced device performance detection
+    const getOptimalPreset = () => {
         const canvas = document.createElement('canvas');
         const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
         
-        if (!gl) return 'minimal';
+        let score = 100;
         
+        // WebGL support
+        if (!gl) {
+            canvas.remove();
+            return 'minimal';
+        }
+        
+        // Device detection
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isLowEnd = navigator.hardwareConcurrency < 4;
-        const hasSlowGPU = gl.getParameter(gl.RENDERER).toLowerCase().includes('intel');
+        const isTablet = /iPad|Android.*Tablet/i.test(navigator.userAgent);
+        const cores = navigator.hardwareConcurrency || 2;
+        const memory = navigator.deviceMemory || 2;
         
-        if (isMobile || isLowEnd || hasSlowGPU) {
-            return 'performance';
-        } else if (navigator.hardwareConcurrency >= 8) {
+        // GPU information
+        const renderer = gl.getParameter(gl.RENDERER).toLowerCase();
+        const vendor = gl.getParameter(gl.VENDOR).toLowerCase();
+        
+        // Performance scoring
+        if (isMobile && !isTablet) {
+            score -= 40;
+        } else if (isTablet) {
+            score -= 20;
+        }
+        
+        if (cores < 4) score -= 25;
+        if (memory < 4) score -= 20;
+        if (renderer.includes('intel') && !renderer.includes('iris')) score -= 30;
+        if (renderer.includes('adreno') || renderer.includes('mali')) score -= 25;
+        
+        // Connection speed consideration
+        if (navigator.connection) {
+            const connection = navigator.connection;
+            if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+                score -= 30;
+            } else if (connection.effectiveType === '3g') {
+                score -= 15;
+            }
+        }
+        
+        canvas.remove();
+        
+        // Return appropriate preset
+        if (isMobile && !isTablet) {
+            return 'mobile';
+        } else if (score >= 85) {
+            return 'impresionante';
+        } else if (score >= 65) {
             return 'premium';
+        } else if (score >= 45) {
+            return 'elegante';
         } else {
-            return 'standard';
+            return 'minimal';
         }
     };
     
-    const preset = getPerformancePreset();
-    window.facePayParticles = new FacePayParticleSystem(PARTICLE_PRESETS[preset]);
+    const preset = getOptimalPreset();
+    const config = FACEPAY_PARTICLE_PRESETS[preset];
     
-    console.log(`🌟 Particle system initialized with ${preset} preset`);
+    // Initialize the particle system
+    window.facePayParticles = new FacePayParticleSystem(config);
+    
+    // Log initialization info
+    console.log(`✨ FacePay Particle System V2.0 loaded`);
+    console.log(`🎨 Preset: ${preset} | Particles: ${config.particleCount} | Layers: ${config.depthLayers}`);
+    console.log(`🔗 Features: ${config.connectionLines ? 'Connections' : 'No connections'}, ${config.glowEffect ? 'Glow' : 'Basic'}, ${config.symbolProbability * 100}% symbols`);
+    
+    // Expose global controls for debugging
+    window.facePayParticleControls = {
+        changePreset: (presetName) => {
+            if (FACEPAY_PARTICLE_PRESETS[presetName]) {
+                window.facePayParticles.updateConfig(FACEPAY_PARTICLE_PRESETS[presetName]);
+                console.log(`🔄 Switched to ${presetName} preset`);
+            }
+        },
+        addBurst: (x, y, count = 50) => {
+            window.facePayParticles.addParticlesBurst(x, y, count);
+        },
+        getStats: () => {
+            const particles = window.facePayParticles;
+            return {
+                fps: Math.round(particles.fps),
+                particleCount: particles.particles.length,
+                connections: particles.connections ? particles.connections.length : 0,
+                performanceLevel: particles.performanceLevel,
+                mouseDistance: Math.round(particles.mouse.x + particles.mouse.y)
+            };
+        }
+    };
 });
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { FacePayParticleSystem, PARTICLE_PRESETS };
+    module.exports = { FacePayParticleSystem, FACEPAY_PARTICLE_PRESETS };
 }

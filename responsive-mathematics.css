@@ -1,0 +1,494 @@
+/**
+ * FacePay Mathematical Responsive System
+ * Precise breakpoints and fluid scaling using mathematical ratios
+ * Based on golden ratio, major third, and perfect fifth intervals
+ */
+
+:root {
+    /* ===== MATHEMATICAL CONSTANTS ===== */
+    --golden-ratio: 1.618;
+    --major-third: 1.25;
+    --perfect-fifth: 1.5;
+    --minor-third: 1.2;
+    --octave: 2;
+    
+    /* ===== BASE MEASUREMENTS ===== */
+    --base-unit: 8px;              /* 8px grid system */
+    --base-font-size: 16px;        /* Root font size */
+    --base-line-height: 1.5;       /* Perfect fifth ratio */
+    --base-container: 1200px;      /* Max container width */
+    
+    /* ===== MATHEMATICAL BREAKPOINTS ===== */
+    /* Based on golden ratio subdivisions of common screen widths */
+    --bp-xs: 320px;    /* 320 * φ⁻² = 320 / 2.618 ≈ 122 */
+    --bp-sm: 518px;    /* 320 * φ = 320 * 1.618 ≈ 518 */
+    --bp-md: 768px;    /* Traditional tablet breakpoint, φ² * 320 ≈ 838, adjusted to 768 for compatibility */
+    --bp-lg: 1024px;   /* Traditional desktop, φ² * 400 ≈ 1046, adjusted to 1024 */
+    --bp-xl: 1440px;   /* Large desktop, φ * 890 ≈ 1440 */
+    --bp-2xl: 1920px;  /* Ultra-wide, φ * 1187 ≈ 1920 */
+    
+    /* ===== FLUID SCALING RATIOS ===== */
+    --scale-xs: 0.75;           /* φ⁻¹ / √2 ≈ 0.73 */
+    --scale-sm: 0.875;          /* √(φ⁻¹) ≈ 0.79, adjusted */
+    --scale-md: 1;              /* Base scale */
+    --scale-lg: 1.125;          /* φ⁻¹ * √2 ≈ 1.13 */
+    --scale-xl: 1.25;           /* Major third */
+    --scale-2xl: 1.375;        /* φ⁻¹ * √3 ≈ 1.38 */
+    
+    /* ===== TYPOGRAPHY SCALE ===== */
+    /* Based on perfect fourth (4:3 ratio = 1.333) and major third (5:4 = 1.25) */
+    --text-xs: calc(var(--base-font-size) / var(--golden-ratio));     /* ~9.89px */
+    --text-sm: calc(var(--base-font-size) / var(--minor-third));      /* ~13.33px */
+    --text-base: var(--base-font-size);                               /* 16px */
+    --text-lg: calc(var(--base-font-size) * var(--minor-third));      /* ~19.2px */
+    --text-xl: calc(var(--base-font-size) * var(--major-third));      /* 20px */
+    --text-2xl: calc(var(--base-font-size) * var(--perfect-fifth));   /* 24px */
+    --text-3xl: calc(var(--base-font-size) * var(--golden-ratio));    /* ~25.89px */
+    --text-4xl: calc(var(--base-font-size) * var(--octave));          /* 32px */
+    --text-5xl: calc(var(--base-font-size) * var(--octave) * var(--minor-third)); /* ~38.4px */
+    --text-6xl: calc(var(--base-font-size) * var(--octave) * var(--perfect-fifth)); /* 48px */
+    
+    /* ===== SPACING SCALE ===== */
+    /* Based on 8px grid with golden ratio multipliers */
+    --space-0: 0;
+    --space-px: 1px;
+    --space-0-5: calc(var(--base-unit) * 0.5);           /* 4px */
+    --space-1: var(--base-unit);                         /* 8px */
+    --space-1-5: calc(var(--base-unit) * 1.5);           /* 12px */
+    --space-2: calc(var(--base-unit) * 2);               /* 16px */
+    --space-2-5: calc(var(--base-unit) * 2.5);           /* 20px */
+    --space-3: calc(var(--base-unit) * 3);               /* 24px */
+    --space-3-5: calc(var(--base-unit) * 3.5);           /* 28px */
+    --space-4: calc(var(--base-unit) * 4);               /* 32px */
+    --space-5: calc(var(--base-unit) * 5);               /* 40px */
+    --space-6: calc(var(--base-unit) * 6);               /* 48px */
+    --space-7: calc(var(--base-unit) * 7);               /* 56px */
+    --space-8: calc(var(--base-unit) * 8);               /* 64px */
+    --space-9: calc(var(--base-unit) * 9);               /* 72px */
+    --space-10: calc(var(--base-unit) * 10);             /* 80px */
+    --space-11: calc(var(--base-unit) * 11);             /* 88px */
+    --space-12: calc(var(--base-unit) * 12);             /* 96px */
+    --space-14: calc(var(--base-unit) * 14);             /* 112px */
+    --space-16: calc(var(--base-unit) * 16);             /* 128px */
+    --space-20: calc(var(--base-unit) * 20);             /* 160px */
+    --space-24: calc(var(--base-unit) * 24);             /* 192px */
+    --space-28: calc(var(--base-unit) * 28);             /* 224px */
+    --space-32: calc(var(--base-unit) * 32);             /* 256px */
+    
+    /* ===== GOLDEN RATIO SPACING ===== */
+    --space-phi-1: calc(var(--base-unit) * var(--golden-ratio));          /* ~12.94px */
+    --space-phi-2: calc(var(--base-unit) * var(--golden-ratio) * 2);       /* ~25.89px */
+    --space-phi-3: calc(var(--base-unit) * var(--golden-ratio) * 3);       /* ~38.83px */
+    --space-phi-4: calc(var(--base-unit) * var(--golden-ratio) * 4);       /* ~51.78px */
+    --space-phi-5: calc(var(--base-unit) * var(--golden-ratio) * 5);       /* ~64.72px */
+    
+    /* ===== CONTAINER SIZES ===== */
+    --container-xs: calc(100% - var(--space-8));         /* Full width minus padding */
+    --container-sm: calc(100% - var(--space-12));        /* Small container */
+    --container-md: 768px;                               /* Medium container */
+    --container-lg: 1024px;                              /* Large container */
+    --container-xl: var(--base-container);               /* Extra large container */
+    --container-2xl: calc(var(--base-container) * var(--minor-third)); /* ~1440px */
+    
+    /* ===== ASPECT RATIOS ===== */
+    --aspect-square: 1 / 1;
+    --aspect-video: 16 / 9;
+    --aspect-golden: var(--golden-ratio) / 1;           /* 1.618:1 */
+    --aspect-photo: 4 / 3;
+    --aspect-portrait: 3 / 4;
+    --aspect-ultrawide: 21 / 9;
+}
+
+/* ===== FLUID SCALING SYSTEM ===== */
+/* Automatically scales elements based on viewport size */
+
+/* Base fluid scaling function */
+.fluid-scale {
+    --fluid-min-scale: var(--scale-xs);
+    --fluid-max-scale: var(--scale-xl);
+    --fluid-min-screen: var(--bp-xs);
+    --fluid-max-screen: var(--bp-xl);
+    
+    scale: clamp(
+        var(--fluid-min-scale),
+        calc(var(--fluid-min-scale) + (var(--fluid-max-scale) - var(--fluid-min-scale)) * ((100vw - var(--fluid-min-screen)) / (var(--fluid-max-screen) - var(--fluid-min-screen)))),
+        var(--fluid-max-scale)
+    );
+}
+
+/* Fluid typography */
+.fluid-text {
+    font-size: clamp(
+        calc(var(--text-base) * var(--scale-xs)),
+        calc(var(--text-base) + (var(--text-lg) - var(--text-base)) * ((100vw - var(--bp-xs)) / (var(--bp-lg) - var(--bp-xs)))),
+        calc(var(--text-base) * var(--scale-lg))
+    );
+}
+
+/* Fluid spacing */
+.fluid-spacing {
+    --min-space: var(--space-2);
+    --max-space: var(--space-8);
+    padding: clamp(
+        var(--min-space),
+        calc(var(--min-space) + (var(--max-space) - var(--min-space)) * ((100vw - var(--bp-xs)) / (var(--bp-xl) - var(--bp-xs)))),
+        var(--max-space)
+    );
+}
+
+/* ===== MATHEMATICAL GRID SYSTEM ===== */
+/* Based on golden ratio proportions */
+
+.grid {
+    display: grid;
+    gap: var(--space-4);
+}
+
+/* Golden ratio based column system */
+.grid-golden-2 {
+    grid-template-columns: 1fr calc(1fr * var(--golden-ratio));
+}
+
+.grid-golden-3 {
+    grid-template-columns: 1fr calc(1fr * var(--golden-ratio)) calc(1fr * var(--golden-ratio) * var(--golden-ratio));
+}
+
+/* Standard mathematical proportions */
+.grid-thirds {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-fourths {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-fifths {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+/* ===== BREAKPOINT-SPECIFIC SCALING ===== */
+
+/* Extra small screens (phones in portrait) */
+@media (max-width: 320px) {
+    :root {
+        --base-font-size: 14px;
+        --current-scale: var(--scale-xs);
+    }
+    
+    .container {
+        padding-left: var(--space-3);
+        padding-right: var(--space-3);
+    }
+    
+    .grid {
+        gap: var(--space-2);
+    }
+    
+    /* Force single column on very small screens */
+    .grid-golden-2,
+    .grid-golden-3,
+    .grid-thirds,
+    .grid-fourths,
+    .grid-fifths {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small screens (phones in landscape, small tablets) */
+@media (min-width: 321px) and (max-width: 518px) {
+    :root {
+        --current-scale: var(--scale-sm);
+    }
+    
+    .container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+    
+    /* Two-column layouts for appropriate grids */
+    .grid-thirds,
+    .grid-fourths,
+    .grid-fifths {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 519px) and (max-width: 768px) {
+    :root {
+        --current-scale: 0.9375; /* Between sm and md */
+    }
+    
+    .container {
+        padding-left: var(--space-5);
+        padding-right: var(--space-5);
+    }
+    
+    /* Golden ratio grids work well at this size */
+    .grid-golden-2,
+    .grid-golden-3 {
+        display: grid;
+    }
+    
+    /* Adjust complex grids */
+    .grid-fifths {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Large screens (desktop) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+        --current-scale: var(--scale-md);
+    }
+    
+    .container {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+        max-width: var(--container-md);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* All grid systems work at this size */
+}
+
+/* Extra large screens */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    :root {
+        --current-scale: var(--scale-lg);
+    }
+    
+    .container {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+        max-width: var(--container-lg);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1441px) {
+    :root {
+        --current-scale: var(--scale-xl);
+    }
+    
+    .container {
+        padding-left: var(--space-10);
+        padding-right: var(--space-10);
+        max-width: var(--container-xl);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Increase grid gaps for better proportion on large screens */
+    .grid {
+        gap: var(--space-6);
+    }
+}
+
+/* ===== ASPECT RATIO UTILITIES ===== */
+.aspect-square { aspect-ratio: var(--aspect-square); }
+.aspect-video { aspect-ratio: var(--aspect-video); }
+.aspect-golden { aspect-ratio: var(--aspect-golden); }
+.aspect-photo { aspect-ratio: var(--aspect-photo); }
+.aspect-portrait { aspect-ratio: var(--aspect-portrait); }
+.aspect-ultrawide { aspect-ratio: var(--aspect-ultrawide); }
+
+/* ===== MATHEMATICAL SPACING UTILITIES ===== */
+
+/* Margin utilities with mathematical precision */
+.m-0 { margin: var(--space-0); }
+.m-px { margin: var(--space-px); }
+.m-0-5 { margin: var(--space-0-5); }
+.m-1 { margin: var(--space-1); }
+.m-1-5 { margin: var(--space-1-5); }
+.m-2 { margin: var(--space-2); }
+.m-2-5 { margin: var(--space-2-5); }
+.m-3 { margin: var(--space-3); }
+.m-4 { margin: var(--space-4); }
+.m-5 { margin: var(--space-5); }
+.m-6 { margin: var(--space-6); }
+.m-8 { margin: var(--space-8); }
+.m-10 { margin: var(--space-10); }
+.m-12 { margin: var(--space-12); }
+.m-16 { margin: var(--space-16); }
+.m-20 { margin: var(--space-20); }
+.m-24 { margin: var(--space-24); }
+
+/* Golden ratio margins */
+.m-phi { margin: var(--space-phi-1); }
+.m-phi-2 { margin: var(--space-phi-2); }
+.m-phi-3 { margin: var(--space-phi-3); }
+
+/* Padding utilities */
+.p-0 { padding: var(--space-0); }
+.p-px { padding: var(--space-px); }
+.p-0-5 { padding: var(--space-0-5); }
+.p-1 { padding: var(--space-1); }
+.p-1-5 { padding: var(--space-1-5); }
+.p-2 { padding: var(--space-2); }
+.p-2-5 { padding: var(--space-2-5); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-5 { padding: var(--space-5); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+.p-10 { padding: var(--space-10); }
+.p-12 { padding: var(--space-12); }
+
+/* Golden ratio paddings */
+.p-phi { padding: var(--space-phi-1); }
+.p-phi-2 { padding: var(--space-phi-2); }
+.p-phi-3 { padding: var(--space-phi-3); }
+
+/* ===== TYPOGRAPHY UTILITIES ===== */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+.text-5xl { font-size: var(--text-5xl); }
+.text-6xl { font-size: var(--text-6xl); }
+
+/* ===== CONTAINER UTILITIES ===== */
+.container-xs { max-width: var(--container-xs); margin: 0 auto; }
+.container-sm { max-width: var(--container-sm); margin: 0 auto; }
+.container-md { max-width: var(--container-md); margin: 0 auto; }
+.container-lg { max-width: var(--container-lg); margin: 0 auto; }
+.container-xl { max-width: var(--container-xl); margin: 0 auto; }
+.container-2xl { max-width: var(--container-2xl); margin: 0 auto; }
+
+/* ===== RESPONSIVE UTILITIES ===== */
+
+/* Show/hide at different breakpoints */
+.xs\:block { display: block; }
+.xs\:hidden { display: none; }
+
+@media (min-width: 519px) {
+    .sm\:block { display: block; }
+    .sm\:hidden { display: none; }
+    .xs\:hidden { display: block; }
+}
+
+@media (min-width: 769px) {
+    .md\:block { display: block; }
+    .md\:hidden { display: none; }
+    .sm\:hidden { display: block; }
+}
+
+@media (min-width: 1025px) {
+    .lg\:block { display: block; }
+    .lg\:hidden { display: none; }
+    .md\:hidden { display: block; }
+}
+
+@media (min-width: 1441px) {
+    .xl\:block { display: block; }
+    .xl\:hidden { display: none; }
+    .lg\:hidden { display: block; }
+}
+
+/* ===== MATHEMATICAL ANIMATIONS ===== */
+/* Animations based on musical intervals and mathematical ratios */
+
+@keyframes fadeInGolden {
+    0% { 
+        opacity: 0; 
+        transform: scale(calc(1 / var(--golden-ratio))); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+@keyframes slideInMajorThird {
+    0% { 
+        opacity: 0; 
+        transform: translateY(calc(var(--space-8) * var(--major-third))); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+@keyframes scaleInPerfectFifth {
+    0% { 
+        opacity: 0; 
+        transform: scale(calc(1 / var(--perfect-fifth))); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+/* Animation utility classes */
+.animate-fade-golden {
+    animation: fadeInGolden 0.618s cubic-bezier(0.618, 0, 0.382, 1);
+}
+
+.animate-slide-major-third {
+    animation: slideInMajorThird 0.75s cubic-bezier(0.25, 0, 0.25, 1);
+}
+
+.animate-scale-perfect-fifth {
+    animation: scaleInPerfectFifth 0.9s cubic-bezier(0.5, 0, 0.33, 1);
+}
+
+/* ===== MOBILE-FIRST MATHEMATICAL MEDIA QUERIES ===== */
+
+/* These use the mathematical breakpoints defined above */
+@custom-media --xs-up (min-width: 320px);
+@custom-media --sm-up (min-width: 519px);
+@custom-media --md-up (min-width: 769px);
+@custom-media --lg-up (min-width: 1025px);
+@custom-media --xl-up (min-width: 1441px);
+
+@custom-media --xs-down (max-width: 518px);
+@custom-media --sm-down (max-width: 768px);
+@custom-media --md-down (max-width: 1024px);
+@custom-media --lg-down (max-width: 1440px);
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Prevent layout shifts with mathematical aspect ratios */
+.prevent-shift {
+    aspect-ratio: var(--aspect-golden);
+    contain: layout style paint;
+}
+
+/* Optimize transforms for 60fps */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* ===== DEBUG UTILITIES (Development only) ===== */
+@media (min-width: 0) and (min-resolution: 0dpi) {
+    .debug-grid {
+        position: relative;
+    }
+    
+    .debug-grid::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+        background-size: var(--space-4) var(--space-4);
+        pointer-events: none;
+        z-index: 9999;
+    }
+}

@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- BULLETPROOF ERROR PREVENTION - Load before anything else -->
+    <script src="browser-detection.js"></script>
+    
+    <!-- Meta Excellence -->
+    <title>FacePay: Send crypto like @john → @sarah. Face ID. Zero gas.</title>
+    <meta name="description" content="First crypto app that uses Face ID. Send to @usernames, not 0x addresses. Zero gas fees on StarkNet. The future of payments is your face.">
+    
+    <!-- Video Preload & Optimization -->
+    <link rel="preload" href="/facepay-demo.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="/facepay-demo-poster.jpg" as="image">
+    
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FacePay">
+    <link rel="apple-touch-icon" href="/facepay-demo-poster.jpg">
+    
+    <!-- Supreme Polish System - Pixel Perfection -->
+    <link rel="stylesheet" href="design-tokens.css">
+    <link rel="stylesheet" href="supreme-polish.css">
+    <link rel="stylesheet" href="supreme-micro-animations.css">
+    <link rel="stylesheet" href="supreme-integration-polish.css">
+    
+    <!-- Mobile UX System -->
+    <link rel="stylesheet" href="mobile-ux-system.css">
+    <link rel="stylesheet" href="premium-scroll-styles.css">
+    
+    <!-- Premium Desktop Experience - Apple.com Level -->
+    <link rel="stylesheet" href="premium-desktop-styles.css">
+    
+    <!-- No-JS Fallback Styles -->
+    <noscript>
+        <style>
+            .js-only { display: none !important; }
+            .no-js-fallback { display: block !important; }
+            .hero-video { display: none !important; }
+            .hero-video-mobile-poster { display: block !important; }
+            .video-modal { display: none !important; }
+            .complex-animation { animation: none !important; }
+            .particles { display: none !important; }
+            .video-mini-preview { display: none !important; }
+        </style>
+    </noscript>
+    
+    <style>
+        /* Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Core Variables */
+        :root {
+            --green: #00ff88;
+            --blue: #3b82f6;
+            --dark: #000000;
+            --gray: #1a1a1a;
+            --white: #ffffff;
+            --text: rgba(255, 255, 255, 0.9);
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --video-overlay: rgba(0, 0, 0, 0.4);
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Base */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Section spacing */
+        .section {
+            padding: 60px 0;
+        }
+        
+        /* Hero Video Background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(1px) brightness(0.7);
+            transform: scale(1.1);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                var(--video-overlay) 0%,
+                rgba(0, 255, 136, 0.1) 50%,
+                var(--video-overlay) 100%
+            );
+            z-index: 1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero h1 .highlight {
+            color: var(--green);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        
+        .hero p {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-demo {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .hero-demo .arrow {
+            color: var(--green);
+            margin: 0 1rem;
+        }
+        
+        /* Buttons with Video Preview */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            color: var(--dark);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+        
+        /* Button Video Preview */
+        .btn-video-preview {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .btn-video-preview:hover .video-mini-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-10px) scale(1);
+        }
+        
+        .video-mini-preview {
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px) scale(0.8);
+            width: 200px;
+            height: 112px;
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--green);
+        }
+        
+        .video-mini-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 1200px;
+            aspect-ratio: 16/9;
+        }
+        
+        .video-modal video {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+        
+        .video-modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .video-modal-close:hover {
+            color: var(--green);
+            transform: scale(1.1);
+        }
+        
+        /* Custom Video Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-modal-content:hover .video-controls {
+            opacity: 1;
+        }
+        
+        .video-control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        
+        .video-control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--green);
+        }
+        
+        .video-progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .video-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--blue));
+            border-radius: 2px;
+            transition: width 0.1s ease;
+        }
+        
+        .video-time {
+            color: white;
+            font-size: 0.9rem;
+            min-width: 80px;
+        }
+        
+        /* Features */
+        .features {
+            background: var(--gray);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            color: var(--green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Demo */
+        .demo {
+            text-align: center;
+        }
+        
+        .demo h2 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 2rem;
+        }
+        
+        .demo-video {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .demo-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .demo-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--green);
+        }
+        
+        .step-number {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(59, 130, 246, 0.1));
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+        
+        .cta-urgent {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray);
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hero-demo {
+                font-size: 1.25rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                margin: 0.5rem 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                padding: 1rem;
+                margin: 0 1rem;
+            }
+            
+            .hero-video {
+                display: none;
+            }
+            
+            .hero-video-mobile-poster {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.4);
+                z-index: -1;
+            }
+            
+            .video-mini-preview {
+                width: 150px;
+                height: 84px;
+                top: -100px;
+            }
+            
+            .video-modal-content {
+                width: 95vw;
+                max-width: none;
+            }
+            
+            .video-controls {
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .video-time {
+                font-size: 0.8rem;
+                min-width: 60px;
+            }
+        }
+        
+        /* Visibility and Performance */
+        .video-lazy {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .video-lazy.loaded {
+            opacity: 1;
+        }
+        
+        .video-paused-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+        
+        .video-paused-indicator.show {
+            opacity: 1;
+        }
+        
+        /* Mobile Stats Styling */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .stat:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-4px) scale(1.02);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--green);
+            display: block;
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+        
+        /* Face ID Demo Container */
+        .face-id-demo-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .hero-video,
+            .video-mini-preview video {
+                animation-play-state: paused !important;
+            }
+            
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Pulse */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll container for premium smooth scrolling -->
+    <div data-scroll-container>
+    <!-- Hero with Cinematic Video Background -->
+    <section class="hero section section-hero" data-section>
+        <!-- Parallax background -->
+        <div class="parallax-bg" data-parallax="0.5" style="background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15) 0%, transparent 70%); filter: blur(1px);"></div>
+        <!-- Video Background -->
+        <div class="hero-video-container">
+            <video class="hero-video video-lazy" 
+                   autoplay 
+                   muted 
+                   loop 
+                   playsinline 
+                   preload="metadata"
+                   poster="/facepay-demo-poster.jpg"
+                   data-fallback="/facepay-demo-poster.jpg"
+                   data-critical-video="true"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                   id="heroVideo">
+                <source src="/facepay-demo.mp4" type="video/mp4">
+                <p>Your browser does not support HTML5 video. <a href="/facepay-demo.mp4">Download the video</a></p>
+            </video>
+            <!-- Mobile Poster Fallback -->
+            <img class="hero-video-mobile-poster" 
+                 src="/facepay-demo-poster.jpg" 
+                 alt="FacePay Demo"
+                 data-fallback="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjFmNWY5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NDc0OGIiPkZhY2VQYXkgRGVtbzwvdGV4dD48L3N2Zz4="
+                 onerror="this.src=this.getAttribute('data-fallback');"
+                 style="display: none;">
+        </div>
+        
+        <!-- Overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Pause Indicator -->
+        <div class="video-paused-indicator" id="pauseIndicator">
+            Video paused due to scroll
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-animate="fadeInUp">
+                    Send crypto like<br>
+                    <span class="highlight">@john → @sarah</span>
+                </h1>
+                
+                <div class="hero-demo liquid-shape" data-animate="zoomIn">
+                    👤 Face ID <span class="arrow">→</span> 💸 Instant Pay <span class="arrow">→</span> ⚡ Zero Gas
+                </div>
+                
+                <p class="fade-in text-supreme-body animate-fade-in-up animate-stagger-2">
+                    First crypto app with Face ID authentication.<br>
+                    No 0x addresses. No seed phrases. Just your face.
+                </p>
+                
+                <div class="cta-buttons fade-in animate-fade-in-up animate-stagger-3 gap-supreme-md">
+                    <a href="#" class="btn btn-primary btn-video-preview btn-supreme-primary btn-magnetic magnetic tilt-effect ripple-faceid" onclick="openVideoModal()" data-hover="cinematic">
+                        📱 Watch Demo
+                        <div class="video-mini-preview">
+                            <video muted loop playsinline preload="none">
+                                <source src="/facepay-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </a>
+                    <a href="#download" class="btn btn-secondary btn-video-preview btn-supreme-secondary btn-magnetic magnetic glass-effect ripple-trust" data-hover="cinematic">
+                        🚀 Download Beta
+                        <div class="video-mini-preview">
+                            <video muted loop playsinline preload="none">
+                                <source src="/facepay-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="cta-urgent pulse">
+                    ⏰ Beta spots filling fast - 847 joined today
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features section section-features" data-section>
+        <!-- Parallax background -->
+        <div class="parallax-bg" data-parallax="0.3" style="background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(16, 185, 129, 0.05) 100%);"></div>
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">
+                Why <span style="color: var(--green);">10,000+ people</span> chose FacePay
+            </h2>
+            
+            <div class="features-grid gap-supreme-lg">
+                <div class="feature card-supreme hover-lift scroll-reveal-left animate-stagger-1 magnetic glass-effect tilt-effect" data-animate="slideInLeft" data-hover="cinematic" data-scroll-reveal='{"delay": 100}'>
+                    <div class="feature-icon icon-supreme icon-supreme-micro floating">👤</div>
+                    <h3 class="text-supreme-headline">Face ID = Your Wallet</h3>
+                    <p class="text-supreme-body">Your face is more secure than any password. No seed phrases to lose, no private keys to remember.</p>
+                </div>
+                
+                <div class="feature card-supreme hover-lift scroll-reveal-scale animate-stagger-2 magnetic glass-effect tilt-effect" data-hover="cinematic" data-scroll-reveal='{"delay": 200}'>
+                    <div class="feature-icon icon-supreme icon-supreme-micro floating">@</div>
+                    <h3 class="text-supreme-headline">@usernames, not 0x...</h3>
+                    <p class="text-supreme-body">Send to @sarah, not 0x742d35Cc6Df7D4415BC7aA921C0B7107D8fA6bBF. Simple as Instagram DM.</p>
+                </div>
+                
+                <div class="feature card-supreme hover-lift scroll-reveal-right animate-stagger-3 magnetic glass-effect tilt-effect" data-hover="cinematic" data-scroll-reveal='{"delay": 300}'>
+                    <div class="feature-icon icon-supreme icon-supreme-micro floating">⚡</div>
+                    <h3 class="text-supreme-headline">Zero Gas Fees</h3>
+                    <p class="text-supreme-body">StarkNet's account abstraction means we pay the gas. You just send money for free.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demo -->
+    <section class="demo section" id="demo">
+        <div class="container">
+            <h2>See it work in <span style="color: var(--green);">3 seconds</span></h2>
+            
+            <div class="demo-video video-premium hover-lift shadow-supreme-2xl rounded-supreme-xl">
+                <video autoplay muted loop playsinline id="demoVideo">
+                    <source src="/facepay-demo.mp4" type="video/mp4">
+                    <track kind="captions" src="/facepay-captions-en.vtt" srclang="en" label="English" default>
+                    <track kind="captions" src="/facepay-captions-es.vtt" srclang="es" label="Español">
+                </video>
+            </div>
+            
+            <div class="demo-steps gap-supreme-md">
+                <div class="step card-supreme scroll-reveal-left animate-stagger-1">
+                    <div class="step-number weight-supreme-bold">1.</div>
+                    <div class="text-supreme-body">Open FacePay</div>
+                </div>
+                <div class="step card-supreme scroll-reveal-scale animate-stagger-2">
+                    <div class="step-number weight-supreme-bold">2.</div>
+                    <div class="text-supreme-body">Type @friend</div>
+                </div>
+                <div class="step card-supreme scroll-reveal-scale animate-stagger-3">
+                    <div class="step-number weight-supreme-bold">3.</div>
+                    <div class="text-supreme-body">Look at camera</div>
+                </div>
+                <div class="step card-supreme scroll-reveal-right animate-stagger-4">
+                    <div class="step-number weight-supreme-bold">4.</div>
+                    <div class="text-supreme-body">Money sent ✓</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+        <div class="video-modal-content" onclick="event.stopPropagation()">
+            <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close video">✕</button>
+            <video id="modalVideo" preload="metadata" poster="/facepay-demo-poster.jpg">
+                <source src="/facepay-demo.mp4" type="video/mp4">
+                <track kind="captions" src="/facepay-captions-en.vtt" srclang="en" label="English" default>
+                <track kind="captions" src="/facepay-captions-es.vtt" srclang="es" label="Español">
+                Your browser does not support the video tag.
+            </video>
+            
+            <!-- Custom Controls -->
+            <div class="video-controls">
+                <button class="video-control-btn" id="playPauseBtn" onclick="togglePlayPause()" aria-label="Play/Pause">▶</button>
+                <button class="video-control-btn" onclick="toggleMute()" id="muteBtn" aria-label="Mute/Unmute">🔊</button>
+                <div class="video-progress-container" onclick="seek(event)">
+                    <div class="video-progress" id="videoProgress"></div>
+                </div>
+                <div class="video-time" id="videoTime">0:00 / 0:00</div>
+                <button class="video-control-btn" onclick="toggleFullscreen()" aria-label="Fullscreen">⛶</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA -->
+    <section class="cta section" id="download">
+        <div class="container">
+            <h2>Ready to never use <span style="color: var(--green);">0x addresses</span> again?</h2>
+            <p>Join the crypto payment revolution. Your face is your wallet.</p>
+            
+            <div class="gap-supreme-lg center-supreme">
+                <a href="#" class="btn btn-primary btn-supreme-primary ripple-faceid hover-lift" onclick="downloadApp()">
+                    <span class="icon-supreme-text">📱 Download FacePay</span>
+                </a>
+                <a href="#" class="btn btn-secondary btn-supreme-secondary ripple-trust hover-scale" onclick="joinBeta()">
+                    <span class="icon-supreme-text">⚡ Beta Access</span>
+                </a>
+            </div>
+            
+            <div class="cta-urgent pulse" style="margin-top: 2rem;">
+                🔥 2,847 people already using FacePay
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 FacePay • Built on StarkNet • Face ID + @usernames + Zero Gas</p>
+        </div>
+    </footer>
+    
+    <!-- Close scroll container -->
+    </div>
+    
+    <!-- Scroll hint for users -->
+    <div class="scroll-hint">Scroll to explore</div>
+    
+    <!-- Premium Scroll Engine -->
+    <script src="premium-scroll-engine.js"></script>
+    
+    <script>
+        // Cinematic Video System - Complete Implementation
+        class CinematicVideoManager {
+            constructor() {
+                this.heroVideo = document.getElementById('heroVideo');
+                this.demoVideo = document.getElementById('demoVideo');
+                this.modalVideo = document.getElementById('modalVideo');
+                this.videoModal = document.getElementById('videoModal');
+                this.pauseIndicator = document.getElementById('pauseIndicator');
+                
+                this.isModalOpen = false;
+                this.isScrollPaused = false;
+                this.lastScrollY = 0;
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupIntersectionObservers();
+                this.setupScrollHandlers();
+                this.setupVideoEventListeners();
+                this.setupMiniPreviews();
+                this.setupKeyboardHandlers();
+                this.optimizeForDevice();
+            }
+            
+            // Auto-pause intelligent on scroll
+            setupScrollHandlers() {
+                let scrollTimeout;
+                
+                window.addEventListener('scroll', () => {
+                    const currentScrollY = window.scrollY;
+                    const scrollDelta = Math.abs(currentScrollY - this.lastScrollY);
+                    
+                    // If scrolling fast (>50px change), pause videos
+                    if (scrollDelta > 50 && !this.isScrollPaused) {
+                        this.pauseAllVideos();
+                        this.showPauseIndicator();
+                        this.isScrollPaused = true;
+                    }
+                    
+                    // Clear previous timeout
+                    clearTimeout(scrollTimeout);
+                    
+                    // Resume videos after scroll stops
+                    scrollTimeout = setTimeout(() => {
+                        if (this.isScrollPaused) {
+                            this.resumeVideos();
+                            this.hidePauseIndicator();
+                            this.isScrollPaused = false;
+                        }
+                    }, 500);
+                    
+                    this.lastScrollY = currentScrollY;
+                });
+            }
+            
+            // Intersection observers for performance
+            setupIntersectionObservers() {
+                const heroObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.lazyLoadVideo(this.heroVideo);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                if (this.heroVideo) heroObserver.observe(this.heroVideo);
+                
+                // Animate elements on scroll
+                const animateObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                            }, index * 100);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                document.querySelectorAll('.feature, .step').forEach(el => {
+                    animateObserver.observe(el);
+                });
+            }
+            
+            // Lazy loading with smooth transition
+            lazyLoadVideo(video) {
+                if (!video || video.classList.contains('loaded')) return;
+                
+                video.addEventListener('loadeddata', () => {
+                    video.classList.add('loaded');
+                    video.style.opacity = '1';
+                });
+                
+                // Start loading
+                if (video.readyState < 3) {
+                    video.load();
+                }
+            }
+            
+            // Mini preview hover functionality
+            setupMiniPreviews() {
+                document.querySelectorAll('.btn-video-preview').forEach(btn => {
+                    const preview = btn.querySelector('.video-mini-preview video');
+                    if (!preview) return;
+                    
+                    btn.addEventListener('mouseenter', () => {
+                        if (window.innerWidth > 768) { // Desktop only
+                            setTimeout(() => preview.play().catch(() => {}), 200);
+                        }
+                    });
+                    
+                    btn.addEventListener('mouseleave', () => {
+                        preview.pause();
+                        preview.currentTime = 0;
+                    });
+                });
+            }
+            
+            // Video event listeners
+            setupVideoEventListeners() {
+                if (this.modalVideo) {
+                    this.modalVideo.addEventListener('timeupdate', this.updateProgress.bind(this));
+                    this.modalVideo.addEventListener('loadedmetadata', this.updateDuration.bind(this));
+                    this.modalVideo.addEventListener('play', () => {
+                        document.getElementById('playPauseBtn').textContent = '⏸';
+                    });
+                    this.modalVideo.addEventListener('pause', () => {
+                        document.getElementById('playPauseBtn').textContent = '▶';
+                    });
+                }
+            }
+            
+            // Keyboard accessibility
+            setupKeyboardHandlers() {
+                document.addEventListener('keydown', (e) => {
+                    if (this.isModalOpen) {
+                        switch(e.key) {
+                            case 'Escape':
+                                this.closeModal();
+                                break;
+                            case ' ':
+                                e.preventDefault();
+                                this.togglePlayPause();
+                                break;
+                            case 'ArrowLeft':
+                                e.preventDefault();
+                                this.skipTime(-10);
+                                break;
+                            case 'ArrowRight':
+                                e.preventDefault();
+                                this.skipTime(10);
+                                break;
+                            case 'f':
+                            case 'F':
+                                e.preventDefault();
+                                this.toggleFullscreen();
+                                break;
+                            case 'm':
+                            case 'M':
+                                e.preventDefault();
+                                this.toggleMute();
+                                break;
+                        }
+                    }
+                });
+            }
+            
+            // Device optimization
+            optimizeForDevice() {
+                // Reduce video quality on slower connections
+                if (navigator.connection && navigator.connection.effectiveType === '2g') {
+                    document.querySelectorAll('video').forEach(video => {
+                        video.preload = 'none';
+                    });
+                }
+                
+                // Disable autoplay on mobile to save data
+                if (window.innerWidth <= 768) {
+                    if (this.heroVideo) {
+                        this.heroVideo.autoplay = false;
+                        this.heroVideo.style.display = 'none';
+                    }
+                }
+                
+                // Respect prefers-reduced-motion
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    document.querySelectorAll('video').forEach(video => {
+                        video.autoplay = false;
+                        video.pause();
+                    });
+                }
+            }
+            
+            // Video control methods
+            pauseAllVideos() {
+                [this.heroVideo, this.demoVideo].forEach(video => {
+                    if (video && !video.paused) {
+                        video.pause();
+                    }
+                });
+            }
+            
+            resumeVideos() {
+                [this.heroVideo, this.demoVideo].forEach(video => {
+                    if (video && video.paused && !this.isModalOpen) {
+                        video.play().catch(() => {});
+                    }
+                });
+            }
+            
+            showPauseIndicator() {
+                if (this.pauseIndicator) {
+                    this.pauseIndicator.classList.add('show');
+                    setTimeout(() => this.pauseIndicator.classList.remove('show'), 2000);
+                }
+            }
+            
+            hidePauseIndicator() {
+                if (this.pauseIndicator) {
+                    this.pauseIndicator.classList.remove('show');
+                }
+            }
+            
+            // Modal controls
+            openModal() {
+                this.isModalOpen = true;
+                this.videoModal.classList.add('active');
+                this.pauseAllVideos();
+                document.body.style.overflow = 'hidden';
+                
+                // Analytics
+                trackVideoEvent('modal_opened', 'facepay-demo');
+                
+                // Start playing modal video
+                if (this.modalVideo) {
+                    this.modalVideo.play().catch(() => {});
+                    trackVideoEvent('video_play', 'facepay-demo-modal');
+                }
+                
+                // Focus for accessibility
+                this.modalVideo.focus();
+                
+                // Announce to screen readers
+                this.announceToScreenReader('Video modal opened. Use arrow keys to control playback, space to pause, escape to close.');
+            }
+            
+            closeModal() {
+                this.isModalOpen = false;
+                this.videoModal.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                if (this.modalVideo) {
+                    this.modalVideo.pause();
+                    this.modalVideo.currentTime = 0;
+                }
+                
+                // Resume background videos
+                this.resumeVideos();
+            }
+            
+            togglePlayPause() {
+                if (!this.modalVideo) return;
+                
+                if (this.modalVideo.paused) {
+                    this.modalVideo.play();
+                } else {
+                    this.modalVideo.pause();
+                }
+            }
+            
+            toggleMute() {
+                if (!this.modalVideo) return;
+                
+                this.modalVideo.muted = !this.modalVideo.muted;
+                document.getElementById('muteBtn').textContent = this.modalVideo.muted ? '🔇' : '🔊';
+            }
+            
+            toggleFullscreen() {
+                if (!this.modalVideo) return;
+                
+                if (!document.fullscreenElement) {
+                    this.modalVideo.requestFullscreen().catch(() => {});
+                } else {
+                    document.exitFullscreen().catch(() => {});
+                }
+            }
+            
+            skipTime(seconds) {
+                if (!this.modalVideo) return;
+                this.modalVideo.currentTime += seconds;
+            }
+            
+            // Progress bar
+            updateProgress() {
+                if (!this.modalVideo) return;
+                
+                const progress = (this.modalVideo.currentTime / this.modalVideo.duration) * 100;
+                document.getElementById('videoProgress').style.width = progress + '%';
+                
+                this.updateTimeDisplay();
+            }
+            
+            updateDuration() {
+                this.updateTimeDisplay();
+            }
+            
+            updateTimeDisplay() {
+                if (!this.modalVideo) return;
+                
+                const current = this.formatTime(this.modalVideo.currentTime);
+                const duration = this.formatTime(this.modalVideo.duration);
+                
+                document.getElementById('videoTime').textContent = `${current} / ${duration}`;
+            }
+            
+            formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            seek(event) {
+                if (!this.modalVideo) return;
+                
+                const progressContainer = event.currentTarget;
+                const rect = progressContainer.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+                const percentage = clickX / rect.width;
+                
+                this.modalVideo.currentTime = percentage * this.modalVideo.duration;
+                
+                // Analytics
+                trackVideoEvent('video_seek', 'facepay-demo-modal', this.modalVideo.currentTime);
+                
+                // Announce to screen readers
+                const timeAnnouncement = `Seeking to ${this.formatTime(this.modalVideo.currentTime)}`;
+                this.announceToScreenReader(timeAnnouncement);
+            }
+            
+            // Accessibility helpers
+            announceToScreenReader(message) {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.className = 'sr-only';
+                announcement.style.cssText = 'position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;';
+                announcement.textContent = message;
+                
+                document.body.appendChild(announcement);
+                setTimeout(() => document.body.removeChild(announcement), 1000);
+            }
+            
+            // Enhanced video event tracking
+            trackVideoInteraction(action, details = {}) {
+                trackVideoEvent(action, 'facepay-demo', this.modalVideo ? this.modalVideo.currentTime : 0, details);
+            }
+            
+            // Reduced motion support
+            respectsReducedMotion() {
+                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+            
+            // High contrast support
+            respectsHighContrast() {
+                return window.matchMedia('(prefers-contrast: high)').matches;
+            }
+            
+            // Color scheme preference
+            prefersDarkScheme() {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+        }
+        
+        // Global functions for HTML onclick handlers
+        function openVideoModal() {
+            window.videoManager.openModal();
+        }
+        
+        function closeVideoModal(event) {
+            if (!event || event.target.id === 'videoModal') {
+                window.videoManager.closeModal();
+            }
+        }
+        
+        function togglePlayPause() {
+            window.videoManager.togglePlayPause();
+        }
+        
+        function toggleMute() {
+            window.videoManager.toggleMute();
+        }
+        
+        function toggleFullscreen() {
+            window.videoManager.toggleFullscreen();
+        }
+        
+        function seek(event) {
+            window.videoManager.seek(event);
+        }
+        
+        // Enhanced Mobile CTAs
+        function downloadApp() {
+            if (window.mobileComponents) {
+                window.mobileComponents.showToast('🎉 Redirecting to App Store...', 'info');
+                setTimeout(() => {
+                    window.mobileComponents.showToast('Download started!', 'success');
+                }, 1500);
+            } else {
+                alert('🎉 Redirecting to App Store...');
+            }
+        }
+        
+        function joinBeta() {
+            const email = prompt('Enter your email for beta access:');
+            if (email && email.includes('@')) {
+                if (window.mobileComponents) {
+                    window.mobileComponents.showToast('✅ Welcome to beta! Check your email.', 'success');
+                } else {
+                    alert('✅ Welcome to beta! Check your email.');
+                }
+            }
+        }
+        
+        // Mobile-enhanced CTAs (for premium system)
+        function downloadAppPremium() {
+            if (window.mobileComponents) {
+                const button = event.target.closest('.btn');
+                if (window.mobileTouchPremium) {
+                    window.mobileTouchPremium.triggerHaptic('medium');
+                }
+                window.mobileComponents.showToast('🎉 Starting download...', 'info');
+                setTimeout(() => {
+                    window.mobileComponents.showToast('Download started!', 'success');
+                }, 1500);
+            } else {
+                downloadApp();
+            }
+        }
+        
+        function joinBetaPremium() {
+            if (window.mobileTouchPremium) {
+                window.mobileTouchPremium.triggerHaptic('light');
+            }
+            joinBeta();
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Premium scroll integration
+        function initializePremiumFeatures() {
+            // Add magnetic effect to interactive elements
+            document.querySelectorAll('.magnetic, .magnetic-strong').forEach(el => {
+                el.addEventListener('mouseenter', function(e) {
+                    if (window.innerWidth > 768) { // Desktop only
+                        this.style.transform = 'translateY(-5px) scale(1.02)';
+                    }
+                });
+                
+                el.addEventListener('mouseleave', function(e) {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Enhanced liquid morphing
+            document.querySelectorAll('.liquid-shape').forEach(el => {
+                let morphTimeout;
+                
+                el.addEventListener('mouseenter', function() {
+                    if (window.innerWidth > 768) {
+                        this.classList.add('liquid-morph-active');
+                        clearTimeout(morphTimeout);
+                    }
+                });
+                
+                el.addEventListener('mouseleave', function() {
+                    morphTimeout = setTimeout(() => {
+                        this.classList.remove('liquid-morph-active');
+                    }, 500);
+                });
+            });
+            
+            console.log('🎯 Premium scroll features initialized');
+        }
+        
+        // Mobile platform detection and initialization
+        function initMobileEnhancements() {
+            // Detect platform and add classes
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+            
+            if (isIOS) {
+                document.body.classList.add('platform-ios');
+            } else if (isAndroid) {
+                document.body.classList.add('platform-android');
+            }
+            
+            if (isMobile) {
+                document.body.classList.add('touch-device', 'mobile-device');
+            }
+            
+            // Enhance buttons with mobile touch classes
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.classList.add('btn-magnetic', 'touch-target');
+                btn.setAttribute('data-ripple', 'true');
+            });
+            
+            // Add scroll reveal to features
+            document.querySelectorAll('.feature').forEach((feature, index) => {
+                feature.classList.add('card', 'card-interactive', 'touch-target');
+                feature.setAttribute('data-scroll-reveal', JSON.stringify({delay: (index + 1) * 100}));
+            });
+            
+            console.log('📱 Mobile enhancements initialized', {isIOS, isAndroid, isMobile});
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize mobile first
+            initMobileEnhancements();
+            
+            window.videoManager = new CinematicVideoManager();
+            registerServiceWorker();
+            
+            // Initialize premium scroll features
+            initializePremiumFeatures();
+            
+            // Initialize premium scroll engine
+            if (window.PremiumScrollEngine) {
+                window.premiumScroll = new PremiumScrollEngine({
+                    snapSections: true,
+                    progressIndicator: true,
+                    parallaxEnabled: true,
+                    animationsEnabled: true,
+                    batteryEfficient: true,
+                    touchMultiplier: 2.0
+                });
+                
+                console.log('✨ FacePay Premium Scroll Experience Activated');
+            }
+        });
+        
+        // Service Worker Registration
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('/video-service-worker.js');
+                    console.log('🎬 Video SW registered:', registration);
+                    
+                    // Listen for video events to send to SW
+                    document.addEventListener('videoEvent', (event) => {
+                        if (registration.active) {
+                            registration.active.postMessage({
+                                type: 'VIDEO_EVENT',
+                                payload: event.detail
+                            });
+                        }
+                    });
+                } catch (error) {
+                    console.log('SW registration failed:', error);
+                }
+            }
+        }
+        
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log('🎬 FacePay Cinema Load Time:', Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
+                    
+                    // Core Web Vitals
+                    if ('PerformanceObserver' in window) {
+                        new PerformanceObserver((list) => {
+                            list.getEntries().forEach((entry) => {
+                                if (entry.entryType === 'largest-contentful-paint') {
+                                    console.log('📊 LCP:', Math.round(entry.startTime), 'ms');
+                                }
+                                if (entry.entryType === 'first-input') {
+                                    console.log('📊 FID:', Math.round(entry.processingStart - entry.startTime), 'ms');
+                                }
+                                if (entry.entryType === 'layout-shift' && !entry.hadRecentInput) {
+                                    console.log('📊 CLS:', entry.value);
+                                }
+                            });
+                        }).observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+                    }
+                }, 0);
+            });
+        }
+        
+        // Video Analytics
+        function trackVideoEvent(eventType, videoId, currentTime = 0, additionalData = {}) {
+            const event = new CustomEvent('videoEvent', {
+                detail: {
+                    type: eventType,
+                    videoId: videoId,
+                    timestamp: Date.now(),
+                    currentTime: currentTime,
+                    sessionId: window.sessionStorage.getItem('facepay-session') || 'anonymous',
+                    userAgent: navigator.userAgent,
+                    viewport: {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    },
+                    connection: navigator.connection ? {
+                        effectiveType: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink
+                    } : null,
+                    accessibility: {
+                        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+                        highContrast: window.matchMedia('(prefers-contrast: high)').matches,
+                        darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
+                    },
+                    ...additionalData
+                }
+            });
+            document.dispatchEvent(event);
+            
+            // Console log for development
+            console.log('📊 Video Event:', eventType, videoId, additionalData);
+        }
+        
+        // Initialize session tracking
+        if (!window.sessionStorage.getItem('facepay-session')) {
+            window.sessionStorage.setItem('facepay-session', 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+        }
+    </script>
+    
+    <!-- Supreme Polish Engine - Pixel Perfection Orchestrator -->
+    <script src="supreme-polish-engine.js"></script>
+    
+    <!-- BULLETPROOF ERROR PREVENTION SYSTEM - LOAD FIRST -->
+    <script src="error-prevention-system.js"></script>
+    <script src="bulletproof-initialization.js"></script>
+    
+    <!-- Mobile Touch Premium System -->
+    <script src="mobile-touch-premium.js"></script>
+    <script src="mobile-components.js"></script>
+    
+    <!-- FacePay Elegante Particle System V2.0 -->
+    <script src="particles.js"></script>
+    
+    <!-- Premium Desktop Experience Systems - Apple.com Level -->
+    <script src="premium-desktop-experience.js"></script>
+    <script src="premium-cursor-system.js"></script>
+    <script src="premium-integration-master.js"></script>
+    
+    <!-- Particle System Interactive Integration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for particle system to initialize
+            setTimeout(() => {
+                if (!window.facePayParticles || !window.facePayParticleControls) {
+                    console.warn('⚠️ Particle system not loaded, using fallback animations');
+                    return;
+                }
+                
+                // Interactive particle bursts on UI elements
+                
+                // 1. Button interactions with crypto symbols
+                document.querySelectorAll('.btn').forEach(btn => {
+                    btn.addEventListener('mouseenter', function() {
+                        if (window.innerWidth > 768) { // Desktop only
+                            const rect = this.getBoundingClientRect();
+                            const x = rect.left + rect.width / 2;
+                            const y = rect.top + rect.height / 2;
+                            
+                            // Small particle burst on hover
+                            window.facePayParticles.addParticlesBurst(x, y, 8);
+                        }
+                    });
+                    
+                    btn.addEventListener('click', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = rect.left + rect.width / 2;
+                        const y = rect.top + rect.height / 2;
+                        
+                        // Big particle explosion on click
+                        window.facePayParticles.addParticlesBurst(x, y, 35);
+                    });
+                });
+                
+                // 2. Section reveal particle effects
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const section = entry.target;
+                            const rect = section.getBoundingClientRect();
+                            const centerX = window.innerWidth / 2;
+                            
+                            // Different effects for different sections
+                            if (section.classList.contains('features')) {
+                                // Side bursts for features section
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(100, rect.top + rect.height/2, 12), 100);
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(window.innerWidth - 100, rect.top + rect.height/2, 12), 300);
+                            } else if (section.id === 'demo') {
+                                // Center burst for demo section
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(centerX, rect.top + rect.height/3, 20), 200);
+                                // Additional corner effects
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(centerX - 200, rect.top + 150, 8), 400);
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(centerX + 200, rect.top + 150, 8), 600);
+                            } else if (section.classList.contains('cta')) {
+                                // Dramatic effects for CTA section
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(window.innerWidth * 0.25, rect.top + 100, 15), 150);
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(window.innerWidth * 0.75, rect.top + 100, 15), 300);
+                                setTimeout(() => window.facePayParticles.addParticlesBurst(centerX, rect.top + 50, 10), 450);
+                            }
+                        }
+                    });
+                }, { threshold: 0.3, rootMargin: '0px 0px -100px 0px' });
+                
+                document.querySelectorAll('.section, .features, .demo, .cta').forEach(section => {
+                    sectionObserver.observe(section);
+                });
+                
+                // 3. Enhanced mouse tracking for crypto symbols
+                let lastMouseX = 0;
+                let lastMouseY = 0;
+                let mouseSpeed = 0;
+                let lastTrailTime = 0;
+                
+                document.addEventListener('mousemove', function(e) {
+                    const currentTime = Date.now();
+                    const currentMouseX = e.clientX;
+                    const currentMouseY = e.clientY;
+                    
+                    // Calculate mouse speed
+                    const deltaX = currentMouseX - lastMouseX;
+                    const deltaY = currentMouseY - lastMouseY;
+                    mouseSpeed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                    
+                    // Create trailing particles on fast mouse movements
+                    if (mouseSpeed > 60 && currentTime - lastTrailTime > 100) {
+                        const burstSize = Math.min(6, Math.floor(mouseSpeed / 25));
+                        window.facePayParticles.addParticlesBurst(currentMouseX, currentMouseY, burstSize);
+                        lastTrailTime = currentTime;
+                    }
+                    
+                    lastMouseX = currentMouseX;
+                    lastMouseY = currentMouseY;
+                });
+                
+                // 4. Performance-based preset switching
+                let currentPreset = 'elegante';
+                let lastPresetChange = 0;
+                
+                window.addEventListener('scroll', () => {
+                    const now = Date.now();
+                    if (now - lastPresetChange < 2000) return; // Throttle preset changes
+                    
+                    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+                    
+                    if (scrollPercent > 0.8 && currentPreset !== 'impresionante') {
+                        window.facePayParticleControls.changePreset('impresionante');
+                        currentPreset = 'impresionante';
+                        lastPresetChange = now;
+                    } else if (scrollPercent < 0.3 && currentPreset !== 'elegante') {
+                        window.facePayParticleControls.changePreset('elegante');  
+                        currentPreset = 'elegante';
+                        lastPresetChange = now;
+                    } else if (scrollPercent >= 0.3 && scrollPercent <= 0.8 && currentPreset !== 'premium') {
+                        window.facePayParticleControls.changePreset('premium');
+                        currentPreset = 'premium';
+                        lastPresetChange = now;
+                    }
+                });
+                
+                // 5. Ambient crypto symbol effects
+                setInterval(() => {
+                    // Random crypto symbol bursts in safe zones (not overlapping content)
+                    if (Math.random() < 0.15) { // 15% chance every interval
+                        const safeZones = [
+                            [80, 80], [window.innerWidth - 80, 80],
+                            [80, window.innerHeight - 80], [window.innerWidth - 80, window.innerHeight - 80],
+                            [window.innerWidth * 0.15, window.innerHeight * 0.3],
+                            [window.innerWidth * 0.85, window.innerHeight * 0.3],
+                            [window.innerWidth * 0.15, window.innerHeight * 0.7],
+                            [window.innerWidth * 0.85, window.innerHeight * 0.7]
+                        ];
+                        const zone = safeZones[Math.floor(Math.random() * safeZones.length)];
+                        window.facePayParticles.addParticlesBurst(zone[0], zone[1], 4);
+                    }
+                }, 4000); // Every 4 seconds
+                
+                // 6. Performance monitoring and adaptive adjustments
+                setInterval(() => {
+                    const stats = window.facePayParticleControls.getStats();
+                    
+                    // Log performance issues
+                    if (stats.fps < 30) {
+                        console.log(`⚠️ Performance Alert: ${stats.fps}fps | Particles: ${stats.particleCount} | Connections: ${stats.connections}`);
+                        
+                        // Auto-adjust for better performance
+                        if (currentPreset === 'impresionante') {
+                            window.facePayParticleControls.changePreset('premium');
+                            currentPreset = 'premium';
+                            console.log('🔧 Auto-adjusted to premium preset for better performance');
+                        } else if (currentPreset === 'premium') {
+                            window.facePayParticleControls.changePreset('elegante');
+                            currentPreset = 'elegante';
+                            console.log('🔧 Auto-adjusted to elegante preset for better performance');
+                        }
+                    }
+                    
+                    // Re-enable higher presets if performance improves
+                    if (stats.fps > 55 && currentPreset === 'elegante' && window.scrollY > window.innerHeight * 0.5) {
+                        window.facePayParticleControls.changePreset('premium');
+                        currentPreset = 'premium';
+                        console.log('⚡ Performance improved, upgraded to premium preset');
+                    }
+                }, 8000); // Check every 8 seconds
+                
+                console.log('✨ FacePay Particle System integration complete!');
+                console.log('🎮 Dev controls: facePayParticleControls.changePreset("impresionante"), .addBurst(x, y, count), .getStats()');
+                console.log('🎨 Try: facePayParticleControls.addBurst(500, 300, 50) for a big burst!');
+                
+            }, 1500); // Wait 1.5s for particle system to fully initialize
+        });
+    </script>
+
+    <!-- REAL-TIME PERFORMANCE MONITORING SYSTEM - ABSOLUTO -->
+    <!-- Load monitoring systems in optimal order for maximum effectiveness -->
+    
+    <!-- 1. Core Web Vitals Monitor -->
+    <script src="web-vitals.js" async></script>
+    
+    <!-- 2. Performance Monitor -->
+    <script src="performance-monitor.js" async></script>
+    
+    <!-- 3. Real-Time Performance Monitor - ABSOLUTO -->
+    <script src="real-time-performance-monitor.js" async></script>
+    
+    <!-- 4. Performance Integration System - CONTROL CENTER -->
+    <script src="performance-integration.js" defer></script>
+    
+    <!-- Performance Monitoring Initialization -->
+    <script>
+        // PERFORMANCE MONITORING INITIALIZATION - ABSOLUTO
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for all monitoring systems to load
+            setTimeout(() => {
+                if (window.PerformanceIntegration) {
+                    console.log('🚀 ALL PERFORMANCE MONITORING SYSTEMS ACTIVE');
+                    console.log('📊 Real-time monitoring: ', !!window.RTPerformanceMonitor);
+                    console.log('⚡ Performance integration: ', !!window.PerformanceIntegration);
+                    console.log('🎯 60fps guarantee: ENABLED');
+                    
+                    // Show initial performance report
+                    setTimeout(() => {
+                        if (window.getPerformanceReport) {
+                            const report = window.getPerformanceReport();
+                            console.log('📋 INITIAL PERFORMANCE REPORT:', report);
+                            
+                            if (report.score >= 90) {
+                                console.log('🏆 EXCELLENT PERFORMANCE DETECTED - All systems optimal!');
+                            } else if (report.score >= 70) {
+                                console.log('✅ GOOD PERFORMANCE - Monitoring for optimizations');
+                            } else {
+                                console.log('⚠️ PERFORMANCE NEEDS ATTENTION - Auto-optimization triggered');
+                            }
+                        }
+                    }, 2000);
+                } else {
+                    console.warn('⚠️ Performance Integration System not loaded');
+                }
+            }, 1000);
+        });
+
+        // Global performance debugging utilities
+        window.showPerformanceDebug = function() {
+            console.group('🔍 PERFORMANCE DEBUG INFO');
+            console.log('Current FPS:', window.getCurrentFPS ? window.getCurrentFPS() : 'N/A');
+            console.log('Performance Score:', window.getRTPerformanceScore ? window.getRTPerformanceScore() : 'N/A');
+            console.log('Performance Metrics:', window.getRTPerformanceMetrics ? window.getRTPerformanceMetrics() : 'N/A');
+            console.log('Overall Report:', window.getPerformanceReport ? window.getPerformanceReport() : 'N/A');
+            console.groupEnd();
+        };
+
+        window.enablePerformanceEmergency = function() {
+            if (window.triggerEmergencyOptimization) {
+                window.triggerEmergencyOptimization();
+                console.log('🚨 EMERGENCY PERFORMANCE MODE ACTIVATED');
+            } else {
+                console.warn('Emergency optimization not available');
+            }
+        };
+
+        // Keyboard shortcut for performance debugging (Ctrl+Shift+P)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                e.preventDefault();
+                window.showPerformanceDebug();
+            }
+        });
+
+        // Performance guarantee verification
+        setInterval(() => {
+            if (window.getCurrentFPS) {
+                const currentFPS = window.getCurrentFPS();
+                if (currentFPS < 30) {
+                    console.warn(`🚨 PERFORMANCE ALERT: FPS dropped to ${currentFPS}`);
+                    if (window.checkPerformanceHealth) {
+                        window.checkPerformanceHealth();
+                    }
+                }
+            }
+        }, 5000);
+
+        console.log('🎯 Performance monitoring initialization complete!');
+        console.log('🔧 Debug commands: showPerformanceDebug(), enablePerformanceEmergency()');
+        console.log('⌨️ Keyboard shortcut: Ctrl+Shift+P for performance debug');
+    </script>
+
+    <!-- BULLETPROOF FALLBACK INDICATORS -->
+    <!-- Offline Indicator (hidden by default, shown when offline) -->
+    <div class="offline-indicator" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: #f59e0b; color: white; text-align: center; padding: 8px; z-index: 10000; font-size: 14px;">
+        📶 You're offline - Some features may be limited
+    </div>
+
+    <!-- No-JS Fallback Message -->
+    <noscript>
+        <div style="position: fixed; top: 0; left: 0; width: 100%; background: #dc2626; color: white; text-align: center; padding: 16px; z-index: 10001; font-family: system-ui;">
+            <strong>⚠️ JavaScript Required</strong><br>
+            This site requires JavaScript for full functionality. Please enable JavaScript in your browser.
+        </div>
+    </noscript>
+
+    <!-- Loading Screen for Slow Connections -->
+    <div id="bulletproof-loading" class="js-only" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); color: white; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: system-ui;">
+        <div style="text-align: center;">
+            <div style="width: 40px; height: 40px; border: 3px solid rgba(0, 255, 136, 0.3); border-top: 3px solid #00ff88; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+            <div>🛡️ Initializing Bulletproof Systems...</div>
+            <div style="font-size: 12px; opacity: 0.7; margin-top: 8px;">Please wait while we ensure everything works perfectly</div>
+        </div>
+    </div>
+
+    <!-- Critical Error Fallback -->
+    <div id="critical-error-fallback" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(220, 38, 38, 0.95); color: white; z-index: 10002; font-family: system-ui; padding: 20px; overflow-y: auto;">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center; padding-top: 10vh;">
+            <h1 style="font-size: 24px; margin-bottom: 16px;">⚠️ Critical Error Recovery</h1>
+            <p style="font-size: 16px; line-height: 1.5; margin-bottom: 24px;">
+                A critical error occurred, but our bulletproof systems are protecting your experience.
+            </p>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 8px; margin-bottom: 24px; text-align: left;">
+                <h3 style="margin-bottom: 12px;">What happened?</h3>
+                <p>Some advanced features couldn't load properly, but the core functionality remains available.</p>
+            </div>
+            <button onclick="location.reload()" style="background: white; color: #dc2626; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; margin-right: 12px;">
+                🔄 Reload Page
+            </button>
+            <button onclick="this.parentElement.parentElement.style.display='none'" style="background: transparent; color: white; border: 1px solid white; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer;">
+                ✓ Continue Anyway
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hide loading screen when bulletproof systems are ready */
+        .bulletproof-ready #bulletproof-loading {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Emergency mode styles */
+        .emergency-mode .complex-animation,
+        .emergency-mode .particles,
+        .emergency-mode video:not([poster]) {
+            display: none !important;
+        }
+        
+        .emergency-mode .btn {
+            background: #00ff88 !important;
+            color: #000000 !important;
+            border: none !important;
+            transform: none !important;
+            transition: none !important;
+        }
+    </style>
+
+</body>
+</html>

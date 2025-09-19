@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - The Future of Payments is Your Face</title>
+    <style>
+        /* Performance-first CSS with 60fps guarantee */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS Custom Properties for dynamic theming */
+        :root {
+            --primary-green: #00ff88;
+            --primary-blue: #3b82f6;
+            --dark-bg: #000000;
+            --surface: #0a0a0a;
+            --surface-light: #1a1a1a;
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --glow-green: rgba(0, 255, 136, 0.3);
+            --glow-blue: rgba(59, 130, 246, 0.2);
+            --particle-size: 4px;
+            --scan-duration: 3s;
+            --morph-duration: 2s;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Hero Section - Full viewport with liquid gradient */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, var(--glow-green) 0%, transparent 50%), 
+                        radial-gradient(ellipse at 80% 20%, var(--glow-blue) 0%, transparent 60%),
+                        var(--dark-bg);
+        }
+
+        /* Liquid gradient background animation */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(0, 255, 136, 0.15) 0%, transparent 40%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Money flow particles canvas */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Hero content container */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 2rem;
+        }
+
+        /* Interactive 3D phone mockup */
+        .phone-mockup {
+            position: relative;
+            width: 280px;
+            height: 560px;
+            margin: 0 auto 3rem;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .phone-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+        }
+
+        .phone-container:hover {
+            transform: rotateY(12deg) rotateX(-8deg) scale(1.05);
+        }
+
+        .phone-frame {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #000);
+            border-radius: 40px;
+            border: 2px solid #333;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(0, 255, 136, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .phone-screen {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 80px;
+            background: var(--dark-bg);
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Face ID Scanner Animation */
+        .face-scanner {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+
+        .scanner-frame {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary-green);
+            border-radius: 50%;
+            position: relative;
+            animation: scannerPulse var(--scan-duration) infinite ease-in-out;
+        }
+
+        .scanner-beam {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-green) 0%, transparent 70%);
+            animation: beamScan var(--scan-duration) infinite ease-in-out;
+            opacity: 0;
+        }
+
+        .face-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.8;
+            animation: faceBreath 2s infinite ease-in-out;
+        }
+
+        /* Breathing microphone icon */
+        .microphone {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            animation: micBreath 1.5s infinite ease-in-out;
+        }
+
+        /* Success checkmark animation */
+        .success-checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            color: var(--primary-green);
+            opacity: 0;
+        }
+
+        .success-checkmark.animate {
+            animation: successPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        /* Dynamic username morphing */
+        .username-display {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .username-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: morphText var(--morph-duration) infinite;
+        }
+
+        .username-text:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .username-text:nth-child(3) {
+            animation-delay: 1.4s;
+        }
+
+        /* Cinematic text reveal */
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal-text {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px) rotateX(90deg);
+            transform-origin: bottom;
+            animation: textReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            will-change: transform, opacity;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        /* Premium buttons with magnetic effect */
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .btn-magnetic {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+            min-width: 240px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: var(--dark-bg);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-green);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--primary-green);
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            animation: statusPulse 2s infinite;
+        }
+
+        /* Animations */
+        @keyframes scannerPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                border-color: var(--primary-green); 
+            }
+            50% { 
+                transform: scale(1.1); 
+                border-color: var(--primary-blue); 
+            }
+        }
+
+        @keyframes beamScan {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes faceBreath {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes micBreath {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+            50% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+        }
+
+        @keyframes successPop {
+            0% { 
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg); 
+                opacity: 0; 
+            }
+            60% { 
+                transform: translate(-50%, -50%) scale(1.3) rotate(0deg); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes morphText {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            33%, 67% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100px) rotateX(90deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) rotateX(0deg); 
+            }
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .phone-mockup {
+                width: 200px;
+                height: 400px;
+            }
+            
+            .cta-buttons {
+                width: 100%;
+            }
+            
+            .btn-magnetic {
+                width: 100%;
+            }
+            
+            .status-indicator {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 2rem;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .phone-container:active {
+                transform: scale(1.02);
+            }
+            
+            .btn-magnetic:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <!-- Particles canvas for money flow -->
+        <canvas id="particles-canvas"></canvas>
+        
+        <!-- Status indicator -->
+        <div class="status-indicator">
+            🔥 2,847 active users
+        </div>
+        
+        <div class="hero-content">
+            <!-- Interactive 3D phone mockup -->
+            <div class="phone-mockup" id="phoneMockup">
+                <div class="phone-container">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <!-- Face ID Scanner -->
+                            <div class="face-scanner">
+                                <div class="scanner-frame"></div>
+                                <div class="scanner-beam"></div>
+                                <div class="face-icon">👤</div>
+                                <div class="success-checkmark">✓</div>
+                            </div>
+                            
+                            <!-- Dynamic username morphing -->
+                            <div class="username-display">
+                                <span class="username-text">@john</span>
+                                <span class="username-text">@sarah</span>
+                                <span class="username-text">@maria</span>
+                            </div>
+                            
+                            <!-- Breathing microphone -->
+                            <div class="microphone">🎤</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cinematic text reveal -->
+            <h1 class="hero-title">
+                <span class="reveal-text" style="animation-delay: 0.2s">Send</span>
+                <span class="reveal-text" style="animation-delay: 0.4s">crypto</span>
+                <span class="reveal-text" style="animation-delay: 0.6s">like</span>
+                <br>
+                <span class="reveal-text" style="animation-delay: 0.8s; color: var(--primary-green)">@john</span>
+                <span class="reveal-text" style="animation-delay: 1.0s">→</span>
+                <span class="reveal-text" style="animation-delay: 1.2s; color: var(--primary-green)">@sarah</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                <span class="reveal-text" style="animation-delay: 1.6s">
+                    The future of payments is your face. Face ID + @usernames + Zero gas fees.
+                </span>
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="cta-buttons">
+                <a href="#demo" class="btn-magnetic btn-primary" id="demoBtn">
+                    <span>👁️ Experience FacePay</span>
+                </a>
+                <a href="#download" class="btn-magnetic btn-secondary" id="downloadBtn">
+                    <span>🚀 Join Beta (Free)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Performance-optimized JavaScript with 60fps guarantee
+        class FacePayHero {
+            constructor() {
+                this.particles = [];
+                this.mouse = { x: 0.5, y: 0.5 };
+                this.scanCompleted = false;
+                this.init();
+            }
+
+            init() {
+                this.setupCanvas();
+                this.createParticles();
+                this.bindEvents();
+                this.startAnimations();
+                this.setupMagneticButtons();
+            }
+
+            // Money flow particles system
+            setupCanvas() {
+                this.canvas = document.getElementById('particles-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.resizeCanvas();
+                
+                window.addEventListener('resize', () => this.resizeCanvas());
+            }
+
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            createParticles() {
+                const symbols = ['₿', 'Ξ', '◈', '$', '₿', 'Ξ', '◈', '$'];
+                const particleCount = window.innerWidth < 768 ? 15 : 25;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: this.canvas.height + Math.random() * 200,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: -Math.random() * 3 - 1,
+                        symbol: symbols[Math.floor(Math.random() * symbols.length)],
+                        opacity: Math.random() * 0.5 + 0.3,
+                        rotation: Math.random() * 360,
+                        rotationSpeed: (Math.random() - 0.5) * 4,
+                        scale: Math.random() * 0.8 + 0.4
+                    });
+                }
+            }
+
+            updateParticles() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach((particle, index) => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particle.rotation += particle.rotationSpeed;
+                    
+                    // Reset particle when it goes off screen
+                    if (particle.y < -50 || particle.x < -50 || particle.x > this.canvas.width + 50) {
+                        particle.x = Math.random() * this.canvas.width;
+                        particle.y = this.canvas.height + Math.random() * 100;
+                        particle.vx = (Math.random() - 0.5) * 2;
+                        particle.vy = -Math.random() * 3 - 1;
+                    }
+                    
+                    // Draw particle
+                    this.ctx.save();
+                    this.ctx.translate(particle.x, particle.y);
+                    this.ctx.rotate(particle.rotation * Math.PI / 180);
+                    this.ctx.scale(particle.scale, particle.scale);
+                    this.ctx.globalAlpha = particle.opacity;
+                    this.ctx.fillStyle = '#00ff88';
+                    this.ctx.font = '20px system-ui';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText(particle.symbol, 0, 0);
+                    this.ctx.restore();
+                });
+            }
+
+            // Interactive liquid background
+            bindEvents() {
+                const hero = document.getElementById('hero');
+                
+                // Mouse/touch tracking for liquid gradient
+                const updateMousePosition = (clientX, clientY) => {
+                    const rect = hero.getBoundingClientRect();
+                    this.mouse.x = ((clientX - rect.left) / rect.width) * 100;
+                    this.mouse.y = ((clientY - rect.top) / rect.height) * 100;
+                    
+                    hero.style.setProperty('--mouse-x', `${this.mouse.x}%`);
+                    hero.style.setProperty('--mouse-y', `${this.mouse.y}%`);
+                };
+
+                // Mouse events
+                hero.addEventListener('mousemove', (e) => {
+                    updateMousePosition(e.clientX, e.clientY);
+                });
+
+                // Touch events for mobile
+                hero.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    updateMousePosition(touch.clientX, touch.clientY);
+                }, { passive: false });
+
+                // Phone mockup interactions
+                const phoneMockup = document.getElementById('phoneMockup');
+                phoneMockup.addEventListener('click', () => {
+                    this.triggerFaceScan();
+                });
+            }
+
+            // Face ID scan simulation
+            triggerFaceScan() {
+                if (this.scanCompleted) return;
+                
+                const successCheckmark = document.querySelector('.success-checkmark');
+                const faceIcon = document.querySelector('.face-icon');
+                const scannerFrame = document.querySelector('.scanner-frame');
+                
+                // Simulate scan completion after 3 seconds
+                setTimeout(() => {
+                    faceIcon.style.opacity = '0';
+                    successCheckmark.classList.add('animate');
+                    scannerFrame.style.borderColor = 'var(--primary-green)';
+                    
+                    // Haptic feedback simulation
+                    if (navigator.vibrate) {
+                        navigator.vibrate([50, 30, 50]);
+                    }
+                    
+                    this.scanCompleted = true;
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        faceIcon.style.opacity = '0.8';
+                        successCheckmark.classList.remove('animate');
+                        this.scanCompleted = false;
+                    }, 2000);
+                }, 3000);
+            }
+
+            // Magnetic button effect
+            setupMagneticButtons() {
+                const buttons = document.querySelectorAll('.btn-magnetic');
+                
+                buttons.forEach(button => {
+                    button.addEventListener('mouseenter', (e) => {
+                        const rect = e.target.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        
+                        const handleMouseMove = (moveEvent) => {
+                            const deltaX = (moveEvent.clientX - centerX) * 0.3;
+                            const deltaY = (moveEvent.clientY - centerY) * 0.3;
+                            
+                            e.target.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.02)`;
+                        };
+                        
+                        const handleMouseLeave = () => {
+                            e.target.style.transform = '';
+                            document.removeEventListener('mousemove', handleMouseMove);
+                            document.removeEventListener('mouseleave', handleMouseLeave);
+                        };
+                        
+                        document.addEventListener('mousemove', handleMouseMove);
+                        document.addEventListener('mouseleave', handleMouseLeave);
+                    });
+                });
+            }
+
+            // Animation loop with 60fps guarantee
+            startAnimations() {
+                let lastFrame = 0;
+                const targetFPS = 60;
+                const frameInterval = 1000 / targetFPS;
+
+                const animate = (timestamp) => {
+                    if (timestamp - lastFrame >= frameInterval) {
+                        this.updateParticles();
+                        lastFrame = timestamp;
+                    }
+                    requestAnimationFrame(animate);
+                };
+
+                requestAnimationFrame(animate);
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = new FacePayHero();
+
+            // Button interactions
+            document.getElementById('demoBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                hero.triggerFaceScan();
+                
+                setTimeout(() => {
+                    alert('🎉 Face ID recognized! Welcome to the future of payments.');
+                }, 3500);
+            });
+
+            document.getElementById('downloadBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Simulate app store redirect
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                const message = isMobile 
+                    ? '🚀 Redirecting to App Store...' 
+                    : '📱 QR code sent to your phone! Check your messages.';
+                
+                alert(message);
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Auto-trigger scan after 5 seconds for demonstration
+            setTimeout(() => {
+                if (!hero.scanCompleted) {
+                    hero.triggerFaceScan();
+                }
+            }, 5000);
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log(`⚡ Page loaded in ${Math.round(perfData.loadEventEnd - perfData.loadEventStart)}ms`);
+                }, 0);
+            });
+        }
+    </script>
+</body>
+</html>

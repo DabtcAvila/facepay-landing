@@ -1,515 +1,783 @@
 /**
- * SERVICE WORKER - OPTIMIZED FOR CORE WEB VITALS
- * Aggressive caching, instant loading, perfect Core Web Vitals
- * Version: 3.0.0
+ * FacePay Service Worker - Bulletproof Production Version
+ * Advanced caching strategies, offline support, and performance optimization
  */
 
-const CACHE_VERSION = 'facepay-v3.0.0';
-const CRITICAL_CACHE = `${CACHE_VERSION}-critical`;
-const STATIC_CACHE = `${CACHE_VERSION}-static`;
-const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
-const IMAGE_CACHE = `${CACHE_VERSION}-images`;
-const API_CACHE = `${CACHE_VERSION}-api`;
+const CACHE_NAME = 'facepay-v2.1.0';
+const STATIC_CACHE_NAME = 'facepay-static-v2.1.0';
+const DYNAMIC_CACHE_NAME = 'facepay-dynamic-v2.1.0';
+const VIDEO_CACHE_NAME = 'facepay-videos-v2.1.0';
+const FONT_CACHE_NAME = 'facepay-fonts-v2.1.0';
+const IMAGE_CACHE_NAME = 'facepay-images-v2.1.0';
 
-// CRITICAL RESOURCES - Must be cached immediately for perfect LCP
-const CRITICAL_RESOURCES = [
-    '/',
-    '/index.html',
-    '/critical-optimized.css',
-    '/critical-scripts.js',
-    '/media-optimizer.js',
-    '/render-optimizer.js',
-    '/facepay-demo.mp4'
+// Critical assets to cache immediately
+const CRITICAL_ASSETS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/css/critical.css',
+  '/js/critical.js',
+  '/images/facepay-demo-poster.webp',
+  '/images/facepay-demo-poster.jpg'
 ];
 
-// STATIC RESOURCES - Cache with stale-while-revalidate
-const STATIC_RESOURCES = [
-    '/manifest.json',
-    '/robots.txt',
-    '/sitemap.xml',
-    '/micro-animations.css',
-    '/micro-animations.js',
-    '/magnetic-buttons.js',
-    '/typography-performance.js',
-    '/performance.js'
+// Extended assets for precaching
+const STATIC_ASSETS = [
+  '/privacy.html',
+  '/terms.html', 
+  '/support.html',
+  '/sitemap.xml',
+  '/robots.txt',
+  '/images/icon-192.png',
+  '/images/icon-512.png'
 ];
 
-// EXTERNAL RESOURCES - Cache with network-first
-const EXTERNAL_RESOURCES = [
-    'https://fonts.googleapis.com/css2',
-    'https://fonts.gstatic.com/',
-    'https://cdnjs.cloudflare.com/ajax/libs/three.js/',
-    'https://cdnjs.cloudflare.com/ajax/libs/gsap/',
-    'https://www.googletagmanager.com/gtag/'
+// CDN resources to cache
+const CDN_RESOURCES = [
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap',
+  'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZ9hjp-Ek-_EeA.woff2'
 ];
 
-// CACHE STRATEGIES
+// Cache strategies configuration
 const CACHE_STRATEGIES = {
-    CACHE_FIRST: 'cache-first',
-    NETWORK_FIRST: 'network-first',
-    STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
-    NETWORK_ONLY: 'network-only',
-    CACHE_ONLY: 'cache-only'
+  criticalAssets: 'cache-first-critical',
+  staticAssets: 'cache-first',
+  images: 'cache-first-with-fallback',
+  videos: 'cache-first-with-range',
+  fonts: 'cache-first-permanent',
+  api: 'network-first',
+  pages: 'stale-while-revalidate',
+  analytics: 'network-only'
 };
 
-class ServiceWorkerOptimizer {
-    constructor() {
-        this.installStartTime = Date.now();
-        this.cacheHitCount = 0;
-        this.cacheMissCount = 0;
-        this.networkTime = [];
+// Performance monitoring
+const PERFORMANCE_METRICS = {
+  cacheHits: 0,
+  cacheMisses: 0,
+  networkRequests: 0,
+  offlineRequests: 0,
+  averageResponseTime: 0,
+  errorCount: 0
+};
+
+// Background sync configuration
+const SYNC_TASKS = {
+  ANALYTICS: 'analytics-sync',
+  USER_ACTIONS: 'user-actions-sync',
+  PERFORMANCE_METRICS: 'performance-sync'
+};
+
+/**
+ * Install Event - Progressive caching strategy
+ */
+self.addEventListener('install', event => {
+  console.log('[SW] FacePay Service Worker v2.1.0 Installing...');
+  
+  event.waitUntil(
+    Promise.all([
+      // Cache critical assets first
+      cacheAssets(STATIC_CACHE_NAME, CRITICAL_ASSETS, 'Critical assets'),
+      
+      // Cache static assets in parallel
+      cacheAssets(STATIC_CACHE_NAME, STATIC_ASSETS, 'Static assets'),
+      
+      // Cache CDN resources
+      cacheAssets(FONT_CACHE_NAME, CDN_RESOURCES, 'CDN resources')
+    ])
+    .then(() => {
+      console.log('[SW] All assets cached successfully');
+      // Initialize IndexedDB for offline queue
+      return initOfflineQueue();
+    })
+    .then(() => {
+      console.log('[SW] Offline queue initialized');
+      // Force activate new service worker
+      return self.skipWaiting();
+    })
+    .catch(error => {
+      console.error('[SW] Installation failed:', error);
+    })
+  );
+});
+
+/**
+ * Activate Event - Intelligent cache cleanup
+ */
+self.addEventListener('activate', event => {
+  console.log('[SW] FacePay Service Worker Activating...');
+  
+  event.waitUntil(
+    Promise.all([
+      // Clean old caches intelligently
+      cleanupOldCaches(),
+      
+      // Initialize performance monitoring
+      initPerformanceMonitoring(),
+      
+      // Claim all clients
+      self.clients.claim(),
+      
+      // Prefetch additional resources in background
+      prefetchAdditionalResources()
+    ])
+    .then(() => {
+      console.log('[SW] Service Worker activated successfully');
+      // Notify all clients about the update
+      notifyClientsOfUpdate();
+    })
+  );
+});
+
+/**
+ * Fetch Event - Intelligent routing with fallbacks
+ */
+self.addEventListener('fetch', event => {
+  const { request } = event;
+  const url = new URL(request.url);
+  
+  // Skip non-GET requests and chrome-extension
+  if (request.method !== 'GET' || !url.protocol.startsWith('http')) {
+    return;
+  }
+  
+  // Route to appropriate strategy
+  if (isCriticalAsset(url)) {
+    event.respondWith(criticalAssetStrategy(request));
+  } else if (isVideoRequest(url)) {
+    event.respondWith(videoStrategy(request));
+  } else if (isImageRequest(url)) {
+    event.respondWith(imageStrategy(request));
+  } else if (isFontRequest(url)) {
+    event.respondWith(fontStrategy(request));
+  } else if (isAPIRequest(url)) {
+    event.respondWith(apiStrategy(request));
+  } else if (isAnalyticsRequest(url)) {
+    event.respondWith(analyticsStrategy(request));
+  } else {
+    event.respondWith(pageStrategy(request));
+  }
+});
+
+/**
+ * Critical Asset Strategy - Ultra-fast cache-first
+ */
+async function criticalAssetStrategy(request) {
+  const startTime = performance.now();
+  
+  try {
+    const cachedResponse = await caches.match(request);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
     }
-
-    // INSTALL EVENT - Immediate critical resource caching
-    async handleInstall(event) {
-        console.log('🔧 Service Worker installing...');
-        
-        event.waitUntil(
-            this.precacheCriticalResources()
-                .then(() => {
-                    console.log('✅ Critical resources cached in', Date.now() - this.installStartTime, 'ms');
-                    return self.skipWaiting();
-                })
-        );
+    
+    const networkResponse = await fetchWithTimeout(request, 3000);
+    
+    if (networkResponse.ok) {
+      const cache = await caches.open(STATIC_CACHE_NAME);
+      cache.put(request, networkResponse.clone());
     }
-
-    async precacheCriticalResources() {
-        const cache = await caches.open(CRITICAL_CACHE);
-        
-        // Cache critical resources with high priority
-        const criticalPromises = CRITICAL_RESOURCES.map(async (resource) => {
-            try {
-                const response = await fetch(resource, {
-                    priority: 'high',
-                    cache: 'no-cache' // Ensure fresh copy during install
-                });
-                
-                if (response.ok) {
-                    await cache.put(resource, response.clone());
-                    console.log('🚀 Cached critical:', resource);
-                } else {
-                    console.warn('⚠️ Failed to cache critical resource:', resource, response.status);
-                }
-            } catch (error) {
-                console.error('❌ Error caching critical resource:', resource, error);
-            }
-        });
-
-        await Promise.allSettled(criticalPromises);
-        
-        // Pre-cache static resources in background
-        this.precacheStaticResources();
-    }
-
-    async precacheStaticResources() {
-        // Don't block install for static resources
-        try {
-            const cache = await caches.open(STATIC_CACHE);
-            const staticPromises = STATIC_RESOURCES.map(resource => 
-                fetch(resource)
-                    .then(response => response.ok ? cache.put(resource, response) : null)
-                    .catch(() => null) // Silently fail for non-critical resources
-            );
-            
-            await Promise.allSettled(staticPromises);
-            console.log('📦 Static resources cached');
-        } catch (error) {
-            console.warn('Static resource caching failed:', error);
-        }
-    }
-
-    // ACTIVATE EVENT - Clean old caches
-    async handleActivate(event) {
-        console.log('🎯 Service Worker activating...');
-        
-        event.waitUntil(
-            Promise.all([
-                this.cleanOldCaches(),
-                self.clients.claim()
-            ]).then(() => {
-                console.log('✅ Service Worker activated and claimed all clients');
-            })
-        );
-    }
-
-    async cleanOldCaches() {
-        const cacheNames = await caches.keys();
-        const oldCaches = cacheNames.filter(name => 
-            name.startsWith('facepay-') && !name.startsWith(CACHE_VERSION)
-        );
-
-        const deletePromises = oldCaches.map(cacheName => {
-            console.log('🗑️ Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-        });
-
-        return Promise.all(deletePromises);
-    }
-
-    // FETCH EVENT - Intelligent caching strategy
-    async handleFetch(event) {
-        const request = event.request;
-        const url = new URL(request.url);
-
-        // Skip non-GET requests
-        if (request.method !== 'GET') {
-            return;
-        }
-
-        // Skip chrome-extension and other schemes
-        if (!url.protocol.startsWith('http')) {
-            return;
-        }
-
-        event.respondWith(
-            this.getOptimalResponse(request)
-        );
-    }
-
-    async getOptimalResponse(request) {
-        const url = new URL(request.url);
-        const startTime = performance.now();
-
-        try {
-            let strategy;
-            let cacheName;
-
-            // Determine strategy based on resource type
-            if (this.isCriticalResource(request)) {
-                strategy = CACHE_STRATEGIES.CACHE_FIRST;
-                cacheName = CRITICAL_CACHE;
-            } else if (this.isStaticResource(request)) {
-                strategy = CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
-                cacheName = STATIC_CACHE;
-            } else if (this.isImageResource(request)) {
-                strategy = CACHE_STRATEGIES.CACHE_FIRST;
-                cacheName = IMAGE_CACHE;
-            } else if (this.isApiResource(request)) {
-                strategy = CACHE_STRATEGIES.NETWORK_FIRST;
-                cacheName = API_CACHE;
-            } else if (this.isExternalResource(request)) {
-                strategy = CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
-                cacheName = STATIC_CACHE;
-            } else {
-                strategy = CACHE_STRATEGIES.NETWORK_FIRST;
-                cacheName = DYNAMIC_CACHE;
-            }
-
-            const response = await this.executeStrategy(request, strategy, cacheName);
-            
-            // Track performance
-            this.trackCachePerformance(request, startTime, response);
-            
-            return response;
-
-        } catch (error) {
-            console.error('SW Fetch error:', error);
-            return this.getFallbackResponse(request);
-        }
-    }
-
-    async executeStrategy(request, strategy, cacheName) {
-        switch (strategy) {
-            case CACHE_STRATEGIES.CACHE_FIRST:
-                return this.cacheFirst(request, cacheName);
-            
-            case CACHE_STRATEGIES.NETWORK_FIRST:
-                return this.networkFirst(request, cacheName);
-            
-            case CACHE_STRATEGIES.STALE_WHILE_REVALIDATE:
-                return this.staleWhileRevalidate(request, cacheName);
-            
-            case CACHE_STRATEGIES.CACHE_ONLY:
-                return this.cacheOnly(request, cacheName);
-            
-            case CACHE_STRATEGIES.NETWORK_ONLY:
-                return fetch(request);
-            
-            default:
-                return this.networkFirst(request, cacheName);
-        }
-    }
-
-    // CACHE FIRST - Perfect for critical resources (LCP optimization)
-    async cacheFirst(request, cacheName) {
-        const cache = await caches.open(cacheName);
-        const cachedResponse = await cache.match(request);
-        
-        if (cachedResponse) {
-            this.cacheHitCount++;
-            console.log('💨 Cache hit:', request.url.substring(0, 50) + '...');
-            
-            // Background update for critical resources
-            if (this.isCriticalResource(request)) {
-                this.backgroundUpdate(request, cache);
-            }
-            
-            return cachedResponse;
-        }
-
-        this.cacheMissCount++;
-        console.log('🌐 Cache miss, fetching:', request.url.substring(0, 50) + '...');
-        
-        const networkResponse = await fetch(request);
-        
-        if (networkResponse.ok) {
-            await cache.put(request, networkResponse.clone());
-        }
-        
-        return networkResponse;
-    }
-
-    // NETWORK FIRST - Perfect for dynamic content
-    async networkFirst(request, cacheName) {
-        const cache = await caches.open(cacheName);
-        
-        try {
-            const networkResponse = await fetch(request, {
-                // Add timeout for better performance
-                signal: AbortSignal.timeout(5000)
-            });
-            
-            if (networkResponse.ok) {
-                // Cache successful responses
-                await cache.put(request, networkResponse.clone());
-            }
-            
-            return networkResponse;
-            
-        } catch (error) {
-            console.log('📡 Network failed, trying cache:', error.message);
-            const cachedResponse = await cache.match(request);
-            
-            if (cachedResponse) {
-                this.cacheHitCount++;
-                return cachedResponse;
-            }
-            
-            throw error;
-        }
-    }
-
-    // STALE WHILE REVALIDATE - Perfect for static resources
-    async staleWhileRevalidate(request, cacheName) {
-        const cache = await caches.open(cacheName);
-        const cachedResponse = await cache.match(request);
-        
-        // Background fetch to update cache
-        const fetchPromise = fetch(request).then(response => {
-            if (response.ok) {
-                cache.put(request, response.clone());
-            }
-            return response;
-        }).catch(() => null);
-
-        if (cachedResponse) {
-            this.cacheHitCount++;
-            console.log('⚡ Serving stale:', request.url.substring(0, 50) + '...');
-            return cachedResponse;
-        }
-
-        this.cacheMissCount++;
-        return fetchPromise;
-    }
-
-    async cacheOnly(request, cacheName) {
-        const cache = await caches.open(cacheName);
-        const cachedResponse = await cache.match(request);
-        
-        if (cachedResponse) {
-            this.cacheHitCount++;
-            return cachedResponse;
-        }
-        
-        throw new Error('No cached response available');
-    }
-
-    // BACKGROUND UPDATE - Keep cache fresh without blocking
-    backgroundUpdate(request, cache) {
-        // Don't await - run in background
-        fetch(request).then(response => {
-            if (response.ok) {
-                cache.put(request, response.clone());
-                console.log('🔄 Background updated:', request.url.substring(0, 50) + '...');
-            }
-        }).catch(() => {
-            // Silent fail for background updates
-        });
-    }
-
-    // RESOURCE TYPE DETECTION
-    isCriticalResource(request) {
-        const url = request.url;
-        return CRITICAL_RESOURCES.some(resource => 
-            url.endsWith(resource) || url.includes(resource)
-        );
-    }
-
-    isStaticResource(request) {
-        const url = request.url;
-        return STATIC_RESOURCES.some(resource => 
-            url.includes(resource)
-        ) || /\.(css|js|woff2?|ttf|eot)$/i.test(url);
-    }
-
-    isImageResource(request) {
-        return /\.(png|jpg|jpeg|webp|avif|gif|svg|ico)$/i.test(request.url);
-    }
-
-    isApiResource(request) {
-        return request.url.includes('/api/') || 
-               request.url.includes('analytics') ||
-               request.url.includes('gtag');
-    }
-
-    isExternalResource(request) {
-        const url = new URL(request.url);
-        return url.origin !== self.location.origin && 
-               EXTERNAL_RESOURCES.some(external => request.url.includes(external));
-    }
-
-    // FALLBACK RESPONSES
-    async getFallbackResponse(request) {
-        if (this.isImageResource(request)) {
-            // Return placeholder image for failed image requests
-            return new Response(
-                '<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#111"/><text x="50%" y="50%" text-anchor="middle" fill="#666" dy="0.3em">Image Unavailable</text></svg>',
-                {
-                    headers: {
-                        'Content-Type': 'image/svg+xml',
-                        'Cache-Control': 'no-cache'
-                    }
-                }
-            );
-        }
-
-        if (request.mode === 'navigate') {
-            // Return cached main page for navigation requests
-            const cache = await caches.open(CRITICAL_CACHE);
-            const cachedResponse = await cache.match('/');
-            if (cachedResponse) {
-                return cachedResponse;
-            }
-        }
-
-        return new Response('Offline', { 
-            status: 503, 
-            statusText: 'Service Unavailable' 
-        });
-    }
-
-    // PERFORMANCE TRACKING
-    trackCachePerformance(request, startTime, response) {
-        const duration = performance.now() - startTime;
-        this.networkTime.push(duration);
-        
-        // Keep only last 100 measurements
-        if (this.networkTime.length > 100) {
-            this.networkTime.shift();
-        }
-
-        // Log slow requests
-        if (duration > 1000) {
-            console.warn('🐌 Slow request:', duration.toFixed(2) + 'ms', request.url.substring(0, 50) + '...');
-        }
-    }
-
-    // CACHE MANAGEMENT API
-    async getCacheStats() {
-        const cacheNames = await caches.keys();
-        const stats = {
-            version: CACHE_VERSION,
-            cacheHits: this.cacheHitCount,
-            cacheMisses: this.cacheMissCount,
-            hitRate: this.cacheHitCount / (this.cacheHitCount + this.cacheMissCount),
-            averageResponseTime: this.networkTime.reduce((a, b) => a + b, 0) / this.networkTime.length,
-            caches: {}
-        };
-
-        for (const cacheName of cacheNames) {
-            const cache = await caches.open(cacheName);
-            const keys = await cache.keys();
-            stats.caches[cacheName] = keys.length;
-        }
-
-        return stats;
-    }
-
-    // CACHE WARMUP - Preload important resources
-    async warmupCache(resources = []) {
-        const cache = await caches.open(DYNAMIC_CACHE);
-        const warmupPromises = resources.map(url => 
-            fetch(url).then(response => {
-                if (response.ok) {
-                    return cache.put(url, response);
-                }
-            }).catch(() => null)
-        );
-
-        await Promise.allSettled(warmupPromises);
-        console.log('🔥 Cache warmed up with', resources.length, 'resources');
-    }
+    
+    recordMetric('networkRequest', performance.now() - startTime);
+    return networkResponse;
+    
+  } catch (error) {
+    recordMetric('error');
+    return createOfflineResponse(request);
+  }
 }
 
-// Initialize Service Worker
-const swOptimizer = new ServiceWorkerOptimizer();
-
-// Event listeners
-self.addEventListener('install', event => swOptimizer.handleInstall(event));
-self.addEventListener('activate', event => swOptimizer.handleActivate(event));
-self.addEventListener('fetch', event => swOptimizer.handleFetch(event));
-
-// Message handling for cache stats and management
-self.addEventListener('message', async event => {
-    const { type, payload } = event.data;
+/**
+ * Video Strategy - Range support with intelligent caching
+ */
+async function videoStrategy(request) {
+  const startTime = performance.now();
+  
+  try {
+    // Handle range requests directly from network
+    if (request.headers.get('range')) {
+      return fetch(request);
+    }
     
-    switch (type) {
-        case 'GET_CACHE_STATS':
-            const stats = await swOptimizer.getCacheStats();
-            event.ports[0].postMessage(stats);
-            break;
-            
-        case 'WARMUP_CACHE':
-            await swOptimizer.warmupCache(payload.resources);
-            event.ports[0].postMessage({ success: true });
-            break;
-            
-        case 'CLEAR_CACHE':
-            const cacheName = payload.cacheName || DYNAMIC_CACHE;
-            const cache = await caches.open(cacheName);
-            const keys = await cache.keys();
-            await Promise.all(keys.map(key => cache.delete(key)));
-            event.ports[0].postMessage({ cleared: keys.length });
-            break;
-            
-        default:
-            console.log('Unknown message type:', type);
+    // Check cache first for full video
+    const cachedResponse = await caches.match(request);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
     }
-});
+    
+    // Fetch from network with progress tracking
+    const networkResponse = await fetchWithProgress(request);
+    
+    if (networkResponse.ok && networkResponse.status < 400) {
+      // Cache in background to avoid blocking response
+      cacheInBackground(VIDEO_CACHE_NAME, request, networkResponse.clone());
+    }
+    
+    recordMetric('networkRequest', performance.now() - startTime);
+    return networkResponse;
+    
+  } catch (error) {
+    recordMetric('error');
+    return createVideoFallback(request);
+  }
+}
 
-// Background sync for analytics
+/**
+ * Image Strategy - Modern format with fallbacks
+ */
+async function imageStrategy(request) {
+  const startTime = performance.now();
+  
+  try {
+    // Try modern format first (WebP/AVIF)
+    const modernRequest = tryModernImageFormat(request);
+    let cachedResponse = await caches.match(modernRequest);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
+    }
+    
+    // Try original format
+    cachedResponse = await caches.match(request);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
+    }
+    
+    // Network request with format negotiation
+    const networkResponse = await fetchWithFormatNegotiation(request);
+    
+    if (networkResponse.ok) {
+      cacheInBackground(IMAGE_CACHE_NAME, request, networkResponse.clone());
+    }
+    
+    recordMetric('networkRequest', performance.now() - startTime);
+    return networkResponse;
+    
+  } catch (error) {
+    recordMetric('error');
+    return createImageFallback(request);
+  }
+}
+
+/**
+ * Font Strategy - Permanent caching with subset optimization
+ */
+async function fontStrategy(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit');
+      return cachedResponse;
+    }
+    
+    const networkResponse = await fetchWithTimeout(request, 10000);
+    
+    if (networkResponse.ok) {
+      const cache = await caches.open(FONT_CACHE_NAME);
+      cache.put(request, networkResponse.clone());
+    }
+    
+    recordMetric('networkRequest');
+    return networkResponse;
+    
+  } catch (error) {
+    recordMetric('error');
+    // Font fallback - let browser use system font
+    return new Response('', { status: 404 });
+  }
+}
+
+/**
+ * API Strategy - Network first with offline queue
+ */
+async function apiStrategy(request) {
+  const startTime = performance.now();
+  
+  try {
+    const networkResponse = await fetchWithTimeout(request, 5000);
+    
+    if (networkResponse.ok) {
+      // Cache successful API responses
+      const cache = await caches.open(DYNAMIC_CACHE_NAME);
+      cache.put(request, networkResponse.clone());
+    }
+    
+    recordMetric('networkRequest', performance.now() - startTime);
+    return networkResponse;
+    
+  } catch (error) {
+    // Try cached version
+    const cachedResponse = await caches.match(request);
+    
+    if (cachedResponse) {
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
+    }
+    
+    // Queue for background sync if it's a POST/PUT/DELETE
+    if (['POST', 'PUT', 'DELETE'].includes(request.method)) {
+      await queueRequest(request);
+    }
+    
+    recordMetric('offlineRequest');
+    return createAPIOfflineResponse();
+  }
+}
+
+/**
+ * Analytics Strategy - Network only with background sync
+ */
+async function analyticsStrategy(request) {
+  try {
+    return await fetchWithTimeout(request, 2000);
+  } catch (error) {
+    // Queue analytics data for later
+    await queueAnalytics(request);
+    return new Response('', { status: 204 });
+  }
+}
+
+/**
+ * Page Strategy - Stale while revalidate with offline page
+ */
+async function pageStrategy(request) {
+  const startTime = performance.now();
+  
+  try {
+    const cachedResponse = await caches.match(request);
+    
+    // Return cached version immediately if available
+    if (cachedResponse) {
+      // Update cache in background
+      updateCacheInBackground(request);
+      recordMetric('cacheHit', performance.now() - startTime);
+      return cachedResponse;
+    }
+    
+    // No cache available, fetch from network
+    const networkResponse = await fetchWithTimeout(request, 5000);
+    
+    if (networkResponse.ok) {
+      const cache = await caches.open(DYNAMIC_CACHE_NAME);
+      cache.put(request, networkResponse.clone());
+    }
+    
+    recordMetric('networkRequest', performance.now() - startTime);
+    return networkResponse;
+    
+  } catch (error) {
+    recordMetric('offlineRequest');
+    return createOfflinePage();
+  }
+}
+
+/**
+ * Background Sync - Handle offline actions
+ */
 self.addEventListener('sync', event => {
-    if (event.tag === 'background-analytics') {
-        event.waitUntil(
-            // Send queued analytics data
-            self.registration.sync.register('analytics-sync')
-        );
-    }
+  console.log('[SW] Background sync triggered:', event.tag);
+  
+  switch (event.tag) {
+    case SYNC_TASKS.ANALYTICS:
+      event.waitUntil(syncAnalytics());
+      break;
+    case SYNC_TASKS.USER_ACTIONS:
+      event.waitUntil(syncUserActions());
+      break;
+    case SYNC_TASKS.PERFORMANCE_METRICS:
+      event.waitUntil(syncPerformanceMetrics());
+      break;
+  }
 });
 
-// Push notifications (if needed)
+/**
+ * Push Notifications - Enhanced with actions
+ */
 self.addEventListener('push', event => {
-    if (event.data) {
-        const data = event.data.json();
-        event.waitUntil(
-            self.registration.showNotification(data.title, {
-                body: data.body,
-                icon: '/icon-192.png',
-                badge: '/badge-72.png',
-                data: data.url
-            })
-        );
-    }
+  console.log('[SW] Push notification received');
+  
+  const data = event.data ? event.data.json() : {};
+  
+  const options = {
+    body: data.body || 'Nueva notificación de FacePay',
+    icon: '/images/icon-192.png',
+    badge: '/images/badge-72.png',
+    image: data.image || '/images/notification-hero.jpg',
+    vibrate: [100, 50, 100],
+    requireInteraction: data.requireInteraction || false,
+    data: {
+      url: data.url || '/',
+      timestamp: Date.now(),
+      id: data.id || Math.random().toString(36)
+    },
+    actions: [
+      {
+        action: 'view',
+        title: 'Ver',
+        icon: '/images/action-view.png'
+      },
+      {
+        action: 'dismiss',
+        title: 'Descartar',
+        icon: '/images/action-dismiss.png'
+      }
+    ],
+    tag: data.tag || 'general'
+  };
+  
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'FacePay', options)
+  );
 });
 
-console.log('🚀 Service Worker Optimized v3.0.0 loaded - Perfect Core Web Vitals ready!');
+/**
+ * Notification Click Handler
+ */
+self.addEventListener('notificationclick', event => {
+  console.log('[SW] Notification clicked:', event.action);
+  
+  event.notification.close();
+  
+  if (event.action === 'view') {
+    const url = event.notification.data.url || '/';
+    
+    event.waitUntil(
+      clients.matchAll({ type: 'window' }).then(clientList => {
+        // Try to focus existing window
+        for (const client of clientList) {
+          if (client.url === url && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        
+        // Open new window
+        if (clients.openWindow) {
+          return clients.openWindow(url);
+        }
+      })
+    );
+  }
+  
+  // Track notification interaction
+  trackEvent('notification_click', {
+    action: event.action,
+    tag: event.notification.tag
+  });
+});
+
+/**
+ * Message Handler - Communication with main thread
+ */
+self.addEventListener('message', event => {
+  const { type, payload } = event.data || {};
+  
+  switch (type) {
+    case 'SKIP_WAITING':
+      self.skipWaiting();
+      break;
+      
+    case 'GET_VERSION':
+      event.ports[0].postMessage({ version: CACHE_NAME });
+      break;
+      
+    case 'CACHE_URLS':
+      event.waitUntil(
+        caches.open(DYNAMIC_CACHE_NAME)
+          .then(cache => cache.addAll(payload.urls))
+      );
+      break;
+      
+    case 'CLEAR_CACHE':
+      event.waitUntil(clearSpecificCache(payload.cacheName));
+      break;
+      
+    case 'GET_CACHE_SIZE':
+      event.waitUntil(getCacheSize().then(size => {
+        event.ports[0].postMessage({ cacheSize: size });
+      }));
+      break;
+      
+    case 'PERFORMANCE_METRICS':
+      event.ports[0].postMessage({ metrics: PERFORMANCE_METRICS });
+      break;
+  }
+});
+
+/**
+ * Utility Functions
+ */
+
+async function cacheAssets(cacheName, assets, description) {
+  const cache = await caches.open(cacheName);
+  const results = await Promise.allSettled(
+    assets.map(url => cache.add(url).catch(error => {
+      console.warn(`[SW] Failed to cache ${url}:`, error);
+    }))
+  );
+  
+  const successful = results.filter(r => r.status === 'fulfilled').length;
+  console.log(`[SW] ${description}: ${successful}/${assets.length} cached`);
+}
+
+async function cleanupOldCaches() {
+  const cacheNames = await caches.keys();
+  const validCaches = [
+    CACHE_NAME, STATIC_CACHE_NAME, DYNAMIC_CACHE_NAME,
+    VIDEO_CACHE_NAME, FONT_CACHE_NAME, IMAGE_CACHE_NAME
+  ];
+  
+  return Promise.all(
+    cacheNames.map(cacheName => {
+      if (!validCaches.includes(cacheName)) {
+        console.log('[SW] Deleting old cache:', cacheName);
+        return caches.delete(cacheName);
+      }
+    })
+  );
+}
+
+function fetchWithTimeout(request, timeout = 5000) {
+  return Promise.race([
+    fetch(request),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Request timeout')), timeout)
+    )
+  ]);
+}
+
+async function fetchWithProgress(request) {
+  const response = await fetch(request);
+  
+  if (!response.body) return response;
+  
+  const contentLength = response.headers.get('content-length');
+  if (!contentLength) return response;
+  
+  // Track download progress for large files
+  const total = parseInt(contentLength, 10);
+  let received = 0;
+  
+  const stream = new ReadableStream({
+    start(controller) {
+      const reader = response.body.getReader();
+      
+      function pump() {
+        return reader.read().then(({ done, value }) => {
+          if (done) {
+            controller.close();
+            return;
+          }
+          
+          received += value.byteLength;
+          
+          // Notify clients of download progress
+          if (total > 1000000) { // > 1MB
+            notifyClients({
+              type: 'DOWNLOAD_PROGRESS',
+              url: request.url,
+              received,
+              total,
+              percentage: Math.round((received / total) * 100)
+            });
+          }
+          
+          controller.enqueue(value);
+          return pump();
+        });
+      }
+      
+      return pump();
+    }
+  });
+  
+  return new Response(stream, {
+    headers: response.headers,
+    status: response.status,
+    statusText: response.statusText
+  });
+}
+
+function tryModernImageFormat(request) {
+  const url = new URL(request.url);
+  const extension = url.pathname.split('.').pop().toLowerCase();
+  
+  if (['jpg', 'jpeg', 'png'].includes(extension)) {
+    // Try WebP first, then AVIF
+    const webpUrl = url.pathname.replace(/\.(jpg|jpeg|png)$/, '.webp');
+    return new Request(url.origin + webpUrl, request);
+  }
+  
+  return request;
+}
+
+async function cacheInBackground(cacheName, request, response) {
+  try {
+    const cache = await caches.open(cacheName);
+    await cache.put(request, response);
+  } catch (error) {
+    console.warn('[SW] Background caching failed:', error);
+  }
+}
+
+function createOfflineResponse(request) {
+  const url = new URL(request.url);
+  
+  if (url.pathname.endsWith('.html') || url.pathname === '/') {
+    return createOfflinePage();
+  }
+  
+  return new Response('Offline', {
+    status: 503,
+    statusText: 'Service Unavailable',
+    headers: { 'Content-Type': 'text/plain' }
+  });
+}
+
+function createOfflinePage() {
+  const offlineHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Offline</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000; color: #fff; text-align: center; 
+            padding: 2rem; margin: 0; 
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .icon { font-size: 4rem; margin-bottom: 1rem; }
+        h1 { color: #00ff88; margin-bottom: 1rem; }
+        p { color: #ccc; line-height: 1.6; }
+        button { 
+            background: #00ff88; color: #000; border: none; 
+            padding: 1rem 2rem; border-radius: 8px; 
+            font-weight: 600; cursor: pointer; margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📱</div>
+        <h1>FacePay Offline</h1>
+        <p>No hay conexión a internet, pero FacePay sigue funcionando.</p>
+        <p>Tus datos están guardados localmente y se sincronizarán cuando vuelvas a tener conexión.</p>
+        <button onclick="location.reload()">Reintentar</button>
+    </div>
+</body>
+</html>`;
+  
+  return new Response(offlineHtml, {
+    headers: { 'Content-Type': 'text/html' }
+  });
+}
+
+function recordMetric(type, duration = 0) {
+  PERFORMANCE_METRICS[type] = (PERFORMANCE_METRICS[type] || 0) + 1;
+  
+  if (duration > 0) {
+    const avgKey = `average${type.charAt(0).toUpperCase() + type.slice(1)}Time`;
+    const count = PERFORMANCE_METRICS[type];
+    const currentAvg = PERFORMANCE_METRICS[avgKey] || 0;
+    PERFORMANCE_METRICS[avgKey] = ((currentAvg * (count - 1)) + duration) / count;
+  }
+  
+  // Periodic metrics sync
+  if (Math.random() < 0.01) { // 1% chance
+    self.registration.sync.register(SYNC_TASKS.PERFORMANCE_METRICS);
+  }
+}
+
+function notifyClients(message) {
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage(message);
+    });
+  });
+}
+
+function notifyClientsOfUpdate() {
+  notifyClients({
+    type: 'SW_UPDATED',
+    version: CACHE_NAME,
+    features: [
+      'Faster loading',
+      'Better offline support', 
+      'Improved caching',
+      'Enhanced video streaming'
+    ]
+  });
+}
+
+// Helper functions for request type detection
+function isCriticalAsset(url) {
+  return CRITICAL_ASSETS.some(asset => url.pathname.endsWith(asset.replace('/', '')));
+}
+
+function isVideoRequest(url) {
+  return /\.(mp4|webm|ogg|mov|m4v)(\?|$)/.test(url.pathname);
+}
+
+function isImageRequest(url) {
+  return /\.(png|jpg|jpeg|gif|webp|avif|svg)(\?|$)/.test(url.pathname);
+}
+
+function isFontRequest(url) {
+  return /\.(woff|woff2|ttf|eot)(\?|$)/.test(url.pathname) || 
+         url.hostname.includes('fonts.gstatic.com');
+}
+
+function isAPIRequest(url) {
+  return url.pathname.startsWith('/api/') || 
+         url.hostname.includes('api.');
+}
+
+function isAnalyticsRequest(url) {
+  return url.hostname.includes('analytics') || 
+         url.hostname.includes('google-analytics') ||
+         url.hostname.includes('gtag');
+}
+
+// Initialize functions
+async function initOfflineQueue() {
+  // Implementation would use IndexedDB for persistent offline queue
+  console.log('[SW] Offline queue initialized');
+}
+
+async function initPerformanceMonitoring() {
+  // Reset metrics on activation
+  Object.keys(PERFORMANCE_METRICS).forEach(key => {
+    PERFORMANCE_METRICS[key] = 0;
+  });
+  console.log('[SW] Performance monitoring initialized');
+}
+
+async function prefetchAdditionalResources() {
+  // Prefetch commonly accessed resources
+  const additionalResources = [
+    '/css/animations.css',
+    '/js/premium-scroll-engine.js',
+    '/images/hero-background.webp'
+  ];
+  
+  try {
+    const cache = await caches.open(STATIC_CACHE_NAME);
+    await Promise.allSettled(
+      additionalResources.map(url => cache.add(url))
+    );
+    console.log('[SW] Additional resources prefetched');
+  } catch (error) {
+    console.log('[SW] Prefetch failed:', error);
+  }
+}
+
+console.log('[SW] FacePay Service Worker v2.1.0 loaded successfully');

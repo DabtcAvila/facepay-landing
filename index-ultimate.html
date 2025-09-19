@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
     
     <!-- Meta Excellence - SEO & Social -->
@@ -24,83 +24,15 @@
     <meta name="twitter:description" content="First crypto app that uses Face ID. Send to @usernames, not 0x addresses. Zero gas fees on StarkNet.">
     <meta name="twitter:image" content="/facepay-demo-poster.jpg">
     
-    <!-- Critical Resource Preloading & Hints -->
-    <link rel="preload" href="/facepay-demo-poster.webp" as="image" type="image/webp">
-    <link rel="preload" href="/facepay-demo-poster.jpg" as="image" type="image/jpeg">
+    <!-- Video Preload & Optimization -->
+    <link rel="preload" href="/facepay-demo.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="/facepay-demo-poster.jpg" as="image">
     
-    <!-- Critical CSS preload -->
-    <link rel="preload" href="/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    
-    <!-- Resource hints for better performance -->
-    <link rel="prefetch" href="/facepay-demo-optimized.mp4" as="video" type="video/mp4" media="(min-width: 768px) and (prefers-reduced-data: no-preference)">
-    
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Early resource loading script -->
-    <script>
-    // Conditional video preload for performance
-    if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-data: reduce)').matches) {
-        const videoLink = document.createElement('link');
-        videoLink.rel = 'prefetch';
-        videoLink.href = '/facepay-demo-optimized.mp4';
-        videoLink.as = 'video';
-        videoLink.type = 'video/mp4';
-        document.head.appendChild(videoLink);
-    }
-    
-    // Preload next page resources on idle
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            const links = ['#demo', '#download'];
-            links.forEach(href => {
-                const link = document.createElement('link');
-                link.rel = 'prefetch';
-                link.href = href;
-                document.head.appendChild(link);
-            });
-        });
-    }
-    </script>
-    
-    <!-- Performance Hints - Optimized -->
+    <!-- Performance Hints -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Optimized font loading with swap -->
-    <style>
-    @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
-    }
-    @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 600;
-        font-display: swap;
-        src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hiA.woff2') format('woff2');
-    }
-    @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2') format('woff2');
-    }
-    @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 900;
-        font-display: swap;
-        src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYAZ9hiA.woff2') format('woff2');
-    }
-    </style>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
@@ -168,10 +100,6 @@
             overflow-x: hidden;
             font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
             font-variant-numeric: oldstyle-nums;
-            /* Mobile scroll optimizations */
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-            touch-action: pan-y;
         }
         
         /* Container System */
@@ -336,11 +264,6 @@
             margin: 2rem auto;
             cursor: pointer;
             user-select: none;
-            /* Touch optimizations */
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            min-width: 44px;
-            min-height: 44px;
         }
         
         .scanner-frame-mini {
@@ -448,11 +371,6 @@
             backdrop-filter: blur(10px);
             text-transform: none;
             letter-spacing: 0.025em;
-            /* Touch optimizations */
-            touch-action: manipulation;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
         
         .btn-primary {
@@ -461,8 +379,7 @@
             box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
         }
         
-        .btn-primary:hover,
-        .btn-primary:active {
+        .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 40px rgba(0, 255, 136, 0.4);
         }
@@ -474,24 +391,10 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         
-        .btn-secondary:hover,
-        .btn-secondary:active {
+        .btn-secondary:hover {
             background: rgba(0, 255, 136, 0.1);
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 40px rgba(0, 255, 136, 0.2);
-        }
-        
-        /* Touch-specific button interactions */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:active {
-                transform: scale(0.95);
-                transition: transform 0.1s ease;
-            }
-            
-            .btn-primary:active,
-            .btn-secondary:active {
-                transform: scale(0.95);
-            }
         }
         
         /* Urgency Indicator */
@@ -563,25 +466,15 @@
             transition: var(--transition-smooth);
         }
         
-        .feature:hover,
-        .feature:active {
+        .feature:hover {
             transform: translateY(-8px) scale(1.02);
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(0, 255, 136, 0.3);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
         
-        .feature:hover::before,
-        .feature:active::before {
+        .feature:hover::before {
             opacity: 1;
-        }
-        
-        /* Touch-specific feature interactions */
-        @media (hover: none) and (pointer: coarse) {
-            .feature:active {
-                transform: translateY(-4px) scale(1.01);
-                transition: transform 0.1s ease;
-            }
         }
         
         .feature-icon {
@@ -711,115 +604,6 @@
             font-size: 0.95rem;
         }
         
-        /* TRUST BAR SECTION */
-        .trust-bar {
-            background: rgba(0, 255, 136, 0.05);
-            border-top: 1px solid rgba(0, 255, 136, 0.2);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-            padding: 1.5rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .trust-indicators {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            align-items: center;
-            justify-items: center;
-        }
-        
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-        
-        .trust-item:hover {
-            transform: translateY(-2px);
-            background: rgba(0, 255, 136, 0.1);
-            border-color: rgba(0, 255, 136, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.2);
-        }
-        
-        .trust-icon {
-            font-size: 1.5rem;
-            min-width: 1.5rem;
-        }
-        
-        .trust-text {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text);
-            white-space: nowrap;
-        }
-        
-        .trust-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(0, 255, 136, 0.1));
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--success);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* SECURITY MESSAGING STYLES */
-        .security-message {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            text-align: center;
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(10px);
-        }
-        
-        .security-highlight {
-            color: var(--success);
-            font-weight: 600;
-        }
-        
-        /* ENHANCED CTA STYLES */
-        .cta-enhanced {
-            position: relative;
-        }
-        
-        .cta-trust-seals {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .trust-seal {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 25px;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-        }
-        
         /* SCROLL HINT */
         .scroll-hint {
             position: fixed;
@@ -855,41 +639,6 @@
                 padding: 60px 0;
             }
             
-            .trust-bar {
-                padding: 1rem 0;
-            }
-            
-            .trust-indicators {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .trust-item {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-            }
-            
-            .trust-text {
-                font-size: 0.8rem;
-                white-space: normal;
-                text-align: center;
-            }
-            
-            .cta-trust-seals {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-            
-            .trust-seal {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.75rem;
-            }
-            
-            .security-message {
-                font-size: 0.85rem;
-                padding: 0.6rem 1rem;
-            }
-            
             .hero-content {
                 padding: 2rem 1.5rem;
                 margin: 0 1rem;
@@ -898,19 +647,11 @@
             .hero-demo {
                 font-size: 1.25rem;
                 padding: 1rem 1.5rem;
-                /* Ensure touch target compliance */
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
             
             .btn {
                 width: 100%;
                 margin: 0.5rem 0;
-                min-height: 48px; /* Increased for better mobile touch */
-                padding: 1rem 2rem;
-                font-size: 1rem;
             }
             
             .features-grid {
@@ -920,9 +661,6 @@
             
             .feature {
                 padding: 2rem;
-                /* Add touch interaction */
-                cursor: pointer;
-                touch-action: manipulation;
             }
             
             .hero-video {
@@ -944,11 +682,6 @@
             .face-scanner-hero {
                 width: 160px;
                 height: 160px;
-                /* Ensure minimum touch target */
-                min-width: 44px;
-                min-height: 44px;
-                /* Add padding for larger touch area */
-                padding: 8px;
             }
             
             .scanner-frame-mini {
@@ -964,243 +697,6 @@
             
             .scanning-line-mini {
                 width: 100px;
-            }
-        }
-        
-        /* Enhanced mobile touch targets */
-        @media (max-width: 480px) {
-            .btn {
-                min-height: 44px;
-                font-size: 0.95rem;
-                padding: 0.875rem 1.5rem;
-            }
-            
-            .hero-demo {
-                min-height: 44px;
-                font-size: 1.1rem;
-                padding: 0.875rem 1.25rem;
-            }
-            
-            .feature {
-                padding: 1.5rem;
-                margin: 0.5rem;
-                min-height: 44px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-            
-            .container {
-                padding: 0 12px;
-            }
-            
-            .face-scanner-hero {
-                width: 120px;
-                height: 120px;
-                margin: 1.5rem auto;
-            }
-            
-            .scanner-frame-mini {
-                width: 100px;
-                height: 100px;
-            }
-        }
-        
-        /* Safe area support for devices with notches */
-        @supports (padding: env(safe-area-inset-top)) {
-            .hero {
-                padding-top: env(safe-area-inset-top);
-            }
-            
-            .footer {
-                padding-bottom: calc(3rem + env(safe-area-inset-bottom));
-            }
-        }
-        
-        /* Device-specific optimizations */
-        /* iPhone SE (375px width) */
-        @media only screen and (max-width: 375px) and (max-height: 667px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .btn {
-                min-height: 44px;
-                padding: 0.75rem 1.25rem;
-                font-size: 0.9rem;
-            }
-            
-            .face-scanner-hero {
-                width: 100px;
-                height: 100px;
-            }
-        }
-        
-        /* iPhone 12 Mini (375px width, taller) */
-        @media only screen and (max-width: 375px) and (min-height: 812px) {
-            .hero {
-                min-height: calc(100vh - env(safe-area-inset-top));
-            }
-        }
-        
-        /* iPhone 12/13/14 (390px width) */
-        @media only screen and (min-width: 390px) and (max-width: 414px) {
-            .hero-content {
-                padding: 2.5rem 2rem;
-            }
-            
-            .face-scanner-hero {
-                width: 140px;
-                height: 140px;
-            }
-        }
-        
-        /* iPhone 14 Plus / 15 Plus (428px width) */
-        @media only screen and (min-width: 414px) and (max-width: 428px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            
-            .face-scanner-hero {
-                width: 160px;
-                height: 160px;
-            }
-        }
-        
-        /* iPhone 15 Pro Max (430px width) */
-        @media only screen and (min-width: 428px) and (max-width: 480px) {
-            .hero-content {
-                padding: 3rem 2.5rem;
-                max-width: 800px;
-            }
-            
-            .face-scanner-hero {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .btn {
-                min-height: 50px;
-                font-size: 1.05rem;
-            }
-        }
-        
-        /* Android devices - Galaxy S24 (360px width) */
-        @media only screen and (max-width: 360px) {
-            .container {
-                padding: 0 8px;
-            }
-            
-            .hero h1 {
-                font-size: 2.25rem;
-                line-height: 1.1;
-            }
-            
-            .btn {
-                min-height: 48px; /* Android touch target standard */
-            }
-        }
-        
-        /* Large Android phones - Galaxy S24 Ultra (412px width) */
-        @media only screen and (min-width: 412px) and (max-width: 480px) {
-            .hero-demo {
-                font-size: 1.4rem;
-                padding: 1.25rem 2rem;
-            }
-            
-            .features-grid {
-                gap: 2rem;
-            }
-        }
-        
-        /* Tablet optimizations - iPad (768px and up) */
-        @media only screen and (min-width: 768px) and (max-width: 1024px) {
-            .hero h1 {
-                font-size: 4.5rem;
-            }
-            
-            .face-scanner-hero {
-                width: 240px;
-                height: 240px;
-            }
-            
-            .scanner-frame-mini {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .btn {
-                min-height: 52px;
-                min-width: 250px;
-                font-size: 1.15rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2.5rem;
-            }
-            
-            .demo-steps {
-                display: flex;
-                justify-content: space-between;
-                gap: 2rem;
-            }
-        }
-        
-        /* iPad Pro (1024px and up) */
-        @media only screen and (min-width: 1024px) and (max-width: 1366px) {
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .demo-steps {
-                max-width: 1000px;
-            }
-        }
-        
-        /* Foldable devices - Galaxy Z Fold unfolded */
-        @media only screen and (min-width: 673px) and (max-width: 884px) {
-            .hero-content {
-                max-width: 600px;
-                padding: 3rem 2.5rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 3rem;
-            }
-        }
-        
-        /* Landscape mobile optimizations */
-        @media only screen and (max-height: 500px) and (orientation: landscape) {
-            .hero {
-                min-height: 100vh;
-                padding: 2rem 0;
-            }
-            
-            .hero-content {
-                padding: 1.5rem 2rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            .face-scanner-hero {
-                width: 120px;
-                height: 120px;
-                margin: 1rem auto;
-            }
-            
-            .hero-demo {
-                font-size: 1.1rem;
-                padding: 0.75rem 1.25rem;
-                margin: 1.5rem 0;
-            }
-            
-            .section {
-                padding: 40px 0;
             }
         }
         
@@ -1239,121 +735,18 @@
             opacity: 1;
         }
         
-        /* GPU Acceleration & Performance Optimizations */
+        /* GPU Acceleration */
         .hero-content,
         .feature,
         .btn,
         .scanner-frame-mini {
             transform: translateZ(0);
             will-change: transform;
-            contain: layout style paint;
         }
         
         /* Smooth scrolling container */
         [data-scroll-container] {
             will-change: transform;
-        }
-        
-        /* Optimize animations for performance */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-        
-        /* Critical performance optimizations */
-        .lazy-load {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        
-        .lazy-load.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Optimize layout shifts and Core Web Vitals */
-        .video-container {
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            background-color: #000;
-            position: relative;
-            contain: layout style paint;
-        }
-        
-        .video-container video, 
-        .video-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Prevent layout shift for images */
-        img {
-            max-width: 100%;
-            height: auto;
-            contain: layout;
-        }
-        
-        /* Optimize LCP - Largest Contentful Paint */
-        .hero h1 {
-            contain: layout style;
-        }
-        
-        /* Reduce CLS - Cumulative Layout Shift */
-        .hero-content {
-            min-height: 600px;
-            contain: layout style paint;
-        }
-        
-        .features-grid {
-            contain: layout;
-        }
-        
-        .feature {
-            min-height: 300px;
-            contain: layout style;
-        }
-        
-        /* Optimize FID - First Input Delay */
-        .btn {
-            touch-action: manipulation;
-            contain: layout style;
-        }
-        
-        /* Performance critical sections */
-        .section {
-            contain: layout style;
-        }
-        
-        /* Optimize paint performance */
-        .hero-video-container,
-        .hero-overlay,
-        .parallax-bg {
-            contain: layout style paint;
-            will-change: transform;
-        }
-        
-        /* Prevent unnecessary repaints */
-        .scanner-frame-mini,
-        .face-outline-mini,
-        .scanning-line-mini {
-            contain: layout style paint;
-        }
-        
-        /* Font loading optimization to prevent CLS */
-        .hero h1,
-        .hero p,
-        .hero-demo {
-            font-synthesis: none;
-            font-display: swap;
         }
     </style>
 </head>
@@ -1361,79 +754,43 @@
     <!-- Premium Smooth Scroll Container -->
     <div data-scroll-container>
         
-        <!-- TRUST BAR SECTION -->
-        <section class="trust-bar">
-            <div class="container">
-                <div class="trust-indicators">
-                    <div class="trust-item" data-animate="fadeInUp">
-                        <div class="trust-icon">🔒</div>
-                        <div class="trust-text">Bank-Level Security</div>
-                    </div>
-                    <div class="trust-item" data-animate="fadeInUp">
-                        <div class="trust-icon">✅</div>
-                        <div class="trust-text">StarkNet Verified</div>
-                    </div>
-                    <div class="trust-item" data-animate="fadeInUp">
-                        <div class="trust-icon">👥</div>
-                        <div class="trust-text"><span id="betaUsers">10,000</span>+ Beta Users</div>
-                    </div>
-                    <div class="trust-item" data-animate="fadeInUp">
-                        <div class="trust-icon">🛡️</div>
-                        <div class="trust-text">Biometric Security</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <!-- HERO SECTION WITH INTEGRATED FACE ID -->
-        <section class="hero section-hero hero-3d cinematic-3d" data-section="hero">
-            <!-- Enhanced 3D Parallax Background Layers -->
-            <div class="parallax-bg parallax-container" data-parallax="0.5">
-                <div class="hero-bg-layer hero-bg-layer-1 parallax-layer parallax-far" style="background: radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);"></div>
-                <div class="hero-bg-layer hero-bg-layer-2 parallax-layer parallax-mid" style="background: radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 60%);"></div>
-                <div class="hero-bg-layer hero-bg-layer-3 parallax-layer parallax-near" style="background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);"></div>
-            </div>
+        <section class="hero section-hero" data-section="hero">
+            <!-- Parallax Background -->
+            <div class="parallax-bg" data-parallax="0.5" style="background: radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 60%);"></div>
             
-            <!-- Video Background - Optimized -->
+            <!-- Video Background -->
             <div class="hero-video-container">
-                <div class="video-container">
-                    <picture>
-                        <source srcset="/facepay-demo-poster.webp" type="image/webp">
-                        <img class="hero-video-mobile-poster" 
-                             src="/facepay-demo-poster.jpg" 
-                             alt="FacePay Demo Background"
-                             style="display: block;"
-                             width="1920"
-                             height="1080"
-                             loading="eager">
-                    </picture>
-                    <video class="hero-video video-lazy" 
-                           muted 
-                           loop 
-                           playsinline 
-                           preload="none"
-                           poster="/facepay-demo-poster.webp"
-                           id="heroVideo"
-                           style="display: none;">
-                        <source src="/facepay-demo-optimized.mp4" type="video/mp4">
-                        <source src="/facepay-demo.mp4" type="video/mp4">
-                    </video>
-                </div>
+                <video class="hero-video video-lazy" 
+                       autoplay 
+                       muted 
+                       loop 
+                       playsinline 
+                       preload="metadata"
+                       poster="/facepay-demo-poster.jpg"
+                       id="heroVideo">
+                    <source src="/facepay-demo.mp4" type="video/mp4">
+                </video>
+                <!-- Mobile Poster Fallback -->
+                <img class="hero-video-mobile-poster" 
+                     src="/facepay-demo-poster.jpg" 
+                     alt="FacePay Demo"
+                     style="display: none;">
             </div>
             
             <!-- Hero Overlay -->
             <div class="hero-overlay"></div>
             
             <div class="container">
-                <div class="hero-content hero-content-3d" data-animate="fadeInUp">
-                    <h1 class="reveal-element">
+                <div class="hero-content" data-animate="fadeInUp">
+                    <h1>
                         Send crypto like<br>
                         <span class="highlight">@john → @sarah</span>
                     </h1>
                     
-                    <!-- Enhanced Face ID Scanner with 3D Integration -->
-                    <div class="face-scanner-hero face-scanner-3d" id="faceScannerHero">
-                        <div class="scanner-frame-mini scanner-frame-3d" id="scannerFrameHero">
+                    <!-- Face ID Scanner Integration -->
+                    <div class="face-scanner-hero" id="faceScannerHero">
+                        <div class="scanner-frame-mini" id="scannerFrameHero">
                             <div class="face-outline-mini" id="faceOutlineHero"></div>
                             <div class="scanning-line-mini" id="scanningLineHero"></div>
                         </div>
@@ -1445,20 +802,16 @@
                     
                     <p>
                         First crypto app with Face ID authentication.<br>
-                        <span class="security-highlight">Your funds never leave your control.</span> Non-custodial security with the convenience of Face ID.
+                        No 0x addresses. No seed phrases. Just your face.
                     </p>
                     
-                    <div class="cta-buttons cta-enhanced" data-animate="fadeInUp">
-                        <a href="#demo" class="btn btn-primary btn-magnetic" data-magnetic>
+                    <div class="cta-buttons" data-animate="fadeInUp">
+                        <a href="#demo" class="btn btn-primary" data-magnetic>
                             📱 Watch Demo
                         </a>
-                        <a href="#download" class="btn btn-secondary btn-magnetic" data-magnetic>
+                        <a href="#download" class="btn btn-secondary" data-magnetic>
                             🚀 Download Beta
                         </a>
-                        
-                        <div class="security-message">
-                            <span class="security-highlight">Safe & Secure</span> - Your biometric data stays on your device
-                        </div>
                     </div>
                     
                     <div class="cta-urgent">
@@ -1469,80 +822,64 @@
         </section>
         
         <!-- FEATURES SECTION -->
-        <section class="features section section-cinematic reveal-cascade" data-section="features">
-            <!-- Enhanced Parallax Background -->
-            <div class="parallax-bg parallax-container" data-parallax="0.3">
-                <div class="parallax-layer parallax-far" style="background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(16, 185, 129, 0.03) 100%);"></div>
-                <div class="parallax-layer parallax-mid" style="background: linear-gradient(45deg, rgba(59, 130, 246, 0.04) 0%, rgba(16, 185, 129, 0.06) 100%);"></div>
-            </div>
+        <section class="features section" data-section="features">
+            <!-- Parallax Background -->
+            <div class="parallax-bg" data-parallax="0.3" style="background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(16, 185, 129, 0.05) 100%);"></div>
             
             <div class="container">
-                <h2 class="reveal-element">
-                    Why <span class="highlight" id="featuresUserCount">12,500+</span> verified users chose FacePay
+                <h2>
+                    Why <span class="highlight">10,000+ people</span> chose FacePay
                 </h2>
-                <div class="trust-badge reveal-element" style="margin: 1rem auto; display: inline-flex;">
-                    <div class="trust-icon">🛡️</div>
-                    <div>Non-Custodial Security</div>
-                </div>
                 
                 <div class="features-grid">
-                    <div class="feature reveal-element" data-animate="slideInLeft" data-magnetic>
+                    <div class="feature" data-animate="slideInLeft" data-magnetic>
                         <div class="feature-icon">👤</div>
                         <h3>Face ID = Your Wallet</h3>
-                        <p><span class="security-highlight">Your face is more secure than any password.</span> Biometric data stays on your device. No seed phrases to lose, no private keys to remember.</p>
+                        <p>Your face is more secure than any password. No seed phrases to lose, no private keys to remember.</p>
                     </div>
                     
-                    <div class="feature reveal-element" data-animate="slideInUp" data-magnetic>
+                    <div class="feature" data-animate="slideInUp" data-magnetic>
                         <div class="feature-icon">@</div>
                         <h3>@usernames, not 0x...</h3>
-                        <p>Send to @sarah, not 0x742d35Cc6Df7D4415BC7aA921C0B7107D8fA6bBF. <span class="security-highlight">Simple as Instagram DM, secure as a bank vault.</span></p>
+                        <p>Send to @sarah, not 0x742d35Cc6Df7D4415BC7aA921C0B7107D8fA6bBF. Simple as Instagram DM.</p>
                     </div>
                     
-                    <div class="feature reveal-element" data-animate="slideInRight" data-magnetic>
+                    <div class="feature" data-animate="slideInRight" data-magnetic>
                         <div class="feature-icon">⚡</div>
                         <h3>Zero Gas Fees</h3>
-                        <p><span class="security-highlight">StarkNet's account abstraction</span> means we sponsor the gas fees. You just send money - completely free and secure.</p>
+                        <p>StarkNet's account abstraction means we pay the gas. You just send money for free.</p>
                     </div>
                 </div>
             </div>
         </section>
         
         <!-- DEMO SECTION -->
-        <section class="demo section section-cinematic" id="demo" data-section="demo">
+        <section class="demo section" id="demo" data-section="demo">
             <div class="container">
-                <h2 class="reveal-element">See it work in <span class="highlight">3 seconds</span></h2>
+                <h2>See it work in <span class="highlight">3 seconds</span></h2>
                 
-                <div class="demo-video video-container lazy-load reveal-element" data-zoom>
-                    <picture>
-                        <source srcset="/facepay-demo-poster.webp" type="image/webp">
-                        <img src="/facepay-demo-poster.jpg" 
-                             alt="FacePay Demo Video"
-                             width="1920" 
-                             height="1080"
-                             loading="lazy">
-                    </picture>
-                    <video muted loop playsinline preload="none" id="demoVideo" poster="/facepay-demo-poster.webp" data-lazy-video>
-                        <source data-src="/facepay-demo-optimized.mp4" type="video/mp4">
-                        <source data-src="/facepay-demo.mp4" type="video/mp4">
+                <div class="demo-video">
+                    <video autoplay muted loop playsinline id="demoVideo" poster="/facepay-demo-poster.jpg">
+                        <source src="/facepay-demo.mp4" type="video/mp4">
                         <track kind="captions" src="/facepay-captions-en.vtt" srclang="en" label="English" default>
                         <track kind="captions" src="/facepay-captions-es.vtt" srclang="es" label="Español">
                     </video>
                 </div>
                 
-                <div class="demo-steps reveal-cascade">
-                    <div class="step reveal-element" data-animate="fadeInUp">
+                <div class="demo-steps">
+                    <div class="step" data-animate="fadeInUp">
                         <div class="step-number">1.</div>
                         <div>Open FacePay</div>
                     </div>
-                    <div class="step reveal-element" data-animate="fadeInUp">
+                    <div class="step" data-animate="fadeInUp">
                         <div class="step-number">2.</div>
                         <div>Type @friend</div>
                     </div>
-                    <div class="step reveal-element" data-animate="fadeInUp">
+                    <div class="step" data-animate="fadeInUp">
                         <div class="step-number">3.</div>
                         <div>Look at camera</div>
                     </div>
-                    <div class="step reveal-element" data-animate="fadeInUp">
+                    <div class="step" data-animate="fadeInUp">
                         <div class="step-number">4.</div>
                         <div>Money sent ✓</div>
                     </div>
@@ -1551,45 +888,22 @@
         </section>
         
         <!-- CTA SECTION -->
-        <section class="cta-section section section-cinematic" id="download" data-section="cta">
+        <section class="cta-section section" id="download" data-section="cta">
             <div class="container">
-                <h2 class="reveal-element">Ready to never use <span class="highlight">0x addresses</span> again?</h2>
-                <p class="reveal-element">Join the crypto payment revolution. <span class="security-highlight">Your face is your wallet</span> - and your funds stay under your complete control.</p>
+                <h2>Ready to never use <span class="highlight">0x addresses</span> again?</h2>
+                <p>Join the crypto payment revolution. Your face is your wallet.</p>
                 
-                <div class="cta-buttons cta-enhanced reveal-element">
-                    <a href="#" class="btn btn-primary btn-magnetic" onclick="downloadApp()" data-magnetic>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="downloadApp()" data-magnetic>
                         📱 Download FacePay
                     </a>
-                    <a href="#" class="btn btn-secondary btn-magnetic" onclick="joinBeta()" data-magnetic>
+                    <a href="#" class="btn btn-secondary" onclick="joinBeta()" data-magnetic>
                         ⚡ Beta Access
                     </a>
-                    
-                    <div class="security-message">
-                        <span class="security-highlight">100% Non-Custodial</span> - We never see your private keys or biometric data
-                    </div>
-                    
-                    <div class="cta-trust-seals">
-                        <div class="trust-seal">
-                            <div>🔒</div>
-                            <div>SSL Secured</div>
-                        </div>
-                        <div class="trust-seal">
-                            <div>🛡️</div>
-                            <div>Face ID Protected</div>
-                        </div>
-                        <div class="trust-seal">
-                            <div>✅</div>
-                            <div>StarkNet Audited</div>
-                        </div>
-                        <div class="trust-seal">
-                            <div>👥</div>
-                            <div><span id="ctaTotalUsers">12,847</span>+ Users</div>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="cta-urgent" style="margin-top: 2rem;">
-                    🔥 <span id="totalUsers">12,847</span> verified users already trust FacePay with their crypto
+                    🔥 <span id="totalUsers">10,247</span> people already using FacePay
                 </div>
             </div>
         </section>
@@ -1597,10 +911,7 @@
         <!-- FOOTER -->
         <footer class="footer">
             <div class="container">
-                <div class="security-message" style="margin-bottom: 2rem; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.15);">
-                    <span class="security-highlight">Your Security, Our Priority:</span> Non-custodial architecture means your private keys and biometric data never leave your device. We can't access your funds or Face ID data - only you can.
-                </div>
-                <p>© 2024 FacePay • Built on StarkNet • <span class="security-highlight">100% Non-Custodial</span> • Face ID + @usernames + Zero Gas</p>
+                <p>© 2024 FacePay • Built on StarkNet • Face ID + @usernames + Zero Gas</p>
             </div>
         </footer>
         
@@ -1867,78 +1178,30 @@
             }
             
             initializeConversionOptimizer() {
-                // Enhanced dynamic user counters with multiple elements
+                // Dynamic user counters
                 this.conversionOptimizer = {
                     updateCounters: () => {
                         const urgencyCounter = document.getElementById('urgencyCounter');
                         const totalUsers = document.getElementById('totalUsers');
-                        const betaUsers = document.getElementById('betaUsers');
-                        const featuresUserCount = document.getElementById('featuresUserCount');
-                        const ctaTotalUsers = document.getElementById('ctaTotalUsers');
                         
-                        // Daily growth counter
                         if (urgencyCounter) {
-                            const base = 3200;
-                            const variation = Math.floor(Math.random() * 300);
+                            const base = 2800;
+                            const variation = Math.floor(Math.random() * 200);
                             urgencyCounter.textContent = (base + variation).toLocaleString();
                         }
                         
-                        // Main total users (highest number)
                         if (totalUsers) {
-                            const base = 12500;
-                            const variation = Math.floor(Math.random() * 800);
+                            const base = 10200;
+                            const variation = Math.floor(Math.random() * 500);
                             totalUsers.textContent = (base + variation).toLocaleString();
                         }
-                        
-                        // Beta users in trust bar
-                        if (betaUsers) {
-                            const base = 10500;
-                            const variation = Math.floor(Math.random() * 600);
-                            betaUsers.textContent = (base + variation).toLocaleString();
-                        }
-                        
-                        // Features section count
-                        if (featuresUserCount) {
-                            const base = 12200;
-                            const variation = Math.floor(Math.random() * 700);
-                            featuresUserCount.textContent = (base + variation).toLocaleString() + '+';
-                        }
-                        
-                        // CTA section users
-                        if (ctaTotalUsers) {
-                            const base = 12600;
-                            const variation = Math.floor(Math.random() * 750);
-                            ctaTotalUsers.textContent = (base + variation).toLocaleString();
-                        }
-                        
-                        // Add real-time feeling with visual updates
-                        this.animateCounterUpdate();
-                    },
-                    
-                    animateCounterUpdate: () => {
-                        const counters = document.querySelectorAll('#urgencyCounter, #totalUsers, #betaUsers, #featuresUserCount, #ctaTotalUsers');
-                        counters.forEach(counter => {
-                            if (counter) {
-                                counter.style.transform = 'scale(1.05)';
-                                counter.style.color = 'var(--primary)';
-                                setTimeout(() => {
-                                    counter.style.transform = 'scale(1)';
-                                    counter.style.color = '';
-                                }, 300);
-                            }
-                        });
                     }
                 };
                 
-                // Update counters more frequently for real-time feeling
+                // Update counters every 30 seconds
                 setInterval(() => {
                     this.conversionOptimizer.updateCounters();
-                }, 25000);
-                
-                // Initial counter animation
-                setTimeout(() => {
-                    this.conversionOptimizer.animateCounterUpdate();
-                }, 2000);
+                }, 30000);
             }
             
             initializeUrgencyCounters() {
@@ -2017,7 +1280,6 @@
             }
             
             bindEvents() {
-                // Enhanced touch handling
                 this.container.addEventListener('click', () => {
                     this.hasInteracted = true;
                     if (this.scanComplete) {
@@ -2027,36 +1289,15 @@
                     }
                 });
                 
-                // Touch events with haptic feedback
+                // Touch events
                 this.container.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                     this.hasInteracted = true;
-                    
-                    // Add visual touch feedback
-                    this.container.style.transform = 'scale(0.95)';
-                    
-                    // Haptic feedback if available
-                    if (navigator.vibrate) {
-                        navigator.vibrate(10);
-                    }
-                });
-                
-                this.container.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    
-                    // Reset visual feedback
-                    this.container.style.transform = '';
-                    
                     if (this.scanComplete) {
                         this.reset();
                     } else if (!this.isScanning) {
                         this.startScan();
                     }
-                });
-                
-                // Visual feedback for touch targets
-                this.container.addEventListener('touchcancel', () => {
-                    this.container.style.transform = '';
                 });
             }
             
@@ -2092,12 +1333,9 @@
                 this.faceOutline.style.borderColor = 'var(--success)';
                 this.faceOutline.style.boxShadow = '0 0 30px rgba(16, 185, 129, 0.6)';
                 
-                // Enhanced haptic feedback
-                this.triggerHaptic('success');
-                
-                // Trigger cinematic celebration if available
-                if (window.cinematicEngine) {
-                    window.cinematicEngine.triggerCelebration();
+                // Haptic feedback
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
                 }
                 
                 // Auto-reset after 3 seconds
@@ -2116,114 +1354,32 @@
                 this.faceOutline.style.borderColor = '';
                 this.faceOutline.style.boxShadow = '';
             }
-            
-            triggerHaptic(type = 'light') {
-                const patterns = {
-                    light: [10],
-                    medium: [15, 10, 15],
-                    strong: [25, 15, 25],
-                    success: [100, 50, 100, 50, 200],
-                    error: [200, 100, 200]
-                };
-                
-                if (navigator.vibrate) {
-                    navigator.vibrate(patterns[type] || patterns.light);
-                }
-            }
         }
         
         /**
-         * OPTIMIZED VIDEO MANAGER
+         * VIDEO MANAGER
          */
         class VideoManager {
             constructor() {
                 this.heroVideo = document.getElementById('heroVideo');
                 this.demoVideo = document.getElementById('demoVideo');
-                this.isMobile = window.innerWidth <= 768;
-                this.prefersReducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches;
-                this.setupLazyLoading();
+                this.setupIntersectionObservers();
             }
             
-            setupLazyLoading() {
-                // Only load videos on larger screens and if user doesn't prefer reduced data
-                if (this.isMobile || this.prefersReducedData) {
-                    this.disableVideos();
-                    return;
-                }
-                
-                // Intersection Observer for lazy loading videos
+            setupIntersectionObservers() {
                 const videoObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            this.loadVideo(entry.target);
-                            videoObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { rootMargin: '50px' });
-                
-                // Observe hero video after initial load
-                setTimeout(() => {
-                    if (this.heroVideo && !this.heroVideo.src) {
-                        this.loadHeroVideo();
-                    }
-                }, 2000);
-                
-                // Lazy load demo video
-                if (this.demoVideo) {
-                    videoObserver.observe(this.demoVideo);
-                }
-                
-                // Playback observer for performance
-                const playObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
                         const video = entry.target;
-                        if (entry.isIntersecting && video.readyState >= 3) {
+                        if (entry.isIntersecting) {
                             video.play().catch(() => {});
                         } else {
                             video.pause();
                         }
                     });
-                }, { threshold: 0.5 });
+                }, { threshold: 0.3 });
                 
-                if (this.heroVideo) playObserver.observe(this.heroVideo);
-                if (this.demoVideo) playObserver.observe(this.demoVideo);
-            }
-            
-            loadHeroVideo() {
-                if (!this.heroVideo) return;
-                
-                const posterImg = document.querySelector('.hero-video-mobile-poster');
-                this.heroVideo.style.display = 'block';
-                this.heroVideo.src = this.heroVideo.querySelector('source').dataset.src || 
-                                   this.heroVideo.querySelector('source').src;
-                this.heroVideo.load();
-                this.heroVideo.addEventListener('canplay', () => {
-                    if (posterImg) posterImg.style.display = 'none';
-                }, { once: true });
-            }
-            
-            loadVideo(video) {
-                const sources = video.querySelectorAll('source[data-src]');
-                sources.forEach(source => {
-                    source.src = source.dataset.src;
-                });
-                video.load();
-                
-                // Hide poster image once video is ready
-                video.addEventListener('loadeddata', () => {
-                    const container = video.closest('.video-container');
-                    const posterImg = container?.querySelector('img');
-                    if (posterImg) {
-                        posterImg.style.opacity = '0';
-                        setTimeout(() => posterImg.style.display = 'none', 300);
-                    }
-                }, { once: true });
-            }
-            
-            disableVideos() {
-                // Keep poster images visible on mobile/reduced data
-                if (this.heroVideo) this.heroVideo.style.display = 'none';
-                if (this.demoVideo) this.demoVideo.style.display = 'none';
+                if (this.heroVideo) videoObserver.observe(this.heroVideo);
+                if (this.demoVideo) videoObserver.observe(this.demoVideo);
             }
         }
         
@@ -2310,11 +1466,6 @@
             // Analytics
             console.log('📱 Download app clicked');
             
-            // Haptic feedback for button press
-            if (navigator.vibrate) {
-                navigator.vibrate([15, 10, 15]);
-            }
-            
             // Simulate app store redirect
             setTimeout(() => {
                 alert('🎉 Redirecting to App Store...\n\n(This is a demo - no actual app available yet)');
@@ -2325,186 +1476,40 @@
             // Analytics  
             console.log('⚡ Beta access clicked');
             
-            // Haptic feedback for button press
-            if (navigator.vibrate) {
-                navigator.vibrate([15, 10, 15]);
-            }
-            
             const email = prompt('Enter your email for beta access:');
             if (email && email.includes('@')) {
-                // Success haptic feedback
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 50, 100]);
-                }
                 alert('✅ Welcome to the beta! Check your email for next steps.');
             }
         }
         
-        // Mobile Usability Validation
-        function validateMobileUsability() {
-            const results = {
-                touchTargets: [],
-                gestures: [],
-                performance: {},
-                accessibility: [],
-                responsiveness: []
-            };
-            
-            // Check touch target sizes
-            const touchTargets = document.querySelectorAll('.btn, .touch-target, .face-scanner-hero, .feature');
-            touchTargets.forEach((target, index) => {
-                const rect = target.getBoundingClientRect();
-                const isCompliant = rect.width >= 44 && rect.height >= 44;
-                results.touchTargets.push({
-                    element: target.className,
-                    width: Math.round(rect.width),
-                    height: Math.round(rect.height),
-                    compliant: isCompliant
-                });
-            });
-            
-            // Check gesture support
-            results.gestures = [
-                { name: 'Touch Events', supported: 'ontouchstart' in window },
-                { name: 'Haptic Feedback', supported: 'vibrate' in navigator },
-                { name: 'Pinch Zoom', supported: window.mobileTouchPremium ? true : false },
-                { name: 'Pull to Refresh', supported: window.mobileTouchPremium ? true : false },
-                { name: 'Swipe Navigation', supported: window.mobileTouchPremium ? true : false }
-            ];
-            
-            // Performance metrics
-            if (performance.getEntriesByType) {
-                const navigation = performance.getEntriesByType('navigation')[0];
-                if (navigation) {
-                    results.performance = {
-                        loadTime: Math.round(navigation.loadEventEnd - navigation.loadEventStart),
-                        domContentLoaded: Math.round(navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart),
-                        firstPaint: Math.round(navigation.responseEnd - navigation.fetchStart)
-                    };
-                }
-            }
-            
-            // Accessibility checks
-            const missingAlt = document.querySelectorAll('img:not([alt])');
-            const missingLabels = document.querySelectorAll('input:not([aria-label]):not([aria-labelledby])');
-            results.accessibility = [
-                { check: 'Images have alt text', passed: missingAlt.length === 0, count: missingAlt.length },
-                { check: 'Focus indicators present', passed: true }, // CSS includes focus styles
-                { check: 'Touch targets 44px+', passed: results.touchTargets.every(t => t.compliant) }
-            ];
-            
-            // Responsiveness check
-            const viewportWidth = window.innerWidth;
-            const deviceType = viewportWidth <= 480 ? 'Mobile' : 
-                             viewportWidth <= 768 ? 'Tablet' : 'Desktop';
-            
-            results.responsiveness = [
-                { device: deviceType, width: viewportWidth, optimized: true },
-                { check: 'Viewport meta tag', present: document.querySelector('meta[name="viewport"]') !== null },
-                { check: 'Safe area support', present: CSS.supports('padding', 'env(safe-area-inset-top)') }
-            ];
-            
-            console.log('📱 Mobile Usability Validation Results:', results);
-            return results;
-        }
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.facePayEngine = new FacePayUltimateEngine();
+        });
         
-        // Auto-validate on load (for development)
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            window.addEventListener('load', () => {
-                setTimeout(validateMobileUsability, 2000);
-            });
-        }
-        
-        // Critical initialization - immediate
-        const criticalInit = () => {
-            // Initialize only essential components immediately
-            const heroScanner = new HeroFaceScanner('faceScannerHero');
-            
-            // Setup critical lazy loading
-            const lazyElements = document.querySelectorAll('.lazy-load');
-            const lazyObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('loaded');
-                        lazyObserver.unobserve(entry.target);
-                    }
-                });
-            }, { rootMargin: '20px' });
-            
-            lazyElements.forEach(el => lazyObserver.observe(el));
-        };
-        
-        // Non-critical initialization - deferred
-        const deferredInit = () => {
-            // Defer heavy components until after initial paint
-            requestIdleCallback(() => {
-                window.facePayEngine = new FacePayUltimateEngine();
-            }, { timeout: 5000 });
-        };
-        
-        // Initialize based on loading state
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', criticalInit);
-            window.addEventListener('load', deferredInit);
-        } else {
-            criticalInit();
-            deferredInit();
-        }
-        
-        // Optimized performance monitoring
+        // Performance monitoring
         if ('performance' in window) {
-            // Use passive event listener for performance
             window.addEventListener('load', () => {
-                // Defer performance monitoring to avoid blocking rendering
                 setTimeout(() => {
                     const perfData = performance.getEntriesByType('navigation')[0];
-                    if (perfData) {
-                        const loadTime = Math.round(perfData.loadEventEnd - perfData.loadEventStart);
-                        const domContentLoaded = Math.round(perfData.domContentLoadedEventEnd - perfData.navigationStart);
-                        const firstPaint = Math.round(perfData.responseStart - perfData.navigationStart);
-                        
-                        console.log(`⚡ Performance Metrics:`);
-                        console.log(`   Load Time: ${loadTime}ms`);
-                        console.log(`   DOM Ready: ${domContentLoaded}ms`);
-                        console.log(`   First Paint: ${firstPaint}ms`);
-                    }
+                    console.log(`🚀 FacePay Load Time: ${Math.round(perfData.loadEventEnd - perfData.loadEventStart)}ms`);
                     
-                    // Core Web Vitals monitoring
+                    // Core Web Vitals
                     if ('PerformanceObserver' in window) {
-                        try {
-                            new PerformanceObserver((list) => {
-                                list.getEntries().forEach((entry) => {
-                                    const value = Math.round(entry.startTime || entry.value);
-                                    if (entry.entryType === 'largest-contentful-paint') {
-                                        console.log(`📊 LCP: ${value}ms ${value < 2500 ? '✅' : '❌'}`);
-                                    }
-                                    if (entry.entryType === 'first-input') {
-                                        const fid = Math.round(entry.processingStart - entry.startTime);
-                                        console.log(`📊 FID: ${fid}ms ${fid < 100 ? '✅' : '❌'}`);
-                                    }
-                                    if (entry.entryType === 'layout-shift' && !entry.hadRecentInput) {
-                                        console.log(`📊 CLS: ${entry.value.toFixed(3)} ${entry.value < 0.1 ? '✅' : '❌'}`);
-                                    }
-                                });
-                            }).observe({ 
-                                entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift']
+                        new PerformanceObserver((list) => {
+                            list.getEntries().forEach((entry) => {
+                                if (entry.entryType === 'largest-contentful-paint') {
+                                    console.log(`📊 LCP: ${Math.round(entry.startTime)}ms`);
+                                }
+                                if (entry.entryType === 'first-input') {
+                                    console.log(`📊 FID: ${Math.round(entry.processingStart - entry.startTime)}ms`);
+                                }
                             });
-                        } catch (e) {
-                            // Silently fail if PerformanceObserver is not supported
-                        }
+                        }).observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
                     }
-                }, 1000);
-            }, { passive: true });
+                }, 0);
+            });
         }
     </script>
-    
-    <!-- Phase 2 WOW Factor Systems -->
-    <script src="ultimate-performance-optimizer.js"></script>
-    <script src="3d-cinematic-engine.js"></script>
-    <script src="emotional-design-engine.js"></script>
-    <script src="hackathon-winner-integration.js"></script>
-    
-    <!-- Mobile Touch Premium System -->
-    <script src="mobile-touch-premium.js"></script>
 </body>
 </html>

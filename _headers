@@ -1,0 +1,165 @@
+# FacePay Cache Headers Configuration - Bulletproof Production
+# Optimized for maximum performance and security
+
+# Static Assets - Long Cache (1 year)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+  X-Content-Type-Options: nosniff
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+  X-Content-Type-Options: nosniff
+  Access-Control-Allow-Origin: *
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+  X-Content-Type-Options: nosniff
+
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+  X-Content-Type-Options: nosniff
+
+# Videos - Medium Cache (1 week)
+/videos/*
+  Cache-Control: public, max-age=604800
+  Vary: Accept-Encoding, Accept-Ranges
+  Accept-Ranges: bytes
+  X-Content-Type-Options: nosniff
+
+# HTML Pages - Short Cache (1 hour) with stale-while-revalidate
+/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Vary: Accept-Encoding
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+# PWA Manifest - Medium Cache (1 day)
+/manifest.json
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+
+# Service Worker - No Cache (always fresh)
+/service-worker.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/video-service-worker.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Sitemaps and Robots - Medium Cache (1 day)
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+
+# API endpoints - No cache
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+  X-Content-Type-Options: nosniff
+
+# Security Headers for all requests
+/*
+  # HSTS - Force HTTPS
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # Content Security Policy - Strict but functional
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' data: https:; connect-src 'self' https:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'
+  
+  # Prevent MIME type sniffing
+  X-Content-Type-Options: nosniff
+  
+  # Prevent clickjacking
+  X-Frame-Options: DENY
+  
+  # XSS Protection
+  X-XSS-Protection: 1; mode=block
+  
+  # Referrer Policy
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # Feature Policy (Permissions Policy)
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), gyroscope=(), magnetometer=(), midi=(), navigation-override=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), web-share=()
+
+# Compressed Assets - Brotli and Gzip
+*.br
+  Content-Encoding: br
+  Cache-Control: public, max-age=31536000, immutable
+  
+*.gz
+  Content-Encoding: gzip
+  Cache-Control: public, max-age=31536000, immutable
+
+# Modern Image Formats
+*.webp
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept
+  
+*.avif
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept
+
+# Progressive Web App Headers
+/
+  # PWA Manifest Link
+  Link: </manifest.json>; rel=manifest
+  
+  # Theme Color
+  Theme-Color: #00ff88
+  
+  # Apple PWA
+  Apple-Mobile-Web-App-Capable: yes
+  Apple-Mobile-Web-App-Status-Bar-Style: black-translucent
+  Apple-Mobile-Web-App-Title: FacePay
+  
+  # Microsoft PWA
+  msapplication-TileColor: #00ff88
+  msapplication-config: /browserconfig.xml
+
+# Resource Hints and Preloading
+/
+  # DNS Prefetch
+  Link: <https://fonts.googleapis.com>; rel=dns-prefetch
+  Link: <https://fonts.gstatic.com>; rel=dns-prefetch
+  
+  # Preconnect
+  Link: <https://fonts.googleapis.com>; rel=preconnect; crossorigin
+  Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
+  
+  # Preload Critical Resources
+  Link: </css/critical.css>; rel=preload; as=style
+  Link: </js/critical.js>; rel=preload; as=script
+  Link: </images/facepay-demo-poster.webp>; rel=preload; as=image
+  Link: </videos/facepay-demo.mp4>; rel=preload; as=video; type=video/mp4
+
+# CORS for Web Fonts
+/fonts/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET
+  Access-Control-Allow-Headers: Content-Type
+
+# Error Pages - Short Cache
+/404.html
+  Cache-Control: public, max-age=3600
+  
+/500.html
+  Cache-Control: public, max-age=3600
+
+# Well-known Files
+/.well-known/*
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff

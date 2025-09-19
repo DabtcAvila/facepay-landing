@@ -1,20 +1,25 @@
-const CACHE_NAME = 'facepay-v1.2.0';
-const STATIC_CACHE_NAME = 'facepay-static-v1.2.0';
-const DYNAMIC_CACHE_NAME = 'facepay-dynamic-v1.2.0';
+const CACHE_NAME = 'facepay-v2.0.0-optimized';
+const STATIC_CACHE_NAME = 'facepay-static-v2.0.0';
+const DYNAMIC_CACHE_NAME = 'facepay-dynamic-v2.0.0';
 
-// Assets to cache immediately
+// Critical assets to cache immediately - optimized for PageSpeed
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/privacy.html',
-  '/terms.html',
-  '/support.html',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/facepay-demo.mp4',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap',
-  'https://cdn.tailwindcss.com'
+  '/facepay-demo-poster.webp',
+  '/facepay-demo-poster.jpg',
+  '/critical.css',
+  // Only cache optimized video, not the large original
+  '/facepay-demo-optimized.mp4'
+];
+
+// Font assets - cached separately for better performance
+const FONT_ASSETS = [
+  'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2',
+  'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hiA.woff2',
+  'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2',
+  'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYAZ9hiA.woff2'
 ];
 
 // Assets to cache on demand

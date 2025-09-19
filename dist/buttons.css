@@ -1,0 +1,471 @@
+/* ==========================================================================
+   BUTTON SYSTEM - FACEPAY LANDING
+   Stripe/Linear inspired button components
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE BUTTON STYLES
+   ========================================================================== */
+
+.btn {
+  /* Base structure */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  position: relative;
+  
+  /* Typography */
+  font-family: var(--font-sans);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Interaction */
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-all);
+  
+  /* Accessibility */
+  outline: none;
+  
+  /* Disabled state */
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  /* Focus state */
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+/* ==========================================================================
+   BUTTON SIZES
+   ========================================================================== */
+
+.btn-xs {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  border-radius: var(--radius-sm);
+  min-height: 24px;
+}
+
+.btn-sm {
+  padding: var(--space-1-5) var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-tight);
+  border-radius: var(--radius-base);
+  min-height: 32px;
+}
+
+.btn-md {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  border-radius: var(--radius-md);
+  min-height: 40px;
+}
+
+.btn-lg {
+  padding: var(--space-2-5) var(--space-6);
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  border-radius: var(--radius-lg);
+  min-height: 48px;
+}
+
+.btn-xl {
+  padding: var(--space-3) var(--space-8);
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  border-radius: var(--radius-lg);
+  min-height: 56px;
+}
+
+/* ==========================================================================
+   BUTTON VARIANTS
+   ========================================================================== */
+
+/* Primary Button */
+.btn-primary {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  color: white;
+  box-shadow: var(--shadow-sm);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-700);
+    border-color: var(--color-primary-700);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-primary-800);
+    border-color: var(--color-primary-800);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(0);
+  }
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: var(--color-background);
+  border-color: var(--color-border-strong);
+  color: var(--color-foreground);
+  box-shadow: var(--shadow-xs);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-background-subtle);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-background-muted);
+    transform: translateY(0);
+  }
+}
+
+/* Outline Button */
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-600);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-50);
+    border-color: var(--color-primary-700);
+    color: var(--color-primary-700);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-primary-100);
+    transform: translateY(0);
+  }
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-foreground-muted);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-background-subtle);
+    color: var(--color-foreground);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-background-muted);
+    transform: translateY(0);
+  }
+}
+
+/* Destructive Button */
+.btn-destructive {
+  background-color: var(--color-error-600);
+  border-color: var(--color-error-600);
+  color: white;
+  box-shadow: var(--shadow-sm);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-error-700);
+    border-color: var(--color-error-700);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-error-800);
+    border-color: var(--color-error-800);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(0);
+  }
+}
+
+/* Success Button */
+.btn-success {
+  background-color: var(--color-success-600);
+  border-color: var(--color-success-600);
+  color: white;
+  box-shadow: var(--shadow-sm);
+  
+  &:hover:not(:disabled) {
+    background-color: var(--color-success-700);
+    border-color: var(--color-success-700);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: var(--color-success-800);
+    border-color: var(--color-success-800);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   BUTTON MODIFIERS
+   ========================================================================== */
+
+/* Full width button */
+.btn-full {
+  width: 100%;
+}
+
+/* Loading state */
+.btn-loading {
+  color: transparent !important;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-right-color: currentColor;
+    border-radius: 50%;
+    animation: btn-spin 0.8s linear infinite;
+    color: inherit;
+  }
+}
+
+.btn-xs.btn-loading::after {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+.btn-sm.btn-loading::after {
+  width: 14px;
+  height: 14px;
+  border-width: 1.5px;
+}
+
+.btn-lg.btn-loading::after {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-xl.btn-loading::after {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   BUTTON GROUPS
+   ========================================================================== */
+
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  
+  .btn {
+    position: relative;
+    border-radius: 0;
+    border-right-width: 0;
+    box-shadow: none;
+    
+    &:first-child {
+      border-top-left-radius: var(--radius-md);
+      border-bottom-left-radius: var(--radius-md);
+    }
+    
+    &:last-child {
+      border-top-right-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+      border-right-width: 1px;
+    }
+    
+    &:hover {
+      z-index: 1;
+      border-right-width: 1px;
+      
+      & + .btn {
+        border-left-width: 0;
+      }
+    }
+  }
+}
+
+.btn-group-vertical {
+  flex-direction: column;
+  
+  .btn {
+    border-right-width: 1px;
+    border-bottom-width: 0;
+    
+    &:first-child {
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    
+    &:last-child {
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-bottom-width: 1px;
+    }
+    
+    &:hover {
+      border-bottom-width: 1px;
+      
+      & + .btn {
+        border-top-width: 0;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   ICON BUTTONS
+   ========================================================================== */
+
+.btn-icon {
+  padding: var(--space-2);
+  aspect-ratio: 1;
+  min-width: auto;
+  
+  &.btn-xs {
+    padding: var(--space-1);
+  }
+  
+  &.btn-sm {
+    padding: var(--space-1-5);
+  }
+  
+  &.btn-lg {
+    padding: var(--space-2-5);
+  }
+  
+  &.btn-xl {
+    padding: var(--space-3);
+  }
+}
+
+/* ==========================================================================
+   FLOATING ACTION BUTTON
+   ========================================================================== */
+
+.btn-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-50);
+  
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  &:active {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   LINK BUTTONS
+   ========================================================================== */
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-primary-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: transparent;
+  padding: 0;
+  min-height: auto;
+  
+  &:hover {
+    color: var(--color-primary-700);
+    text-decoration-color: currentColor;
+    transform: none;
+  }
+  
+  &:active {
+    color: var(--color-primary-800);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE BUTTON UTILITIES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    width: 100%;
+  }
+  
+  .btn-group-responsive {
+    flex-direction: column;
+    
+    .btn {
+      border-radius: 0;
+      border-right-width: 1px;
+      border-bottom-width: 0;
+      
+      &:first-child {
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+        border-bottom-width: 1px;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  .btn-loading::after {
+    animation: none;
+    border-color: currentColor;
+    border-style: dashed;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+  
+  .btn-ghost {
+    border-color: var(--color-border-strong);
+  }
+}

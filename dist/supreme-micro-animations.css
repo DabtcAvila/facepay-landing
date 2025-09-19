@@ -1,0 +1,790 @@
+/* ==========================================================================
+   ⚡ FACEPAY SUPREME MICRO-ANIMATIONS - PERFECT INTERACTION FEEDBACK
+   Every interaction must feel PERFECT. Sublime micro-animations system.
+   ========================================================================== */
+
+/* ==========================================================================
+   🎯 1. PERFECT ANIMATION KEYFRAMES - NATURAL MOTION LIBRARY
+   ========================================================================== */
+
+/* Entrance animations - Staggered perfection */
+@keyframes supreme-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes supreme-fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes supreme-fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes supreme-fade-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes supreme-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes supreme-rotate-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Attention animations - Perfect feedback */
+@keyframes supreme-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes supreme-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -8px, 0) scale(1.02);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -4px, 0) scale(1.01);
+  }
+  90% {
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+@keyframes supreme-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+/* Hover micro-animations - Subtle perfection */
+@keyframes supreme-glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(16, 185, 129, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(16, 185, 129, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@keyframes supreme-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes supreme-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+/* Loading animations - Elegant feedback */
+@keyframes supreme-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes supreme-loading-dots {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Success animations - Satisfying feedback */
+@keyframes supreme-checkmark-draw {
+  0% {
+    stroke-dashoffset: 20;
+    opacity: 0;
+  }
+  50% {
+    stroke-dashoffset: 20;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes supreme-success-scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Morphing animations - Fluid transitions */
+@keyframes supreme-morph-circle-to-square {
+  0% {
+    border-radius: 50%;
+  }
+  100% {
+    border-radius: 8px;
+  }
+}
+
+@keyframes supreme-expand-width {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Particle-like animations */
+@keyframes supreme-sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+/* ==========================================================================
+   🎪 2. SUPREME ANIMATION CLASSES - PERFECT APPLICATION
+   ========================================================================== */
+
+/* Base animation system with perfect timing */
+.animate-supreme {
+  animation-duration: var(--duration-medium);
+  animation-timing-function: var(--ease-supreme-out);
+  animation-fill-mode: both;
+}
+
+/* Entrance animations */
+.animate-fade-in-up {
+  animation: supreme-fade-in-up var(--duration-medium) var(--ease-supreme-out) both;
+}
+
+.animate-fade-in-down {
+  animation: supreme-fade-in-down var(--duration-medium) var(--ease-supreme-out) both;
+}
+
+.animate-fade-in-left {
+  animation: supreme-fade-in-left var(--duration-medium) var(--ease-supreme-out) both;
+}
+
+.animate-fade-in-right {
+  animation: supreme-fade-in-right var(--duration-medium) var(--ease-supreme-out) both;
+}
+
+.animate-scale-in {
+  animation: supreme-scale-in var(--duration-slow) var(--ease-supreme-back) both;
+}
+
+.animate-rotate-in {
+  animation: supreme-rotate-in var(--duration-medium) var(--ease-supreme-out) both;
+}
+
+/* Staggered entrance delays - Perfect choreography */
+.animate-stagger-1 { animation-delay: var(--delay-stagger-1); }
+.animate-stagger-2 { animation-delay: var(--delay-stagger-2); }
+.animate-stagger-3 { animation-delay: var(--delay-stagger-3); }
+.animate-stagger-4 { animation-delay: var(--delay-stagger-4); }
+.animate-stagger-5 { animation-delay: var(--delay-stagger-5); }
+
+/* Attention animations - Perfect feedback */
+.animate-pulse {
+  animation: supreme-pulse 2s var(--ease-supreme-in-out) infinite;
+}
+
+.animate-bounce {
+  animation: supreme-bounce 1s var(--ease-supreme-out);
+}
+
+.animate-shake {
+  animation: supreme-shake 0.5s var(--ease-supreme-out);
+}
+
+.animate-glow-pulse {
+  animation: supreme-glow-pulse 3s var(--ease-supreme-in-out) infinite;
+}
+
+.animate-float {
+  animation: supreme-float 3s var(--ease-supreme-in-out) infinite;
+}
+
+.animate-wiggle {
+  animation: supreme-wiggle 0.5s var(--ease-supreme-in-out) infinite;
+}
+
+/* Hover states - Perfect micro-interactions */
+.hover-lift:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-supreme-lg);
+  transition: all var(--duration-fast) var(--ease-supreme-out);
+}
+
+.hover-glow:hover {
+  box-shadow: 
+    0 0 30px rgba(16, 185, 129, 0.3),
+    var(--shadow-supreme-md);
+  transition: box-shadow var(--duration-fast) var(--ease-supreme-out);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: transform var(--duration-fast) var(--ease-supreme-out);
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg) scale(1.05);
+  transition: transform var(--duration-fast) var(--ease-supreme-out);
+}
+
+.hover-tilt:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+  transition: transform var(--duration-fast) var(--ease-supreme-out);
+}
+
+/* Loading states - Elegant waiting */
+.animate-spin {
+  animation: supreme-spin 1s linear infinite;
+}
+
+.animate-loading-dots {
+  animation: supreme-loading-dots 1.4s ease-in-out infinite;
+}
+
+.animate-loading-dots:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.animate-loading-dots:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Success states - Satisfying feedback */
+.animate-checkmark {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: supreme-checkmark-draw 0.8s var(--ease-supreme-out) forwards;
+}
+
+.animate-success {
+  animation: supreme-success-scale 0.6s var(--ease-supreme-back) both;
+}
+
+/* ==========================================================================
+   🎛️ 3. SUPREME MICRO-INTERACTION SYSTEM - PERFECT FEEDBACK
+   ========================================================================== */
+
+/* Button micro-interactions - Perfect tactile feedback */
+.btn-supreme-micro {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: all var(--duration-fast) var(--ease-supreme-out);
+}
+
+.btn-supreme-micro::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.6s var(--ease-supreme-out);
+  pointer-events: none;
+}
+
+.btn-supreme-micro:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+  transition: all 0.2s var(--ease-supreme-out);
+}
+
+.btn-supreme-micro:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.1);
+}
+
+.btn-supreme-micro:active {
+  transform: translateY(0) scale(0.98);
+  filter: brightness(0.95);
+  transition-duration: var(--duration-lightning);
+}
+
+/* Card hover micro-interactions */
+.card-supreme-micro {
+  position: relative;
+  transition: all var(--duration-medium) var(--ease-supreme-out);
+  transform-style: preserve-3d;
+}
+
+.card-supreme-micro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(16, 185, 129, 0.05) 0%, 
+    rgba(59, 130, 246, 0.05) 100%);
+  opacity: 0;
+  transition: opacity var(--duration-medium) var(--ease-supreme-out);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.card-supreme-micro:hover::before {
+  opacity: 1;
+}
+
+.card-supreme-micro:hover {
+  transform: translateY(-8px) rotateX(5deg);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 60px rgba(16, 185, 129, 0.1);
+}
+
+/* Input micro-interactions - Perfect focus feedback */
+.input-supreme-micro {
+  position: relative;
+  transition: all var(--duration-fast) var(--ease-supreme-out);
+}
+
+.input-supreme-micro::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-faceid);
+  transform: translateX(-50%);
+  transition: width var(--duration-medium) var(--ease-supreme-out);
+  border-radius: 1px;
+}
+
+.input-supreme-micro:focus::after {
+  width: 100%;
+}
+
+.input-supreme-micro:focus {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 0 3px rgba(16, 185, 129, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon micro-interactions - Perfect symbol feedback */
+.icon-supreme-micro {
+  transition: all var(--duration-fast) var(--ease-supreme-out);
+  transform-origin: center;
+}
+
+.icon-supreme-micro:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.2));
+}
+
+.icon-supreme-micro:active {
+  transform: scale(0.95) rotate(-2deg);
+  transition-duration: var(--duration-lightning);
+}
+
+/* ==========================================================================
+   🌊 4. SUPREME RIPPLE EFFECTS - MATERIAL PERFECTION
+   ========================================================================== */
+
+.ripple-supreme {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-supreme::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.4) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  transform: translate(-50%, -50%);
+  transition: all 0.6s var(--ease-supreme-out);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-supreme:active::before {
+  width: 400px;
+  height: 400px;
+  opacity: 1;
+  transition: all 0.3s var(--ease-supreme-out);
+}
+
+/* Branded ripple effects */
+.ripple-faceid::before {
+  background: radial-gradient(circle, 
+    rgba(16, 185, 129, 0.3) 0%, 
+    rgba(16, 185, 129, 0.1) 50%, 
+    transparent 100%);
+}
+
+.ripple-trust::before {
+  background: radial-gradient(circle, 
+    rgba(59, 130, 246, 0.3) 0%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    transparent 100%);
+}
+
+/* ==========================================================================
+   🎨 5. SUPREME MORPHING ANIMATIONS - FLUID TRANSFORMATIONS
+   ========================================================================== */
+
+.morph-supreme {
+  transition: all var(--duration-slow) var(--ease-supreme-in-out);
+}
+
+/* Button morphing states */
+.btn-morph-loading {
+  width: 48px !important;
+  border-radius: 50% !important;
+  transition: all var(--duration-medium) var(--ease-supreme-out);
+}
+
+.btn-morph-loading .btn-text {
+  opacity: 0;
+  transition: opacity var(--duration-lightning) var(--ease-supreme-out);
+}
+
+.btn-morph-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: supreme-spin 1s linear infinite;
+}
+
+.btn-morph-success {
+  background: var(--gradient-success) !important;
+  transition: all var(--duration-medium) var(--ease-supreme-out);
+}
+
+.btn-morph-success .btn-text::before {
+  content: '✓ ';
+  opacity: 0;
+  animation: supreme-fade-in-left var(--duration-medium) var(--ease-supreme-out) forwards;
+}
+
+/* Card morphing effects */
+.card-morph-expanded {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: var(--shadow-supreme-2xl);
+  transition: all var(--duration-slow) var(--ease-supreme-out);
+}
+
+/* ==========================================================================
+   🎭 6. SUPREME SCROLL ANIMATIONS - PROGRESSIVE REVELATION
+   ========================================================================== */
+
+.scroll-reveal-supreme {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--duration-slow) var(--ease-supreme-out);
+}
+
+.scroll-reveal-supreme.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Different reveal directions */
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all var(--duration-slow) var(--ease-supreme-out);
+}
+
+.scroll-reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all var(--duration-slow) var(--ease-supreme-out);
+}
+
+.scroll-reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--duration-slow) var(--ease-supreme-out);
+}
+
+.scroll-reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================================================
+   ✨ 7. SUPREME PARTICLE ANIMATIONS - MAGICAL FEEDBACK
+   ========================================================================== */
+
+@keyframes supreme-particle-float-1 {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes supreme-particle-float-2 {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+  33% { 
+    transform: translateY(-15px) rotate(120deg) scale(1.2);
+    opacity: 0.8;
+  }
+  66% { 
+    transform: translateY(-10px) rotate(240deg) scale(0.8);
+    opacity: 0.9;
+  }
+}
+
+.particle-supreme-1 {
+  animation: supreme-particle-float-1 4s var(--ease-supreme-in-out) infinite;
+  animation-delay: 0s;
+}
+
+.particle-supreme-2 {
+  animation: supreme-particle-float-2 3s var(--ease-supreme-in-out) infinite;
+  animation-delay: 0.5s;
+}
+
+.particle-supreme-3 {
+  animation: supreme-particle-float-1 5s var(--ease-supreme-in-out) infinite;
+  animation-delay: 1s;
+}
+
+/* ==========================================================================
+   🎪 8. SUPREME INTERACTION STATES - PERFECT STATUS FEEDBACK
+   ========================================================================== */
+
+/* Loading states with perfect feedback */
+.state-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.state-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  border-top: 2px solid var(--color-interactive);
+  border-radius: 50%;
+  animation: supreme-spin 1s linear infinite;
+}
+
+/* Success states with celebration */
+.state-success {
+  animation: supreme-bounce var(--duration-slow) var(--ease-supreme-out);
+  color: var(--success-500);
+}
+
+.state-success::before {
+  content: '✓';
+  display: inline-block;
+  margin-right: var(--space-golden-2);
+  animation: supreme-success-scale 0.5s var(--ease-supreme-back) 0.2s both;
+}
+
+/* Error states with attention */
+.state-error {
+  animation: supreme-shake 0.5s var(--ease-supreme-out);
+  color: var(--error-500);
+  border-color: var(--error-500);
+}
+
+.state-error::before {
+  content: '⚠';
+  display: inline-block;
+  margin-right: var(--space-golden-2);
+  animation: supreme-pulse 2s var(--ease-supreme-in-out) infinite;
+}
+
+/* Warning states with gentle attention */
+.state-warning {
+  animation: supreme-wiggle 0.5s var(--ease-supreme-in-out);
+  color: var(--warning-500);
+  border-color: var(--warning-500);
+}
+
+/* ==========================================================================
+   🎯 9. SUPREME PERFORMANCE OPTIMIZATIONS - BUTTER SMOOTH
+   ========================================================================== */
+
+/* GPU acceleration for all animated elements */
+.animate-supreme,
+.btn-supreme-micro,
+.card-supreme-micro,
+.input-supreme-micro,
+.icon-supreme-micro {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Pause animations on reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-supreme,
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-fade-in-left,
+  .animate-fade-in-right,
+  .animate-scale-in,
+  .animate-rotate-in,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-glow-pulse,
+  .animate-float,
+  .animate-wiggle,
+  .animate-spin,
+  .animate-loading-dots,
+  .particle-supreme-1,
+  .particle-supreme-2,
+  .particle-supreme-3 {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-rotate:hover,
+  .hover-tilt:hover {
+    transform: none !important;
+  }
+}
+
+/* High contrast optimizations */
+@media (prefers-contrast: high) {
+  .animate-glow-pulse {
+    animation: none;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 0 2px currentColor;
+  }
+}
+
+/* ==========================================================================
+   🏁 SUPREME MICRO-ANIMATIONS COMPLETE - PERFECT INTERACTIONS
+   Every interaction now provides SUBLIME feedback!
+   ========================================================================== */

@@ -1,0 +1,533 @@
+/* ==========================================================================
+   🎨 FACEPAY COLOR UTILITIES - PRODUCTION READY CLASSES
+   Perfect color palette implementation for immediate use
+   ========================================================================== */
+
+/* ==========================================================================
+   🌈 BRAND COLOR UTILITIES
+   ========================================================================== */
+
+/* Face ID Green Classes */
+.text-faceid { color: var(--faceid-green-500) !important; }
+.text-faceid-light { color: var(--faceid-green-400) !important; }
+.text-faceid-dark { color: var(--faceid-green-600) !important; }
+
+.bg-faceid { background-color: var(--faceid-green-500) !important; }
+.bg-faceid-light { background-color: var(--faceid-green-400) !important; }
+.bg-faceid-dark { background-color: var(--faceid-green-600) !important; }
+
+.border-faceid { border-color: var(--faceid-green-500) !important; }
+.border-faceid-light { border-color: var(--faceid-green-400) !important; }
+.border-faceid-dark { border-color: var(--faceid-green-600) !important; }
+
+/* Trust Blue Classes */
+.text-trust { color: var(--trust-blue-500) !important; }
+.text-trust-light { color: var(--trust-blue-400) !important; }
+.text-trust-dark { color: var(--trust-blue-600) !important; }
+
+.bg-trust { background-color: var(--trust-blue-500) !important; }
+.bg-trust-light { background-color: var(--trust-blue-400) !important; }
+.bg-trust-dark { background-color: var(--trust-blue-600) !important; }
+
+.border-trust { border-color: var(--trust-blue-500) !important; }
+
+/* Premium Purple Classes */
+.text-premium { color: var(--premium-purple-500) !important; }
+.text-premium-light { color: var(--premium-purple-400) !important; }
+.text-premium-dark { color: var(--premium-purple-600) !important; }
+
+.bg-premium { background-color: var(--premium-purple-500) !important; }
+.bg-premium-light { background-color: var(--premium-purple-400) !important; }
+.bg-premium-dark { background-color: var(--premium-purple-600) !important; }
+
+.border-premium { border-color: var(--premium-purple-500) !important; }
+
+/* ==========================================================================
+   🎨 GRADIENT UTILITIES
+   ========================================================================== */
+
+/* Face ID Gradients */
+.bg-gradient-faceid {
+  background: var(--gradient-faceid) !important;
+}
+
+.bg-gradient-faceid-soft {
+  background: var(--gradient-faceid-soft) !important;
+}
+
+.bg-gradient-faceid-strong {
+  background: var(--gradient-faceid-strong) !important;
+}
+
+.bg-gradient-faceid-radial {
+  background: var(--gradient-faceid-radial) !important;
+}
+
+/* Trust Gradients */
+.bg-gradient-trust {
+  background: var(--gradient-trust) !important;
+}
+
+.bg-gradient-trust-soft {
+  background: var(--gradient-trust-soft) !important;
+}
+
+/* Premium Gradients */
+.bg-gradient-premium {
+  background: var(--gradient-premium) !important;
+}
+
+.bg-gradient-premium-soft {
+  background: var(--gradient-premium-soft) !important;
+}
+
+/* Brand Gradients */
+.bg-gradient-brand {
+  background: var(--gradient-brand-primary) !important;
+}
+
+.bg-gradient-brand-subtle {
+  background: var(--gradient-brand-subtle) !important;
+}
+
+.bg-gradient-hero {
+  background: var(--gradient-hero) !important;
+}
+
+/* Status Gradients */
+.bg-gradient-success {
+  background: var(--gradient-success) !important;
+}
+
+.bg-gradient-warning {
+  background: var(--gradient-warning) !important;
+}
+
+.bg-gradient-error {
+  background: var(--gradient-error) !important;
+}
+
+/* Text Gradients */
+.text-gradient-faceid {
+  background: var(--gradient-faceid);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-brand {
+  background: var(--gradient-brand-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-hero {
+  background: linear-gradient(135deg, var(--neutral-0) 0%, var(--faceid-green-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ==========================================================================
+   🌫️ GLASS EFFECT UTILITIES
+   ========================================================================== */
+
+/* Basic Glass Effects */
+.glass-subtle {
+  background: var(--glass-subtle) !important;
+  backdrop-filter: var(--backdrop-blur-subtle);
+  -webkit-backdrop-filter: var(--backdrop-blur-subtle);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.glass-soft {
+  background: var(--glass-soft) !important;
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  border: 1px solid var(--color-border);
+}
+
+.glass-medium {
+  background: var(--glass-medium) !important;
+  backdrop-filter: var(--backdrop-blur-strong);
+  -webkit-backdrop-filter: var(--backdrop-blur-strong);
+  border: 1px solid var(--color-border-strong);
+}
+
+.glass-strong {
+  background: var(--glass-strong) !important;
+  backdrop-filter: var(--backdrop-blur-intense);
+  -webkit-backdrop-filter: var(--backdrop-blur-intense);
+  border: 1px solid var(--color-border-accent);
+}
+
+/* Colored Glass Effects */
+.glass-faceid {
+  background: var(--glass-faceid) !important;
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  border: 1px solid var(--faceid-green-300);
+}
+
+.glass-trust {
+  background: var(--glass-trust) !important;
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  border: 1px solid var(--trust-blue-300);
+}
+
+.glass-premium {
+  background: var(--glass-premium) !important;
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  border: 1px solid var(--premium-purple-300);
+}
+
+/* Glass Hover Effects */
+.glass-hover:hover {
+  background: var(--glass-medium) !important;
+  border-color: var(--color-border-accent);
+  transform: var(--hover-translate-up);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   🎯 BUTTON UTILITIES
+   ========================================================================== */
+
+/* Primary Buttons */
+.btn-primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-semibold);
+  box-shadow: var(--button-primary-shadow);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.btn-primary:hover {
+  background: var(--button-primary-bg-hover);
+  transform: var(--hover-translate-up);
+  box-shadow: var(--shadow-xl), var(--glow-faceid);
+}
+
+.btn-primary:active {
+  transform: var(--active-translate);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: var(--focus-ring-faceid);
+}
+
+/* Secondary Buttons */
+.btn-secondary {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  border: 1px solid var(--button-secondary-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-medium);
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.btn-secondary:hover {
+  background: var(--button-secondary-bg-hover);
+  border-color: var(--button-secondary-border-hover);
+  transform: var(--hover-translate-up);
+}
+
+.btn-secondary:active {
+  transform: var(--active-translate);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: var(--focus-ring-default);
+}
+
+/* Ghost Buttons */
+.btn-ghost {
+  background: var(--button-ghost-bg);
+  color: var(--button-ghost-text);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-medium);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.btn-ghost:hover {
+  background: var(--button-ghost-bg-hover);
+  color: var(--button-ghost-text-hover);
+}
+
+.btn-ghost:focus {
+  outline: none;
+  box-shadow: var(--focus-ring-default);
+}
+
+/* Button Sizes */
+.btn-sm {
+  height: var(--height-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.btn-lg {
+  height: var(--height-lg);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+.btn-xl {
+  height: var(--height-xl);
+  padding: var(--space-5) var(--space-10);
+  font-size: var(--text-xl);
+}
+
+/* ==========================================================================
+   🃏 CARD UTILITIES
+   ========================================================================== */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--card-shadow);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: var(--hover-translate-up);
+}
+
+.card-glass {
+  background: var(--glass-soft);
+  backdrop-filter: var(--backdrop-blur-medium);
+  -webkit-backdrop-filter: var(--backdrop-blur-medium);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-glass:hover {
+  background: var(--glass-medium);
+  border-color: var(--color-border-accent);
+  transform: var(--hover-translate-up);
+  box-shadow: var(--glow-faceid-strong);
+}
+
+/* ==========================================================================
+   💫 GLOW UTILITIES
+   ========================================================================== */
+
+.glow-faceid {
+  box-shadow: var(--glow-faceid);
+}
+
+.glow-faceid-strong {
+  box-shadow: var(--glow-faceid-strong);
+}
+
+.glow-trust {
+  box-shadow: var(--glow-trust);
+}
+
+.glow-premium {
+  box-shadow: var(--glow-premium);
+}
+
+.glow-hover:hover {
+  box-shadow: var(--glow-faceid-strong);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   🎭 STATUS UTILITIES
+   ========================================================================== */
+
+/* Success */
+.text-success { color: var(--success-500) !important; }
+.bg-success { background-color: var(--success-500) !important; }
+.border-success { border-color: var(--success-500) !important; }
+.bg-success-soft { background-color: var(--success-100) !important; }
+
+/* Warning */
+.text-warning { color: var(--warning-500) !important; }
+.bg-warning { background-color: var(--warning-500) !important; }
+.border-warning { border-color: var(--warning-500) !important; }
+.bg-warning-soft { background-color: var(--warning-100) !important; }
+
+/* Error */
+.text-error { color: var(--error-500) !important; }
+.bg-error { background-color: var(--error-500) !important; }
+.border-error { border-color: var(--error-500) !important; }
+.bg-error-soft { background-color: var(--error-100) !important; }
+
+/* Info */
+.text-info { color: var(--info-500) !important; }
+.bg-info { background-color: var(--info-500) !important; }
+.border-info { border-color: var(--info-500) !important; }
+.bg-info-soft { background-color: var(--info-100) !important; }
+
+/* ==========================================================================
+   🌙 DARK MODE UTILITIES
+   ========================================================================== */
+
+/* Text Colors for Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .text-faceid-adaptive { color: var(--faceid-green-400) !important; }
+  .text-trust-adaptive { color: var(--trust-blue-400) !important; }
+  .text-premium-adaptive { color: var(--premium-purple-400) !important; }
+}
+
+[data-theme="dark"] {
+  .text-faceid-adaptive { color: var(--faceid-green-400) !important; }
+  .text-trust-adaptive { color: var(--trust-blue-400) !important; }
+  .text-premium-adaptive { color: var(--premium-purple-400) !important; }
+}
+
+/* ==========================================================================
+   ⚡ PERFORMANCE UTILITIES
+   ========================================================================== */
+
+.gpu-accelerated {
+  transform: var(--gpu-hack);
+  backface-visibility: var(--backface-visibility);
+  perspective: var(--perspective);
+}
+
+.will-change-transform {
+  will-change: var(--will-change-transform);
+}
+
+.will-change-opacity {
+  will-change: var(--will-change-opacity);
+}
+
+.will-change-backdrop {
+  will-change: var(--will-change-backdrop);
+}
+
+/* ==========================================================================
+   📱 RESPONSIVE UTILITIES
+   ========================================================================== */
+
+/* Mobile First Breakpoints */
+@media (min-width: 640px) {
+  .sm\:glass-stronger {
+    backdrop-filter: var(--backdrop-blur-strong);
+    -webkit-backdrop-filter: var(--backdrop-blur-strong);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:glass-stronger {
+    backdrop-filter: var(--backdrop-blur-intense);
+    -webkit-backdrop-filter: var(--backdrop-blur-intense);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:glow-enhanced:hover {
+    box-shadow: var(--glow-faceid-strong), var(--shadow-2xl);
+  }
+}
+
+/* ==========================================================================
+   🎨 ANIMATION UTILITIES
+   ========================================================================== */
+
+.hover-scale:hover {
+  transform: var(--hover-scale-medium);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale-subtle:hover {
+  transform: var(--hover-scale-subtle);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: var(--hover-translate-up);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-all {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-colors {
+  transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   ✨ FINAL TOUCHES - MAGIC EFFECTS
+   ========================================================================== */
+
+.magic-border {
+  position: relative;
+  background: var(--glass-soft);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.magic-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-brand-primary);
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background-clip: padding-box;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+}
+
+.face-scan-effect {
+  animation: faceScanPulse 2s ease-in-out infinite;
+}
+
+@keyframes faceScanPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--glass-faceid-soft);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--glass-faceid), 0 0 60px var(--glass-faceid-soft);
+  }
+}

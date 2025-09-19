@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Perfect SEO -->
+    <title>FacePay: Send crypto like @john → @sarah. Face ID. Zero gas.</title>
+    <meta name="description" content="The world's first crypto app with Face ID authentication. Send to @usernames, not addresses. Zero gas fees on StarkNet.">
+    
+    <!-- Perfect Social -->
+    <meta property="og:title" content="FacePay: Send crypto like @john → @sarah. Face ID. Zero gas.">
+    <meta property="og:description" content="The world's first crypto app with Face ID authentication. Send to @usernames, not addresses.">
+    <meta property="og:image" content="https://facepay.com.mx/facepay-demo-poster.jpg">
+    <meta property="og:url" content="https://facepay.com.mx">
+    
+    <!-- Perfect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+    /* ULTRA-FLUID Variables */
+    :root {
+        --primary: #6366f1;
+        --secondary: #10b981;
+        --accent: #8b5cf6;
+        --bg: #0f0f0f;
+        --bg-card: rgba(255, 255, 255, 0.03);
+        --text: #ffffff;
+        --text-muted: #a1a1aa;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Performance First */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+    
+    /* Clean Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: rgba(15, 15, 15, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100;
+    }
+    
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+    }
+    
+    .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+    
+    .nav-links a:hover {
+        color: var(--primary);
+    }
+    
+    /* IMPACTFUL Hero */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 6rem 2rem 4rem;
+        position: relative;
+        background: 
+            radial-gradient(ellipse 1200px 800px at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+            radial-gradient(ellipse 800px 600px at 20% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 60%),
+            var(--bg);
+    }
+    
+    .hero-content {
+        max-width: 900px;
+        z-index: 2;
+    }
+    
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-card);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 50px;
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+    }
+    
+    .hero-title {
+        font-size: clamp(3rem, 8vw, 7rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #ffffff 0%, var(--primary) 40%, var(--accent) 70%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(1.2rem, 3vw, 1.4rem);
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* CLEAN Impactful Face Scanner */
+    .face-id-showcase {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        margin: 3rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .face-circle {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border: 3px solid var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(99, 102, 241, 0.05);
+        animation: breathe 3s ease-in-out infinite;
+    }
+    
+    .face-emoji {
+        font-size: 5rem;
+        animation: subtle-glow 2s ease-in-out infinite alternate;
+    }
+    
+    .scan-beam {
+        position: absolute;
+        top: 50%;
+        left: -20px;
+        right: -20px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        animation: scan-sweep 2s ease-in-out infinite;
+        filter: drop-shadow(0 0 5px var(--secondary));
+    }
+    
+    .corner {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--secondary);
+    }
+    
+    .corner-tl {
+        top: 40px;
+        left: 40px;
+        border-right: none;
+        border-bottom: none;
+    }
+    
+    .corner-tr {
+        top: 40px;
+        right: 40px;
+        border-left: none;
+        border-bottom: none;
+    }
+    
+    .corner-bl {
+        bottom: 40px;
+        left: 40px;
+        border-right: none;
+        border-top: none;
+    }
+    
+    .corner-br {
+        bottom: 40px;
+        right: 40px;
+        border-left: none;
+        border-top: none;
+    }
+    
+    /* Fluid Buttons */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        position: relative;
+        min-height: 48px;
+        will-change: transform;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary {
+        background: var(--bg-card);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--primary);
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 4rem;
+    }
+    
+    /* Features */
+    .section {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .section-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 4rem;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .feature-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+        will-change: transform;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    
+    .feature-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+    }
+    
+    .feature-description {
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+    
+    /* Animations - Optimized for Performance */
+    @keyframes breathe {
+        0%, 100% { 
+            transform: scale(1);
+            border-color: var(--primary);
+        }
+        50% { 
+            transform: scale(1.05);
+            border-color: var(--secondary);
+        }
+    }
+    
+    @keyframes subtle-glow {
+        0% { 
+            filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+        }
+        100% { 
+            filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8));
+        }
+    }
+    
+    @keyframes scan-sweep {
+        0% { 
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        50% { 
+            opacity: 1;
+        }
+        100% { 
+            transform: translateY(100px);
+            opacity: 0;
+        }
+    }
+    
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+        .nav {
+            padding: 1rem;
+        }
+        
+        .nav-links {
+            display: none;
+        }
+        
+        .hero {
+            padding: 5rem 1rem 3rem;
+        }
+        
+        .face-id-showcase {
+            width: 250px;
+            height: 250px;
+        }
+        
+        .face-circle {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .face-emoji {
+            font-size: 3.5rem;
+        }
+        
+        .section {
+            padding: 4rem 1rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Clean Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">FacePay</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#download" class="btn btn-primary">Get Beta</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Impactful Hero -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🚀</span>
+                    <span>Now in Beta</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Send crypto like<br>
+                    <span style="color: var(--primary);">@john</span> → <span style="color: var(--secondary);">@sarah</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    The world's first crypto app with Face ID authentication. 
+                    Send to @usernames, not wallet addresses. Zero gas fees on StarkNet.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <span>Get FacePay</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#demo" class="btn btn-secondary">
+                        <span>Watch Demo</span>
+                        <span>▶</span>
+                    </a>
+                </div>
+                
+                <!-- CLEAN Impactful Face ID -->
+                <div class="face-id-showcase">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                    
+                    <div class="face-circle">
+                        <div class="face-emoji">👤</div>
+                        <div class="scan-beam"></div>
+                    </div>
+                </div>
+                
+                <!-- Trust -->
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 2rem;">
+                    <p>🔒 Self-custodial • 🚀 Zero gas fees • ⚡ Instant transfers</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="section">
+            <h2 class="section-title">Why FacePay Changes Everything</h2>
+            <p class="section-subtitle">
+                Revolutionary crypto payments that actually make sense
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3 class="feature-title">Face ID Security</h3>
+                    <p class="feature-description">
+                        Your face is your private key. Advanced biometric encryption 
+                        keeps your funds safer than any password.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">@</div>
+                    <h3 class="feature-title">@Username Payments</h3>
+                    <p class="feature-description">
+                        Send to @sarah instead of 0x742d35Cc. 
+                        Human-readable addresses that make crypto accessible.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Zero Gas Fees</h3>
+                    <p class="feature-description">
+                        Built on StarkNet Layer 2. Send $1 or $10,000 
+                        with the same $0 transaction fee.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="download" style="background: var(--bg-card); padding: 4rem 2rem; text-align: center; margin: 4rem 0; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text);">
+                Ready for the Future?
+            </h2>
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem;">
+                Join thousands already using Face ID crypto payments
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary" style="font-size: 1.2rem; padding: 20px 40px;">
+                    <span>Join Beta Now</span>
+                    <span>🚀</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // ULTRA-FLUID Performance JavaScript
+    class UltraFluidFacePay {
+        constructor() {
+            this.init();
+        }
+        
+        init() {
+            this.setupSmoothNavigation();
+            this.setupHoverEffects();
+            if (window.innerWidth > 768) {
+                this.setupSubtleAnimations();
+            }
+        }
+        
+        setupSmoothNavigation() {
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        const navHeight = 80;
+                        const targetPosition = target.offsetTop - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        setupHoverEffects() {
+            // Subtle hover enhancement for cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-4px)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        }
+        
+        setupSubtleAnimations() {
+            // Only on desktop and if user doesn't prefer reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            
+            // Subtle scroll effect on hero
+            let ticking = false;
+            
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+                        const hero = document.querySelector('.hero');
+                        
+                        if (hero && scrolled < window.innerHeight) {
+                            const opacity = Math.max(0.3, 1 - scrolled / window.innerHeight);
+                            hero.style.opacity = opacity;
+                        }
+                        
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+    }
+    
+    // Initialize immediately for maximum fluidity
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => new UltraFluidFacePay());
+    } else {
+        new UltraFluidFacePay();
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+/**
+ * PREMIUM DESKTOP STYLES - APPLE.COM LEVEL VISUAL EFFECTS
+ * Cinematic hover effects, smooth transitions, high-end animations
+ */
+
+/* ===== CORE VARIABLES ===== */
+:root {
+    /* Premium Colors */
+    --premium-green: #00ff88;
+    --premium-blue: #3b82f6;
+    --premium-purple: #8b5cf6;
+    --premium-gold: #fbbf24;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--premium-green), var(--premium-blue));
+    --gradient-premium: linear-gradient(135deg, var(--premium-green), var(--premium-purple), var(--premium-blue));
+    --gradient-gold: linear-gradient(135deg, var(--premium-gold), var(--premium-green));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 32px rgba(0, 255, 136, 0.3);
+    
+    /* Easing Functions */
+    --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Timing */
+    --duration-fast: 0.15s;
+    --duration-normal: 0.3s;
+    --duration-slow: 0.5s;
+    --duration-cinematic: 0.8s;
+}
+
+/* ===== DESKTOP-ONLY PREMIUM FEATURES ===== */
+@media (min-width: 1024px) {
+    
+    /* Premium Desktop Base */
+    .premium-desktop-active {
+        scroll-behavior: smooth;
+    }
+    
+    .premium-desktop-active * {
+        transition-timing-function: var(--ease-premium);
+    }
+    
+    /* ===== CINEMATIC HOVER EFFECTS ===== */
+    
+    /* Premium Buttons */
+    .btn {
+        position: relative;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        transition: all var(--duration-normal) var(--ease-premium);
+    }
+    
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: var(--gradient-premium);
+        opacity: 0;
+        transform: rotate(45deg) scale(0);
+        transition: all var(--duration-cinematic) var(--ease-bounce);
+        z-index: -1;
+    }
+    
+    .btn:hover::before {
+        opacity: 0.1;
+        transform: rotate(45deg) scale(1);
+    }
+    
+    .btn:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: var(--shadow-glow);
+        filter: brightness(1.1) saturate(1.2);
+    }
+    
+    .btn:active {
+        transform: translateY(-2px) scale(0.98);
+        transition-duration: var(--duration-fast);
+    }
+    
+    /* Premium Primary Button */
+    .btn-primary {
+        background: var(--gradient-primary);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transition: left var(--duration-slow) var(--ease-premium);
+    }
+    
+    .btn-primary:hover::after {
+        left: 100%;
+    }
+    
+    /* Feature Cards - Apple-style */
+    .feature {
+        position: relative;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all var(--duration-normal) var(--ease-premium);
+        backdrop-filter: blur(20px);
+    }
+    
+    .feature::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: all var(--duration-normal) var(--ease-premium);
+    }
+    
+    .feature:hover {
+        transform: translateY(-8px) scale(1.02);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(0, 255, 136, 0.3);
+        box-shadow: 
+            var(--shadow-strong),
+            0 0 48px rgba(0, 255, 136, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .feature:hover::before {
+        opacity: 1;
+    }
+    
+    .feature:hover .feature-icon {
+        transform: scale(1.1) rotate(5deg);
+        filter: drop-shadow(0 4px 12px rgba(0, 255, 136, 0.4));
+    }
+    
+    /* Stats with Premium Animation */
+    .stat {
+        position: relative;
+        transition: all var(--duration-normal) var(--ease-premium);
+        cursor: pointer;
+    }
+    
+    .stat::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: inherit;
+        background: var(--gradient-premium);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity var(--duration-normal) var(--ease-premium);
+    }
+    
+    .stat:hover {
+        transform: translateY(-6px) scale(1.05);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: var(--shadow-glow);
+    }
+    
+    .stat:hover::before {
+        opacity: 1;
+    }
+    
+    .stat:hover .stat-value {
+        background: var(--gradient-gold);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transform: scale(1.1);
+    }
+    
+    /* Demo Steps with Cascade Effect */
+    .step {
+        transition: all var(--duration-normal) var(--ease-premium);
+        cursor: pointer;
+    }
+    
+    .step:hover {
+        transform: translateX(8px) scale(1.02);
+        background: rgba(0, 255, 136, 0.1);
+        border-left-color: var(--premium-gold);
+        border-left-width: 4px;
+    }
+    
+    .step:hover .step-number {
+        background: var(--gradient-gold);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transform: scale(1.2);
+    }
+    
+    /* ===== MOUSE TRACKING EFFECTS ===== */
+    
+    /* Magnetic Effect Container */
+    .magnetic {
+        transition: transform var(--duration-fast) var(--ease-premium);
+    }
+    
+    /* Mouse Gradient Background */
+    .mouse-gradient-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        mix-blend-mode: screen;
+        opacity: 0.05;
+        background: radial-gradient(
+            600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(0, 255, 136, 0.15),
+            rgba(59, 130, 246, 0.1),
+            rgba(139, 92, 246, 0.05),
+            transparent 70%
+        );
+        transition: opacity var(--duration-normal) var(--ease-premium);
+    }
+    
+    .mouse-gradient-overlay.active {
+        opacity: 0.1;
+    }
+    
+    /* ===== CUSTOM CURSOR SYSTEM ===== */
+    
+    .custom-cursor-active {
+        cursor: none !important;
+    }
+    
+    .custom-cursor-active * {
+        cursor: none !important;
+    }
+    
+    .premium-cursor {
+        position: fixed;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--premium-green);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        mix-blend-mode: difference;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.2), transparent);
+        transition: all 0.1s var(--ease-sharp);
+        transform: translate(-50%, -50%);
+    }
+    
+    .premium-cursor.hover {
+        width: 48px;
+        height: 48px;
+        border-color: var(--premium-gold);
+        background: radial-gradient(circle, rgba(251, 191, 36, 0.3), transparent);
+    }
+    
+    .premium-cursor.click {
+        transform: translate(-50%, -50%) scale(0.8);
+        border-width: 4px;
+    }
+    
+    /* ===== KEYBOARD FOCUS STATES ===== */
+    
+    .premium-desktop-active :focus {
+        outline: none;
+        box-shadow: 
+            0 0 0 3px rgba(0, 255, 136, 0.3),
+            0 0 0 1px var(--premium-green),
+            var(--shadow-glow);
+        transform: scale(1.02);
+        transition: all var(--duration-fast) var(--ease-premium);
+    }
+    
+    .premium-desktop-active .btn:focus {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+    
+    /* ===== VIDEO MODAL PREMIUM EFFECTS ===== */
+    
+    .video-modal {
+        backdrop-filter: blur(20px);
+        transition: all var(--duration-normal) var(--ease-premium);
+    }
+    
+    .video-modal.active {
+        background: rgba(0, 0, 0, 0.95);
+    }
+    
+    .video-modal-content {
+        transform: scale(0.8) translateY(50px);
+        opacity: 0;
+        transition: all var(--duration-cinematic) var(--ease-bounce);
+    }
+    
+    .video-modal.active .video-modal-content {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        box-shadow: 
+            var(--shadow-strong),
+            0 0 80px rgba(0, 255, 136, 0.2);
+    }
+    
+    /* ===== SCROLL PROGRESS INDICATOR ===== */
+    
+    .scroll-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+    }
+    
+    .scroll-progress-fill {
+        height: 100%;
+        background: var(--gradient-primary);
+        transform-origin: 0 0;
+        transition: transform 0.1s var(--ease-sharp);
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    
+    /* Section Navigation Dots */
+    .scroll-dots-container {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .scroll-dot {
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: all var(--duration-normal) var(--ease-premium);
+    }
+    
+    .scroll-dot:hover {
+        border-color: var(--premium-green);
+        background: rgba(0, 255, 136, 0.2);
+        transform: scale(1.3);
+    }
+    
+    .scroll-dot.active {
+        border-color: var(--premium-green);
+        background: var(--premium-green);
+        box-shadow: 0 0 16px rgba(0, 255, 136, 0.6);
+    }
+    
+    /* ===== PREMIUM ANIMATIONS ===== */
+    
+    /* Shimmer Effect */
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(200%); }
+    }
+    
+    .shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        animation: shimmer 2s infinite;
+    }
+    
+    /* Pulse Glow */
+    @keyframes pulseGlow {
+        0%, 100% { 
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            opacity: 1;
+        }
+        50% { 
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+            opacity: 0.8;
+        }
+    }
+    
+    .pulse-glow {
+        animation: pulseGlow 2s ease-in-out infinite;
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .floating {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    /* ===== HIGH DPI OPTIMIZATIONS ===== */
+    
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+        .premium-cursor {
+            border-width: 1px;
+        }
+        
+        .premium-hover-overlay {
+            backdrop-filter: blur(0.5px);
+            transform: translateZ(0);
+        }
+        
+        .feature::before {
+            height: 0.5px;
+        }
+    }
+    
+    /* ===== PERFORMANCE MODES ===== */
+    
+    /* Battery Saver Mode */
+    .battery-mode * {
+        animation-duration: 0.1s !important;
+        transition-duration: 0.1s !important;
+    }
+    
+    .battery-mode .mouse-gradient-overlay,
+    .battery-mode .shimmer::after,
+    .battery-mode .pulse-glow {
+        display: none;
+    }
+    
+    /* Performance Mode */
+    .performance-mode .feature:hover,
+    .performance-mode .stat:hover,
+    .performance-mode .btn:hover {
+        transform: translateY(-2px) scale(1.01);
+    }
+    
+    .performance-mode .btn::before,
+    .performance-mode .feature::before,
+    .performance-mode .stat::before {
+        display: none;
+    }
+    
+    /* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+    
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+        .premium-desktop-active * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        .mouse-gradient-overlay,
+        .shimmer::after,
+        .floating,
+        .pulse-glow {
+            display: none;
+        }
+        
+        .premium-cursor {
+            display: none;
+        }
+        
+        .custom-cursor-active,
+        .custom-cursor-active * {
+            cursor: auto !important;
+        }
+    }
+    
+    /* High Contrast Mode */
+    @media (prefers-contrast: high) {
+        .feature {
+            border-width: 2px;
+            border-color: var(--premium-green);
+        }
+        
+        .premium-cursor {
+            border-width: 3px;
+        }
+        
+        .scroll-dot {
+            border-width: 3px;
+        }
+    }
+    
+    /* Dark Theme Adjustments */
+    [data-theme="dark"] .premium-desktop-active {
+        --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.3);
+        --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Light Theme Adjustments */
+    [data-theme="light"] .premium-desktop-active {
+        --premium-green: #059669;
+        --premium-blue: #2563eb;
+        --shadow-glow: 0 0 32px rgba(5, 150, 105, 0.3);
+    }
+    
+    [data-theme="light"] .mouse-gradient-overlay {
+        mix-blend-mode: multiply;
+        background: radial-gradient(
+            600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(5, 150, 105, 0.08),
+            rgba(37, 99, 235, 0.05),
+            transparent 70%
+        );
+    }
+    
+    /* ===== ADVANCED HOVER EFFECTS ===== */
+    
+    /* 3D Tilt Effect */
+    .tilt-effect {
+        transform-style: preserve-3d;
+        transition: transform var(--duration-normal) var(--ease-premium);
+    }
+    
+    .tilt-effect:hover {
+        transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    }
+    
+    /* Liquid Morphing */
+    .liquid-shape {
+        transition: all var(--duration-cinematic) var(--ease-bounce);
+    }
+    
+    .liquid-morph-active {
+        border-radius: 50% 20% 80% 30% / 30% 70% 20% 80%;
+        transform: scale(1.05) rotate(2deg);
+    }
+    
+    /* Glass Morphism */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .glass-effect:hover {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(30px) saturate(200%);
+        border-color: rgba(0, 255, 136, 0.3);
+    }
+}
+
+/* ===== MOBILE FALLBACKS ===== */
+@media (max-width: 1023px) {
+    .premium-desktop-active .mouse-gradient-overlay,
+    .premium-desktop-active .premium-cursor,
+    .premium-desktop-active .scroll-dots-container {
+        display: none;
+    }
+    
+    .premium-desktop-active .btn:hover,
+    .premium-desktop-active .feature:hover,
+    .premium-desktop-active .stat:hover {
+        transform: none;
+    }
+}

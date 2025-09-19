@@ -1,0 +1,26 @@
+{
+  "testSuite": "Lighthouse Exhaustive Testing",
+  "timestamp": "2025-09-19T16:48:36.575Z",
+  "summary": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "successRate": null
+  },
+  "results": [],
+  "failures": [
+    {
+      "config": "desktop",
+      "error": "lighthouse is not a function"
+    },
+    {
+      "config": "mobile",
+      "error": "lighthouse is not a function"
+    },
+    {
+      "config": "mobile-3g",
+      "error": "lighthouse is not a function"
+    }
+  ],
+  "recommendations": []
+}

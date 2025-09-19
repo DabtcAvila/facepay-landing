@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <url>
+    <loc>https://facepay.com.mx/</loc>
+    <image:image>
+      <image:loc>https://facepay.com.mx/preview.png</image:loc>
+      <image:title>FacePay - Pagos Crypto con Face ID</image:title>
+      <image:caption>La app que revoluciona los pagos crypto usando Face ID en StarkNet</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/icon-512.png</image:loc>
+      <image:title>FacePay App Icon</image:title>
+      <image:caption>Icono oficial de la aplicación FacePay</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/screenshot-mobile.png</image:loc>
+      <image:title>FacePay Mobile Screenshot</image:title>
+      <image:caption>Screenshot de la interfaz móvil de FacePay</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/screenshot-desktop.png</image:loc>
+      <image:title>FacePay Desktop Screenshot</image:title>
+      <image:caption>Screenshot de la interfaz desktop de FacePay</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/face-id-demo.png</image:loc>
+      <image:title>Face ID Security Demo</image:title>
+      <image:caption>Demostración de seguridad biométrica con Face ID</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/starknet-integration.png</image:loc>
+      <image:title>StarkNet L2 Integration</image:title>
+      <image:caption>Integración con StarkNet Layer 2 para pagos sin gas fees</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/app-store-badge.png</image:loc>
+      <image:title>Download on App Store</image:title>
+      <image:caption>Badge oficial para descargar FacePay en App Store</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://facepay.com.mx/google-play-badge.png</image:loc>
+      <image:title>Get it on Google Play</image:title>
+      <image:caption>Badge oficial para descargar FacePay en Google Play</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

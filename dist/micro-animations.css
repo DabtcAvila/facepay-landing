@@ -1,0 +1,622 @@
+/* 
+ * FACEPAY MICRO-ANIMATIONS DELICIOSAS
+ * Premium character-level animations that delight users
+ * Performance: 60fps | Accessibility: Friendly | Timing: Perfecto
+ */
+
+:root {
+  /* Timing perfecto - No muy rápido/lento */
+  --micro-ultra-fast: 0.08s;
+  --micro-fast: 0.15s;
+  --micro-medium: 0.25s;
+  --micro-slow: 0.4s;
+  --micro-ultra-slow: 0.6s;
+  
+  /* Easing natural */
+  --ease-micro: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce-micro: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --ease-elastic-micro: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-anticipation: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Colores para efectos */
+  --glow-primary: rgba(0, 255, 136, 0.6);
+  --glow-secondary: rgba(99, 102, 241, 0.4);
+  --success-glow: rgba(34, 197, 94, 0.8);
+  --warning-glow: rgba(245, 158, 11, 0.6);
+}
+
+/* ====================
+   1. TEXT REVEALS - Character por character
+   ==================== */
+
+.text-reveal-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px) rotateX(90deg);
+  animation: charReveal var(--micro-medium) var(--ease-micro) forwards;
+}
+
+@keyframes charReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) rotateX(90deg) scale(0.8);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-3px) rotateX(-5deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
+}
+
+/* Timing escalonado para cada caracter */
+.text-reveal-char:nth-child(1) { animation-delay: calc(0.02s * 1); }
+.text-reveal-char:nth-child(2) { animation-delay: calc(0.02s * 2); }
+.text-reveal-char:nth-child(3) { animation-delay: calc(0.02s * 3); }
+.text-reveal-char:nth-child(4) { animation-delay: calc(0.02s * 4); }
+.text-reveal-char:nth-child(5) { animation-delay: calc(0.02s * 5); }
+.text-reveal-char:nth-child(6) { animation-delay: calc(0.02s * 6); }
+.text-reveal-char:nth-child(7) { animation-delay: calc(0.02s * 7); }
+.text-reveal-char:nth-child(8) { animation-delay: calc(0.02s * 8); }
+.text-reveal-char:nth-child(9) { animation-delay: calc(0.02s * 9); }
+.text-reveal-char:nth-child(10) { animation-delay: calc(0.02s * 10); }
+
+/* Variante con efecto tipo 'Matrix' */
+.text-reveal-matrix {
+  display: inline-block;
+  opacity: 0;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--glow-primary);
+  animation: matrixReveal var(--micro-slow) var(--ease-micro) forwards;
+}
+
+@keyframes matrixReveal {
+  0% {
+    opacity: 0;
+    transform: scaleY(0) rotateX(180deg);
+    color: transparent;
+  }
+  25% {
+    opacity: 0.7;
+    transform: scaleY(0.3) rotateX(90deg);
+    color: var(--primary);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.1) rotateX(-10deg);
+    color: #ffffff;
+    text-shadow: 0 0 20px var(--glow-primary);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) rotateX(0);
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+/* Variante escritura tipo 'Typewriter' perfeccionada */
+.text-reveal-typewriter {
+  display: inline-block;
+  opacity: 0;
+  border-right: 2px solid var(--primary);
+  animation: typewriterChar var(--micro-fast) var(--ease-micro) forwards;
+}
+
+@keyframes typewriterChar {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+    border-color: transparent;
+  }
+  1% {
+    opacity: 1;
+    border-color: var(--primary);
+  }
+  50% {
+    transform: scaleX(0.5);
+    border-color: var(--primary);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+    border-color: transparent;
+  }
+}
+
+/* ====================
+   2. BUTTON STATES - Bounce perfecto
+   ==================== */
+
+.btn-micro-bounce {
+  position: relative;
+  transform: scale(1);
+  transition: all var(--micro-fast) var(--ease-micro);
+  overflow: hidden;
+}
+
+/* Hover state con anticipación */
+.btn-micro-bounce:hover {
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 0 30px var(--glow-primary);
+}
+
+/* Active state con overshoot perfecto */
+.btn-micro-bounce:active {
+  transform: scale(0.96) translateY(1px);
+  transition: all var(--micro-ultra-fast) var(--ease-bounce-micro);
+}
+
+/* Efecto ripple en click */
+.btn-micro-bounce::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s var(--ease-micro), height 0.6s var(--ease-micro);
+  pointer-events: none;
+}
+
+.btn-micro-bounce:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Estados de loading con pulso suave */
+.btn-loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: btnSpinDelicious 0.8s linear infinite;
+}
+
+@keyframes btnSpinDelicious {
+  to { transform: rotate(360deg); }
+}
+
+/* Efecto magnético suave */
+.btn-magnetic {
+  transition: transform var(--micro-medium) var(--ease-elastic-micro);
+}
+
+.btn-magnetic:hover {
+  transform: translateY(-2px) rotateX(5deg);
+  perspective: 1000px;
+}
+
+/* ====================
+   3. LOADING STATES - Hipnotizantes
+   ==================== */
+
+/* Spinner líquido ondulante */
+.loader-liquid {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  position: relative;
+  animation: liquidPulse 1.5s var(--ease-micro) infinite;
+}
+
+.loader-liquid::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--primary) 90deg,
+    transparent 180deg,
+    var(--secondary) 270deg,
+    transparent 360deg
+  );
+  animation: liquidSpin 2s linear infinite;
+}
+
+.loader-liquid::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes liquidPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes liquidSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Dots dancing perfectamente sincronizados */
+.loader-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.loader-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: dotDance 1.4s var(--ease-overshoot) infinite;
+}
+
+.loader-dot:nth-child(1) { animation-delay: 0s; }
+.loader-dot:nth-child(2) { animation-delay: 0.2s; }
+.loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotDance {
+  0%, 80%, 100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1.3) translateY(-10px);
+    opacity: 1;
+    box-shadow: 0 0 15px var(--glow-primary);
+  }
+}
+
+/* Progress bar líquida */
+.progress-liquid {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-liquid-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--primary) 0%,
+    var(--secondary) 50%,
+    var(--primary) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: inherit;
+  position: relative;
+  animation: liquidFlow 2s ease-in-out infinite;
+}
+
+.progress-liquid-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: liquidShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes liquidFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes liquidShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ====================
+   4. SCROLL REVEALS - Sorprendentes
+   ==================== */
+
+/* Parallax depth con perspectiva */
+.scroll-reveal-depth {
+  opacity: 0;
+  transform: translateY(50px) translateZ(-100px) rotateX(15deg);
+  transition: all 0.8s var(--ease-overshoot);
+  perspective: 1000px;
+}
+
+.scroll-reveal-depth.observed {
+  opacity: 1;
+  transform: translateY(0) translateZ(0) rotateX(0);
+}
+
+/* Magnetic scroll attraction */
+.scroll-reveal-magnetic {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.6s var(--ease-elastic-micro);
+  filter: blur(3px);
+}
+
+.scroll-reveal-magnetic.observed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Split reveal con timing perfecto */
+.scroll-reveal-split {
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-reveal-split::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-micro);
+  z-index: 1;
+}
+
+.scroll-reveal-split.observed::before {
+  transform: scaleX(1);
+  transition-delay: 0s;
+}
+
+.scroll-reveal-split.observed::before {
+  transform: scaleX(0);
+  transform-origin: right;
+  transition-delay: 0.3s;
+}
+
+/* Cascade stagger effect */
+.scroll-cascade .cascade-item {
+  opacity: 0;
+  transform: translateY(20px) rotateY(45deg);
+  transition: all 0.5s var(--ease-micro);
+}
+
+.scroll-cascade.observed .cascade-item:nth-child(1) { transition-delay: 0.1s; }
+.scroll-cascade.observed .cascade-item:nth-child(2) { transition-delay: 0.2s; }
+.scroll-cascade.observed .cascade-item:nth-child(3) { transition-delay: 0.3s; }
+.scroll-cascade.observed .cascade-item:nth-child(4) { transition-delay: 0.4s; }
+
+.scroll-cascade.observed .cascade-item {
+  opacity: 1;
+  transform: translateY(0) rotateY(0);
+}
+
+/* ====================
+   5. SUCCESS STATES - Satisfactorios
+   ==================== */
+
+/* Checkmark animado perfecto */
+.success-checkmark {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--success-glow), #10b981);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: successPulse 0.6s var(--ease-bounce-micro);
+  box-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
+}
+
+.success-checkmark::before {
+  content: '✓';
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  animation: checkmarkDraw 0.4s var(--ease-micro) 0.2s forwards;
+  opacity: 0;
+  transform: scale(0);
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Success ripple effect */
+.success-ripple {
+  position: relative;
+  overflow: visible;
+}
+
+.success-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--success-glow);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  animation: successRipple 1.5s var(--ease-micro) infinite;
+}
+
+@keyframes successRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Celebration particles */
+.success-particles {
+  position: relative;
+}
+
+.success-particles::before {
+  content: '✨🎉✨';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: particlesCelebration 1s var(--ease-micro) forwards;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes particlesCelebration {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-15px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(0.8);
+  }
+}
+
+/* ====================
+   ACCESSIBILITY FRIENDLY
+   ==================== */
+
+/* Respeta las preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .text-reveal-char,
+  .text-reveal-matrix,
+  .text-reveal-typewriter,
+  .btn-micro-bounce,
+  .loader-liquid,
+  .loader-dot,
+  .scroll-reveal-depth,
+  .scroll-reveal-magnetic,
+  .success-checkmark {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  /* Mantén funcionalidad, reduce movimiento */
+  .btn-micro-bounce:hover {
+    transform: scale(1.01) translateY(-0.5px);
+  }
+  
+  .scroll-reveal-depth.observed,
+  .scroll-reveal-magnetic.observed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glow-primary: transparent;
+    --glow-secondary: transparent;
+    --success-glow: transparent;
+  }
+  
+  .success-checkmark {
+    box-shadow: none;
+    border: 2px solid currentColor;
+  }
+  
+  .loader-liquid::before {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ====================
+   PERFORMANCE OPTIMIZATIONS
+   ==================== */
+
+/* GPU acceleration hints */
+.text-reveal-char,
+.btn-micro-bounce,
+.loader-liquid,
+.scroll-reveal-depth,
+.success-checkmark {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Composite layers for smooth animations */
+.btn-micro-bounce::before,
+.loader-liquid::before,
+.success-ripple::after {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* Remove will-change after animation completes */
+.animation-complete {
+  will-change: auto !important;
+}

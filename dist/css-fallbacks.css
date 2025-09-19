@@ -1,0 +1,642 @@
+/**
+ * FACEPAY CSS FALLBACKS & LEGACY BROWSER SUPPORT
+ * Comprehensive fallbacks for older browsers
+ * Progressive enhancement with graceful degradation
+ */
+
+/* ===== FEATURE DETECTION & FALLBACKS ===== */
+
+/* CSS Grid Fallbacks */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Flexbox fallback for older browsers */
+.no-grid .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -1rem;
+}
+
+.no-grid .features-grid > * {
+    flex: 1;
+    min-width: 300px;
+    margin: 1rem;
+}
+
+/* Float fallback for very old browsers */
+.no-flexbox.no-grid .features-grid {
+    display: block;
+    overflow: hidden;
+}
+
+.no-flexbox.no-grid .features-grid > * {
+    float: left;
+    width: 30%;
+    margin-right: 5%;
+}
+
+.no-flexbox.no-grid .features-grid > *:nth-child(3n) {
+    margin-right: 0;
+}
+
+/* CSS Custom Properties Fallbacks */
+.hero h1 {
+    /* Fallback color */
+    color: #00ff88;
+    /* Modern custom property */
+    color: var(--green);
+}
+
+.btn-primary {
+    /* Fallback background */
+    background: #00ff88;
+    background: linear-gradient(135deg, #00ff88, #3b82f6);
+    /* Modern custom property */
+    background: linear-gradient(135deg, var(--green), var(--blue));
+}
+
+/* Backdrop Filter Fallbacks */
+.hero-content {
+    /* Fallback for browsers without backdrop-filter */
+    background: rgba(0, 0, 0, 0.8);
+    /* Modern backdrop-filter */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* No backdrop-filter support */
+.no-backdrop-filter .hero-content {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* CSS Shapes Fallbacks */
+.liquid-shape {
+    border-radius: 16px;
+    /* Modern CSS with better browser support */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.no-clip-path .liquid-shape {
+    border-radius: 24px;
+}
+
+/* Transform Fallbacks */
+.btn:hover {
+    /* Fallback for browsers without transforms */
+    margin-top: -2px;
+    /* Modern transform */
+    transform: translateY(-2px);
+}
+
+.no-transforms .btn:hover {
+    margin-top: -2px;
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+}
+
+/* Transition Fallbacks */
+.btn {
+    /* No transition fallback - instant change */
+    transition: all 0.3s ease;
+}
+
+.no-transitions .btn:hover {
+    /* Instant visual feedback without transitions */
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+}
+
+/* Gradient Fallbacks */
+.cta {
+    /* Solid color fallback */
+    background: rgba(0, 255, 136, 0.1);
+    /* Modern gradient */
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(59, 130, 246, 0.1));
+}
+
+.no-gradients .cta {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+/* Flexbox Fallbacks */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-flexbox .hero-content {
+    text-align: center;
+    display: block;
+}
+
+.no-flexbox .hero-content > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Object-fit Fallbacks for Images/Videos */
+.hero-video {
+    object-fit: cover;
+    font-family: 'object-fit: cover;'; /* Polyfill trigger */
+}
+
+.no-object-fit .hero-video {
+    /* Fallback positioning */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+/* Viewport Units Fallbacks */
+.hero {
+    /* Fallback height */
+    height: 600px;
+    /* Modern viewport units */
+    min-height: 100vh;
+}
+
+.no-vh .hero {
+    height: 600px;
+}
+
+/* CSS Variables Fallback System */
+:root {
+    --green: #00ff88;
+    --blue: #3b82f6;
+    --dark: #000000;
+    --gray: #1a1a1a;
+    --white: #ffffff;
+    --text: rgba(255, 255, 255, 0.9);
+    --text-dim: rgba(255, 255, 255, 0.7);
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Fallback for browsers without CSS custom properties */
+.no-css-variables .hero h1 .highlight { color: #00ff88; }
+.no-css-variables .btn-primary { background: linear-gradient(135deg, #00ff88, #3b82f6); }
+.no-css-variables .feature h3 { color: #00ff88; }
+.no-css-variables body { background: #000000; color: rgba(255, 255, 255, 0.9); }
+.no-css-variables .features { background: #1a1a1a; }
+
+/* Animation Fallbacks */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* No animation support */
+.no-animations .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        animation: none;
+    }
+    
+    .btn {
+        transition: none;
+    }
+    
+    .hero-video {
+        animation-play-state: paused;
+    }
+}
+
+/* ===== INTERNET EXPLORER SPECIFIC FALLBACKS ===== */
+
+/* IE 11 and below */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* IE specific styles */
+    .hero-content {
+        background: rgba(0, 0, 0, 0.8);
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .features-grid {
+        display: -ms-flexbox;
+        -ms-flex-wrap: wrap;
+        -ms-flex-pack: justify;
+    }
+    
+    .feature {
+        -ms-flex: 1;
+        -ms-flex-preferred-size: 300px;
+    }
+    
+    /* IE doesn't support object-fit */
+    .hero-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+    }
+}
+
+/* IE 10 and below - even more basic */
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    .hero {
+        height: 600px; /* Fixed height instead of vh */
+    }
+    
+    .btn {
+        background: #00ff88; /* Solid color instead of gradient */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ff88', endColorstr='#3b82f6');
+    }
+}
+
+/* ===== MOBILE BROWSER FALLBACKS ===== */
+
+/* Old Android Browser (4.x and below) */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+    .hero-video {
+        /* Disable autoplay on old Android */
+        display: none;
+    }
+    
+    .hero-video-mobile-poster {
+        display: block !important;
+    }
+}
+
+/* Old iOS Safari */
+@supports not (backdrop-filter: blur(10px)) {
+    .hero-content {
+        background: rgba(0, 0, 0, 0.85);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+/* ===== PROGRESSIVE ENHANCEMENT LAYERS ===== */
+
+/* Level 1: Basic functionality (all browsers) */
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #00ff88;
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Level 2: Enhanced styling (modern browsers) */
+@supports (border-radius: 8px) {
+    .btn {
+        border-radius: 8px;
+        border: none;
+    }
+}
+
+/* Level 3: Advanced interactions (latest browsers) */
+@supports (transform: translateY(-2px)) {
+    .btn {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+    }
+}
+
+/* Level 4: Cutting-edge features (newest browsers) */
+@supports (backdrop-filter: blur(10px)) {
+    .hero-content {
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* ===== ACCESSIBILITY FALLBACKS ===== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        background: #00ff88;
+        color: #000000;
+        border: 2px solid #000000;
+    }
+    
+    .hero-content {
+        background: rgba(0, 0, 0, 0.95);
+        border: 2px solid #ffffff;
+    }
+    
+    .feature {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+    .btn {
+        background: ButtonFace;
+        color: ButtonText;
+        border: 2px solid ButtonText;
+        forced-color-adjust: none;
+    }
+    
+    .hero-content {
+        background: Canvas;
+        color: CanvasText;
+        border: 2px solid CanvasText;
+    }
+}
+
+/* ===== PRINT FALLBACKS ===== */
+@media print {
+    /* Hide decorative elements */
+    .hero-video,
+    .particles,
+    .video-modal,
+    .toast-container {
+        display: none !important;
+    }
+    
+    /* Ensure text is readable */
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .hero-content {
+        background: transparent !important;
+        color: black !important;
+        padding: 1rem !important;
+    }
+    
+    /* Simplify layout for print */
+    .features-grid {
+        display: block !important;
+    }
+    
+    .feature {
+        margin-bottom: 1rem;
+        break-inside: avoid;
+    }
+}
+
+/* ===== JAVASCRIPT DISABLED FALLBACKS ===== */
+.no-js .video-modal {
+    display: none !important;
+}
+
+.no-js .btn-video-preview .video-mini-preview {
+    display: none !important;
+}
+
+.no-js .hero-video {
+    display: none !important;
+}
+
+.no-js .hero-video-mobile-poster {
+    display: block !important;
+}
+
+/* Show fallback content when JS is disabled */
+.no-js .js-only {
+    display: none !important;
+}
+
+.no-js .no-js-fallback {
+    display: block !important;
+}
+
+/* ===== FEATURE QUERY FALLBACKS ===== */
+
+/* CSS Grid support check */
+@supports not (display: grid) {
+    .features-grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -1rem;
+    }
+    
+    .feature {
+        flex: 1;
+        min-width: 300px;
+        margin: 1rem;
+    }
+}
+
+/* Flexbox support check */
+@supports not (display: flex) {
+    .features-grid {
+        overflow: hidden;
+    }
+    
+    .feature {
+        float: left;
+        width: 30%;
+        margin-right: 5%;
+    }
+    
+    .feature:nth-child(3n) {
+        margin-right: 0;
+    }
+    
+    .feature:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+/* Transform support check */
+@supports not (transform: translateY(-2px)) {
+    .btn:hover {
+        margin-top: -2px;
+        margin-bottom: 2px;
+    }
+}
+
+/* Transition support check */
+@supports not (transition: all 0.3s ease) {
+    .btn:hover {
+        /* Instant visual feedback */
+        box-shadow: 0 4px 12px rgba(0, 255, 136, 0.5);
+    }
+}
+
+/* Backdrop filter support check */
+@supports not (backdrop-filter: blur(10px)) {
+    .hero-content {
+        background: rgba(0, 0, 0, 0.85);
+    }
+    
+    .video-modal {
+        background: rgba(0, 0, 0, 0.95);
+    }
+}
+
+/* Custom properties support check */
+@supports not (--custom: property) {
+    .hero h1 .highlight { color: #00ff88; }
+    .btn-primary { background: linear-gradient(135deg, #00ff88, #3b82f6); }
+    .feature h3 { color: #00ff88; }
+    body { background: #000000; color: rgba(255, 255, 255, 0.9); }
+    .features { background: #1a1a1a; }
+}
+
+/* ===== PERFORMANCE FALLBACKS ===== */
+
+/* Reduce animations on slower devices */
+@media (update: slow) {
+    .fade-in {
+        animation: none;
+    }
+    
+    .btn {
+        transition: none;
+    }
+    
+    .hero-video {
+        display: none;
+    }
+}
+
+/* Simplified layout for low-end devices */
+@media (max-resolution: 150dpi) and (max-width: 768px) {
+    .hero-video {
+        display: none !important;
+    }
+    
+    .particles {
+        display: none !important;
+    }
+    
+    .complex-animation {
+        animation: none !important;
+    }
+}
+
+/* ===== NETWORK CONDITIONS FALLBACKS ===== */
+
+/* Slow network - reduce visual effects */
+@media (prefers-reduced-data: reduce) {
+    .hero-video {
+        display: none !important;
+    }
+    
+    .video-mini-preview {
+        display: none !important;
+    }
+    
+    .particles {
+        display: none !important;
+    }
+    
+    /* Show lightweight alternatives */
+    .hero-video-mobile-poster {
+        display: block !important;
+    }
+}
+
+/* ===== BROWSER SPECIFIC HACKS (Last Resort) ===== */
+
+/* Firefox specific */
+@-moz-document url-prefix() {
+    /* Firefox doesn't handle backdrop-filter well */
+    .hero-content {
+        background: rgba(0, 0, 0, 0.85);
+    }
+}
+
+/* WebKit specific */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    /* WebKit specific fixes */
+    .hero-video {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Edge specific */
+@supports (-ms-ime-align: auto) {
+    .features-grid {
+        display: -ms-grid;
+        -ms-grid-columns: 1fr 1fr 1fr;
+        -ms-grid-rows: auto;
+    }
+}
+
+/* ===== FINAL SAFETY NET ===== */
+
+/* Absolute fallback for critical elements */
+.hero {
+    background: #000000; /* Solid fallback */
+    color: #ffffff;
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.btn {
+    background: #00ff88; /* Solid fallback */
+    color: #000000;
+    padding: 1rem 2rem;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.features {
+    background: #1a1a1a; /* Solid fallback */
+    padding: 4rem 1rem;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.05); /* Semi-transparent fallback */
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Ensure text is always readable */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    background: #000000;
+    color: #ffffff;
+}
+
+/* Hide broken elements gracefully */
+.broken-video,
+.broken-image,
+.failed-animation {
+    display: none !important;
+}
+
+/* Emergency reset styles */
+.emergency-reset * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.emergency-reset .hero-video,
+.emergency-reset .particles,
+.emergency-reset .complex-animation {
+    display: none !important;
+}

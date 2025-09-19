@@ -1,0 +1,611 @@
+/**
+ * Comprehensive Viewport & Safe Area Optimization
+ * Perfect handling for all mobile devices including notched phones, tablets, and foldables
+ */
+
+/* ===== VIEWPORT FUNDAMENTALS ===== */
+/* Base viewport configuration - loaded in HTML meta tag */
+
+:root {
+    /* ===== SAFE AREA VARIABLES ===== */
+    /* Fallback values for browsers that don't support env() */
+    --safe-area-inset-top: 0px;
+    --safe-area-inset-right: 0px;
+    --safe-area-inset-bottom: 0px;
+    --safe-area-inset-left: 0px;
+    
+    /* Enhanced safe area variables with fallbacks */
+    --sai-top: max(env(safe-area-inset-top), env(safe-area-inset-top, 0px));
+    --sai-right: max(env(safe-area-inset-right), env(safe-area-inset-right, 0px));
+    --sai-bottom: max(env(safe-area-inset-bottom), env(safe-area-inset-bottom, 0px));
+    --sai-left: max(env(safe-area-inset-left), env(safe-area-inset-left, 0px));
+    
+    /* ===== KEYBOARD DETECTION ===== */
+    --keyboard-height: 0px;
+    --viewport-height-small: 100vh;
+    --viewport-height-large: 100vh;
+    --viewport-height-dynamic: 100dvh; /* Dynamic viewport height */
+    
+    /* ===== DEVICE-SPECIFIC ADJUSTMENTS ===== */
+    /* iPhone specific measurements */
+    --iphone-notch-height: 44px;
+    --iphone-home-indicator: 34px;
+    --iphone-status-bar: 20px;
+    
+    /* Android specific measurements */
+    --android-status-bar: 24px;
+    --android-nav-bar: 48px;
+    
+    /* ===== TOUCH-FRIENDLY MEASUREMENTS ===== */
+    --touch-target-min: 44px;  /* iOS HIG minimum */
+    --touch-target-comfortable: 48px;  /* Android Material Design */
+    --touch-target-large: 56px;
+    
+    /* ===== RESPONSIVE SPACING ===== */
+    --responsive-padding-x: clamp(16px, 4vw, 32px);
+    --responsive-padding-y: clamp(12px, 3vh, 24px);
+    
+    /* ===== ORIENTATION VARIABLES ===== */
+    --landscape-compensation: 0px;
+    --portrait-compensation: 0px;
+}
+
+/* ===== COMPREHENSIVE VIEWPORT FIXES ===== */
+
+/* Modern viewport units support */
+@supports (height: 100dvh) {
+    :root {
+        --viewport-height-dynamic: 100dvh;
+    }
+}
+
+@supports (height: 100svh) {
+    :root {
+        --viewport-height-small: 100svh;
+    }
+}
+
+@supports (height: 100lvh) {
+    :root {
+        --viewport-height-large: 100lvh;
+    }
+}
+
+/* ===== BASE HTML & BODY OPTIMIZATION ===== */
+html {
+    /* Prevent zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+    
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    width: 100%;
+    
+    /* Font rendering optimization */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+}
+
+body {
+    /* Full viewport utilization */
+    min-height: 100vh;
+    min-height: var(--viewport-height-dynamic);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    
+    /* Touch optimization */
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    
+    /* Performance optimization */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: scroll-position;
+}
+
+/* ===== SAFE AREA UTILITY CLASSES ===== */
+
+/* Individual safe area padding */
+.safe-top {
+    padding-top: var(--sai-top);
+}
+
+.safe-right {
+    padding-right: var(--sai-right);
+}
+
+.safe-bottom {
+    padding-bottom: var(--sai-bottom);
+}
+
+.safe-left {
+    padding-left: var(--sai-left);
+}
+
+/* Combined safe area classes */
+.safe-area {
+    padding-top: var(--sai-top);
+    padding-right: var(--sai-right);
+    padding-bottom: var(--sai-bottom);
+    padding-left: var(--sai-left);
+}
+
+.safe-horizontal {
+    padding-left: var(--sai-left);
+    padding-right: var(--sai-right);
+}
+
+.safe-vertical {
+    padding-top: var(--sai-top);
+    padding-bottom: var(--sai-bottom);
+}
+
+/* Safe area margins */
+.safe-margin {
+    margin-top: var(--sai-top);
+    margin-right: var(--sai-right);
+    margin-bottom: var(--sai-bottom);
+    margin-left: var(--sai-left);
+}
+
+.safe-margin-top {
+    margin-top: var(--sai-top);
+}
+
+.safe-margin-bottom {
+    margin-bottom: var(--sai-bottom);
+}
+
+/* ===== FULL-HEIGHT CONTAINERS ===== */
+
+/* Full height with safe area consideration */
+.full-height {
+    min-height: 100vh;
+    min-height: var(--viewport-height-dynamic);
+}
+
+.full-height-safe {
+    min-height: calc(100vh - var(--sai-top) - var(--sai-bottom));
+    min-height: calc(var(--viewport-height-dynamic) - var(--sai-top) - var(--sai-bottom));
+}
+
+/* Available height (excluding keyboard when visible) */
+.available-height {
+    min-height: calc(100vh - var(--keyboard-height));
+    min-height: calc(var(--viewport-height-dynamic) - var(--keyboard-height));
+}
+
+.available-height-safe {
+    min-height: calc(100vh - var(--sai-top) - var(--sai-bottom) - var(--keyboard-height));
+    min-height: calc(var(--viewport-height-dynamic) - var(--sai-top) - var(--sai-bottom) - var(--keyboard-height));
+}
+
+/* ===== HEADER & NAVIGATION OPTIMIZATION ===== */
+
+/* Fixed header with safe area */
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding-top: var(--sai-top);
+    padding-left: var(--sai-left);
+    padding-right: var(--sai-right);
+    
+    /* Backdrop for better visibility */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Sticky header that respects safe area */
+.header-sticky {
+    position: sticky;
+    top: var(--sai-top);
+    z-index: 1000;
+    padding-left: var(--sai-left);
+    padding-right: var(--sai-right);
+}
+
+/* Navigation bar at bottom with safe area */
+.nav-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding-bottom: var(--sai-bottom);
+    padding-left: var(--sai-left);
+    padding-right: var(--sai-right);
+    
+    /* iOS-style backdrop */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Content padding to account for fixed elements */
+.content-with-fixed-header {
+    padding-top: calc(60px + var(--sai-top)); /* 60px = typical header height */
+}
+
+.content-with-fixed-nav {
+    padding-bottom: calc(60px + var(--sai-bottom)); /* 60px = typical nav height */
+}
+
+.content-with-both-fixed {
+    padding-top: calc(60px + var(--sai-top));
+    padding-bottom: calc(60px + var(--sai-bottom));
+}
+
+/* ===== MODAL & OVERLAY OPTIMIZATION ===== */
+
+/* Full-screen modal with safe area */
+.modal-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    height: var(--viewport-height-dynamic);
+    z-index: 9999;
+    
+    /* Content area respecting safe area */
+    padding: var(--sai-top) var(--sai-right) var(--sai-bottom) var(--sai-left);
+    
+    /* Prevent scroll */
+    overflow: hidden;
+}
+
+.modal-content-safe {
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - var(--sai-top) - var(--sai-bottom));
+    max-height: calc(var(--viewport-height-dynamic) - var(--sai-top) - var(--sai-bottom));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Bottom sheet modal */
+.modal-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    
+    /* Safe area padding */
+    padding-bottom: var(--sai-bottom);
+    padding-left: var(--sai-left);
+    padding-right: var(--sai-right);
+    
+    /* Rounded top corners */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    
+    /* iOS-style handle */
+    background: white;
+}
+
+.modal-bottom-sheet::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    margin: 8px auto 16px;
+}
+
+/* ===== INPUT & FORM OPTIMIZATION ===== */
+
+/* Form container that adapts to keyboard */
+.form-container {
+    min-height: var(--available-height-safe);
+    padding: var(--responsive-padding-y) var(--responsive-padding-x);
+}
+
+/* Input field optimization */
+.input-field {
+    min-height: var(--touch-target-comfortable);
+    padding: 12px 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Touch optimization */
+    touch-action: manipulation;
+}
+
+/* Button optimization */
+.btn-touch {
+    min-height: var(--touch-target-comfortable);
+    min-width: var(--touch-target-comfortable);
+    padding: 12px 24px;
+    font-size: 16px;
+    
+    /* Touch feedback */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== DEVICE-SPECIFIC OPTIMIZATIONS ===== */
+
+/* iPhone X+ (devices with notch) */
+@supports (padding: max(0px)) {
+    .iphone-x-safe {
+        padding-left: max(var(--sai-left), 16px);
+        padding-right: max(var(--sai-right), 16px);
+        padding-top: max(var(--sai-top), 44px);
+        padding-bottom: max(var(--sai-bottom), 34px);
+    }
+}
+
+/* iPhone notch-specific adjustments */
+@media screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    /* iPhone X, XS */
+    :root {
+        --device-specific-top: 44px;
+        --device-specific-bottom: 34px;
+    }
+}
+
+@media screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+    /* iPhone XR */
+    :root {
+        --device-specific-top: 44px;
+        --device-specific-bottom: 34px;
+    }
+}
+
+@media screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+    /* iPhone XS Max */
+    :root {
+        --device-specific-top: 44px;
+        --device-specific-bottom: 34px;
+    }
+}
+
+@media screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+    /* iPhone 12, 12 Pro */
+    :root {
+        --device-specific-top: 47px;
+        --device-specific-bottom: 34px;
+    }
+}
+
+@media screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+    /* iPhone 12 Pro Max */
+    :root {
+        --device-specific-top: 47px;
+        --device-specific-bottom: 34px;
+    }
+}
+
+/* ===== ORIENTATION HANDLING ===== */
+
+/* Portrait orientation */
+@media (orientation: portrait) {
+    :root {
+        --orientation-padding: 0px;
+    }
+    
+    .landscape-only {
+        display: none;
+    }
+    
+    .portrait-only {
+        display: block;
+    }
+    
+    /* Taller content in portrait */
+    .responsive-height-portrait {
+        min-height: 80vh;
+        min-height: calc(var(--viewport-height-dynamic) * 0.8);
+    }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) {
+    :root {
+        --orientation-padding: 0px;
+        --landscape-compensation: 20px;
+    }
+    
+    .portrait-only {
+        display: none;
+    }
+    
+    .landscape-only {
+        display: block;
+    }
+    
+    /* Adjust for landscape keyboard */
+    .form-container {
+        min-height: calc(var(--viewport-height-dynamic) * 0.6);
+    }
+    
+    /* Shorter content in landscape */
+    .responsive-height-landscape {
+        min-height: 60vh;
+        min-height: calc(var(--viewport-height-dynamic) * 0.6);
+    }
+    
+    /* Landscape-specific safe area adjustments */
+    .safe-area-landscape {
+        padding-left: max(var(--sai-left), var(--landscape-compensation));
+        padding-right: max(var(--sai-right), var(--landscape-compensation));
+    }
+}
+
+/* ===== FOLDABLE DEVICE SUPPORT ===== */
+
+/* Dual screen / foldable optimization */
+@media (spanning: single-fold-vertical) {
+    .foldable-content {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .foldable-left {
+        width: env(fold-left);
+    }
+    
+    .foldable-right {
+        width: calc(100% - env(fold-left));
+    }
+}
+
+@media (spanning: single-fold-horizontal) {
+    .foldable-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .foldable-top {
+        height: env(fold-top);
+    }
+    
+    .foldable-bottom {
+        height: calc(100% - env(fold-top));
+    }
+}
+
+/* ===== KEYBOARD ADAPTATION ===== */
+
+/* Detect when virtual keyboard is open */
+@media (height < 500px) and (orientation: portrait) {
+    :root {
+        --keyboard-height: 300px; /* Estimated keyboard height */
+    }
+    
+    .keyboard-adaptive {
+        min-height: calc(var(--viewport-height-dynamic) - var(--keyboard-height));
+        transition: min-height 0.3s ease;
+    }
+    
+    /* Adjust modals when keyboard is open */
+    .modal-with-keyboard {
+        max-height: calc(var(--viewport-height-dynamic) - var(--keyboard-height) - 40px);
+        bottom: 20px;
+    }
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .safe-area-visible {
+        background: rgba(255, 0, 0, 0.1);
+        outline: 2px solid red;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .keyboard-adaptive,
+    .modal-with-keyboard {
+        transition: none;
+    }
+}
+
+/* ===== UTILITY CLASSES FOR DEBUGGING ===== */
+
+/* Visualize safe areas in development */
+.debug-safe-area {
+    background: rgba(255, 0, 0, 0.1) !important;
+    position: relative;
+}
+
+.debug-safe-area::before {
+    content: 'Safe Area';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 10px;
+    background: red;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 2px;
+    z-index: 10000;
+}
+
+/* Visualize touch targets */
+.debug-touch-targets * {
+    outline: 1px solid rgba(0, 255, 0, 0.5);
+    min-height: var(--touch-target-min);
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Contain layout for better performance */
+.viewport-contained {
+    contain: layout style paint;
+}
+
+/* GPU acceleration for smooth transitions */
+.viewport-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* ===== RESPONSIVE CONTAINERS ===== */
+
+/* Container that adapts to safe areas */
+.container-safe {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: max(var(--sai-left), var(--responsive-padding-x));
+    padding-right: max(var(--sai-right), var(--responsive-padding-x));
+    padding-top: var(--responsive-padding-y);
+    padding-bottom: var(--responsive-padding-y);
+}
+
+/* Responsive container with breakpoint-aware padding */
+.container-responsive {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(
+        max(var(--sai-left), var(--sai-right), 16px),
+        4vw,
+        max(var(--sai-left), var(--sai-right), 32px)
+    );
+}
+
+/* ===== PRINT OPTIMIZATION ===== */
+@media print {
+    .safe-area,
+    .safe-top,
+    .safe-right,
+    .safe-bottom,
+    .safe-left,
+    .safe-horizontal,
+    .safe-vertical {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .full-height,
+    .full-height-safe,
+    .available-height,
+    .available-height-safe {
+        min-height: auto !important;
+        height: auto !important;
+    }
+}

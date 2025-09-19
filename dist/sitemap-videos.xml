@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <url>
+    <loc>https://facepay.com.mx/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://facepay.com.mx/video-poster.jpg</video:thumbnail_loc>
+      <video:title>FacePay Demo - Pagos Crypto con Face ID</video:title>
+      <video:description>Descubre cómo FacePay revoluciona los pagos crypto usando Face ID. Envía dinero de forma segura e instantánea en StarkNet L2 sin gas fees.</video:description>
+      <video:content_loc>https://facepay.com.mx/facepay-demo.mp4</video:content_loc>
+      <video:duration>60</video:duration>
+      <video:publication_date>2024-01-20T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:uploader info="https://facepay.com.mx/about">FacePay Team</video:uploader>
+      <video:platform allow="web mobile tablet tv">web mobile tablet</video:platform>
+      <video:tag>crypto</video:tag>
+      <video:tag>payments</video:tag>
+      <video:tag>face id</video:tag>
+      <video:tag>starknet</video:tag>
+      <video:tag>blockchain</video:tag>
+      <video:tag>defi</video:tag>
+      <video:tag>web3</video:tag>
+      <video:tag>biometric</video:tag>
+      <video:tag>security</video:tag>
+      <video:tag>mobile payments</video:tag>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://facepay.com.mx/how-it-works</loc>
+    <video:video>
+      <video:thumbnail_loc>https://facepay.com.mx/tutorial-poster.jpg</video:thumbnail_loc>
+      <video:title>Cómo Funciona FacePay - Tutorial Completo</video:title>
+      <video:description>Tutorial paso a paso sobre cómo usar FacePay para enviar y recibir pagos crypto usando Face ID en StarkNet.</video:description>
+      <video:content_loc>https://facepay.com.mx/tutorial-complete.mp4</video:content_loc>
+      <video:duration>180</video:duration>
+      <video:publication_date>2024-01-20T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:uploader info="https://facepay.com.mx/about">FacePay Team</video:uploader>
+      <video:platform allow="web mobile tablet">web mobile tablet</video:platform>
+      <video:tag>tutorial</video:tag>
+      <video:tag>how to</video:tag>
+      <video:tag>guide</video:tag>
+      <video:tag>crypto payments</video:tag>
+      <video:tag>face id</video:tag>
+      <video:tag>starknet</video:tag>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://facepay.com.mx/security</loc>
+    <video:video>
+      <video:thumbnail_loc>https://facepay.com.mx/security-poster.jpg</video:thumbnail_loc>
+      <video:title>Seguridad Biométrica en FacePay</video:title>
+      <video:description>Conoce las medidas de seguridad avanzadas de FacePay, incluyendo autenticación biométrica con Face ID y encriptación de grado militar.</video:description>
+      <video:content_loc>https://facepay.com.mx/security-demo.mp4</video:content_loc>
+      <video:duration>120</video:duration>
+      <video:publication_date>2024-01-20T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:uploader info="https://facepay.com.mx/about">FacePay Team</video:uploader>
+      <video:platform allow="web mobile tablet">web mobile tablet</video:platform>
+      <video:tag>security</video:tag>
+      <video:tag>biometric</video:tag>
+      <video:tag>encryption</video:tag>
+      <video:tag>privacy</video:tag>
+      <video:tag>face id</video:tag>
+      <video:tag>crypto security</video:tag>
+    </video:video>
+  </url>
+
+</urlset>

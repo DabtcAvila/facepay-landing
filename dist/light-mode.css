@@ -1,0 +1,517 @@
+/**
+ * FacePay Light Mode Styles
+ * Professional light theme optimized for accessibility and modern UI
+ * Built for fintech applications with clean, trustworthy aesthetics
+ */
+
+/* =================================
+   LIGHT MODE THEME VARIABLES
+   ================================= */
+
+:root.theme-light,
+[data-theme="light"] {
+    /* Primary Brand Colors - Light Mode */
+    --facepay-emerald-50: #ecfdf5;
+    --facepay-emerald-100: #d1fae5;
+    --facepay-emerald-200: #a7f3d0;
+    --facepay-emerald-300: #6ee7b7;
+    --facepay-emerald-400: #34d399;
+    --facepay-emerald-500: #10b981;
+    --facepay-emerald-600: #059669;
+    --facepay-emerald-700: #047857;
+    --facepay-emerald-800: #065f46;
+    --facepay-emerald-900: #064e3b;
+    
+    /* Background Colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --bg-quaternary: #e5e7eb;
+    --bg-glass: rgba(255, 255, 255, 0.8);
+    --bg-glass-strong: rgba(255, 255, 255, 0.95);
+    --bg-gradient-hero: radial-gradient(ellipse at top, #ecfdf5 0%, #ffffff 50%);
+    --bg-gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%);
+    
+    /* Text Colors */
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6b7280;
+    --text-quaternary: #9ca3af;
+    --text-accent: #059669;
+    --text-gradient: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    
+    /* Border Colors */
+    --border-primary: rgba(0, 0, 0, 0.1);
+    --border-secondary: rgba(0, 0, 0, 0.05);
+    --border-accent: rgba(16, 185, 129, 0.3);
+    
+    /* Shadow Colors */
+    --shadow-small: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+    
+    /* Interactive States */
+    --hover-overlay: rgba(0, 0, 0, 0.05);
+    --active-overlay: rgba(0, 0, 0, 0.1);
+    --focus-ring: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    
+    /* Component Specific */
+    --header-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --button-primary-bg: linear-gradient(135deg, #10b981 0%, #047857 100%);
+    --button-secondary-bg: rgba(16, 185, 129, 0.05);
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-border: rgba(0, 0, 0, 0.1);
+}
+
+/* =================================
+   LIGHT MODE BASE STYLES
+   ================================= */
+
+.theme-light,
+[data-theme="light"] {
+    color-scheme: light;
+}
+
+.theme-light body,
+[data-theme="light"] body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* =================================
+   LIGHT MODE LAYOUT COMPONENTS
+   ================================= */
+
+/* Hero Section */
+.theme-light .hero-gradient,
+[data-theme="light"] .hero-gradient {
+    background: var(--bg-gradient-hero);
+}
+
+/* Header */
+.theme-light header,
+[data-theme="light"] header {
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-secondary);
+    box-shadow: var(--shadow-small);
+}
+
+/* Navigation Links */
+.theme-light nav a,
+[data-theme="light"] nav a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.theme-light nav a:hover,
+[data-theme="light"] nav a:hover {
+    color: var(--text-accent);
+}
+
+/* Glass Effect Components */
+.theme-light .glass,
+[data-theme="light"] .glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+.theme-light .glass:hover,
+[data-theme="light"] .glass:hover {
+    background: var(--bg-glass-strong);
+    border-color: var(--border-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large), var(--shadow-glow);
+}
+
+/* =================================
+   LIGHT MODE TYPOGRAPHY
+   ================================= */
+
+.theme-light .gradient-text,
+[data-theme="light"] .gradient-text {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+    color: var(--text-primary);
+}
+
+.theme-light p,
+[data-theme="light"] p {
+    color: var(--text-secondary);
+}
+
+.theme-light .text-gray-400,
+[data-theme="light"] .text-gray-400 {
+    color: var(--text-tertiary) !important;
+}
+
+.theme-light .text-gray-600,
+[data-theme="light"] .text-gray-600 {
+    color: var(--text-quaternary) !important;
+}
+
+.theme-light .text-emerald-400,
+[data-theme="light"] .text-emerald-400 {
+    color: var(--text-accent) !important;
+}
+
+/* =================================
+   LIGHT MODE BUTTONS
+   ================================= */
+
+/* Primary Buttons */
+.theme-light .bg-gradient-to-r,
+[data-theme="light"] .bg-gradient-to-r {
+    background: var(--button-primary-bg);
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.theme-light .bg-gradient-to-r:hover,
+[data-theme="light"] .bg-gradient-to-r:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-large), var(--shadow-glow);
+}
+
+/* Secondary Buttons */
+.theme-light button.glass,
+[data-theme="light"] button.glass {
+    background: var(--button-secondary-bg);
+    color: var(--text-accent);
+    border: 1px solid var(--border-accent);
+}
+
+.theme-light button.glass:hover,
+[data-theme="light"] button.glass:hover {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--text-accent);
+    color: var(--facepay-emerald-700);
+}
+
+/* =================================
+   LIGHT MODE CARDS & FEATURES
+   ================================= */
+
+/* Feature Cards */
+.theme-light .grid > div,
+[data-theme="light"] .grid > div {
+    background: var(--card-bg);
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-small);
+}
+
+.theme-light .grid > div:hover,
+[data-theme="light"] .grid > div:hover {
+    background: var(--bg-glass-strong);
+    border-color: var(--border-accent);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-large), 0 0 30px rgba(16, 185, 129, 0.1);
+}
+
+/* Video Container */
+.theme-light video,
+[data-theme="light"] video {
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-large);
+}
+
+/* Demo Placeholder */
+.theme-light .lazy-placeholder,
+[data-theme="light"] .lazy-placeholder {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+}
+
+/* =================================
+   LIGHT MODE FOOTER
+   ================================= */
+
+.theme-light footer,
+[data-theme="light"] footer {
+    border-top: 1px solid var(--border-primary);
+    background: var(--bg-secondary);
+}
+
+.theme-light footer a,
+[data-theme="light"] footer a {
+    color: var(--text-tertiary);
+    transition: color 0.2s ease;
+}
+
+.theme-light footer a:hover,
+[data-theme="light"] footer a:hover {
+    color: var(--text-accent);
+}
+
+/* =================================
+   LIGHT MODE ANIMATIONS
+   ================================= */
+
+/* Floating Animation Enhancement */
+.theme-light .float,
+[data-theme="light"] .float {
+    filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.1));
+}
+
+/* Pulse Animation Enhancement */
+.theme-light .pulse,
+[data-theme="light"] .pulse {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Status Indicator */
+.theme-light .w-2.h-2.bg-green-500,
+[data-theme="light"] .w-2.h-2.bg-green-500 {
+    background-color: var(--text-accent) !important;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+/* =================================
+   LIGHT MODE SPECIFIC ELEMENTS
+   ================================= */
+
+/* Enhanced contrast for better readability */
+.theme-light .text-white,
+[data-theme="light"] .text-white {
+    color: var(--text-primary) !important;
+}
+
+/* Background overrides */
+.theme-light .bg-black,
+[data-theme="light"] .bg-black {
+    background-color: var(--bg-primary) !important;
+}
+
+/* Status badge adjustments */
+.theme-light .glass.px-4.py-2,
+[data-theme="light"] .glass.px-4.py-2 {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Video overlay adjustments */
+.theme-light .absolute.top-4.right-4.glass,
+[data-theme="light"] .absolute.top-4.right-4.glass {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-accent);
+}
+
+/* =================================
+   LIGHT MODE SCROLLBAR
+   ================================= */
+
+.theme-light ::-webkit-scrollbar,
+[data-theme="light"] ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.theme-light ::-webkit-scrollbar-track,
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.theme-light ::-webkit-scrollbar-thumb,
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: var(--bg-quaternary);
+    border-radius: 4px;
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.5);
+}
+
+/* =================================
+   LIGHT MODE ACCESSIBILITY
+   ================================= */
+
+/* Focus States */
+.theme-light button:focus,
+.theme-light a:focus,
+[data-theme="light"] button:focus,
+[data-theme="light"] a:focus {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .theme-light,
+    [data-theme="light"] {
+        --text-primary: #000000;
+        --text-secondary: #1f2937;
+        --text-accent: #047857;
+        --border-primary: rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .theme-light *,
+    [data-theme="light"] * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =================================
+   LIGHT MODE UTILITIES
+   ================================= */
+
+/* Selection Colors */
+.theme-light ::selection,
+[data-theme="light"] ::selection {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--text-primary);
+}
+
+/* Placeholder Colors */
+.theme-light ::placeholder,
+[data-theme="light"] ::placeholder {
+    color: var(--text-quaternary);
+    opacity: 1;
+}
+
+/* Link Colors */
+.theme-light a,
+[data-theme="light"] a {
+    color: var(--text-accent);
+    text-decoration: none;
+}
+
+.theme-light a:hover,
+[data-theme="light"] a:hover {
+    color: var(--facepay-emerald-800);
+    text-decoration: underline;
+}
+
+/* =================================
+   LIGHT MODE PERFORMANCE
+   ================================= */
+
+/* GPU Acceleration for Smooth Transitions */
+.theme-light .glass,
+.theme-light .hover-scale,
+[data-theme="light"] .glass,
+[data-theme="light"] .hover-scale {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Optimized Backdrop Filter */
+.theme-light .glass,
+[data-theme="light"] .glass {
+    will-change: backdrop-filter, transform;
+}
+
+/* =================================
+   LIGHT MODE MOBILE OPTIMIZATIONS
+   ================================= */
+
+@media (max-width: 768px) {
+    .theme-light .glass,
+    [data-theme="light"] .glass {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    
+    .theme-light .hero-gradient,
+    [data-theme="light"] .hero-gradient {
+        background: linear-gradient(180deg, #ecfdf5 0%, #ffffff 70%);
+    }
+}
+
+/* =================================
+   LIGHT MODE CONTRAST IMPROVEMENTS
+   ================================= */
+
+/* Ensure sufficient contrast ratios */
+.theme-light .text-emerald-400,
+[data-theme="light"] .text-emerald-400 {
+    color: #047857 !important; /* Darker green for better contrast */
+}
+
+/* Improve button contrast */
+.theme-light .bg-gradient-to-r,
+[data-theme="light"] .bg-gradient-to-r {
+    color: white !important;
+}
+
+/* Status indicators */
+.theme-light .text-emerald-400,
+[data-theme="light"] .text-emerald-400 {
+    color: var(--facepay-emerald-700) !important;
+    font-weight: 600;
+}
+
+/* =================================
+   LIGHT MODE PRINT STYLES
+   ================================= */
+
+@media print {
+    .theme-light,
+    [data-theme="light"] {
+        --bg-primary: white;
+        --text-primary: black;
+        --text-secondary: #333;
+    }
+    
+    .theme-light .glass,
+    [data-theme="light"] .glass {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+    
+    .theme-light .bg-gradient-to-r,
+    [data-theme="light"] .bg-gradient-to-r {
+        background: #047857 !important;
+        color: white !important;
+    }
+}
+
+/* =================================
+   LIGHT MODE SPECIFIC OVERRIDES
+   ================================= */
+
+/* Ensure proper contrast for all text elements */
+.theme-light .text-white,
+[data-theme="light"] .text-white {
+    color: var(--text-primary) !important;
+}
+
+/* Header brand visibility */
+.theme-light .gradient-text,
+[data-theme="light"] .gradient-text {
+    background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

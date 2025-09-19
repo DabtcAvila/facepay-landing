@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Perfect SEO -->
+    <title>FacePay: Send crypto like @john → @sarah. Face ID. Zero gas.</title>
+    <meta name="description" content="The world's first crypto app with Face ID authentication. Send to @usernames, not addresses. Zero gas fees on StarkNet.">
+    
+    <!-- Perfect Social -->
+    <meta property="og:title" content="FacePay: Send crypto like @john → @sarah. Face ID. Zero gas.">
+    <meta property="og:description" content="The world's first crypto app with Face ID authentication. Send to @usernames, not addresses.">
+    <meta property="og:image" content="https://facepay.com.mx/facepay-demo-poster.jpg">
+    <meta property="og:url" content="https://facepay.com.mx">
+    
+    <!-- Perfect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Mobile Performance -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r158/three.min.js"></script>
+    
+    <!-- Mobile Touch Optimizer -->
+    <script src="mobile-touch-optimizer.js" defer></script>
+    
+    <!-- Mobile Performance Validator -->
+    <script src="mobile-performance-validator.js" defer></script>
+    
+    <style>
+    /* REVOLUTIONARY 3D Variables */
+    :root {
+        --primary: #0066FF;
+        --secondary: #00FF88;
+        --accent: #FF0066;
+        --purple: #8A2BE2;
+        --gold: #FFD700;
+        --bg: #000000;
+        --text: #ffffff;
+        --text-muted: #888888;
+        --glow-primary: rgba(0, 102, 255, 0.8);
+        --glow-secondary: rgba(0, 255, 136, 0.8);
+        --glow-accent: rgba(255, 0, 102, 0.8);
+        
+        /* Dynamic Viewport */
+        --vh: 1vh;
+        --safe-area-inset-top: 0px;
+        --safe-area-inset-right: 0px;
+        --safe-area-inset-bottom: 0px;
+        --safe-area-inset-left: 0px;
+    }
+    
+    /* Perfect Base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.01em;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+    }
+    
+    /* Animated Background Particles */
+    .bg-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        background: 
+            radial-gradient(circle at 20% 80%, var(--primary) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, var(--secondary) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, var(--accent) 0%, transparent 50%);
+        opacity: 0.03;
+        animation: particleShift 20s ease-in-out infinite;
+    }
+    
+    /* Minimal Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem 2rem;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--primary);
+        text-decoration: none;
+        text-shadow: 0 0 20px var(--glow-primary);
+    }
+    
+    .nav-links {
+        display: flex;
+        gap: 3rem;
+        list-style: none;
+        align-items: center;
+    }
+    
+    .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .nav-links a:hover {
+        color: var(--primary);
+        text-shadow: 0 0 10px var(--glow-primary);
+    }
+    
+    /* REVOLUTIONARY 3D WEBGL HERO */
+    .hero {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10rem 2rem 8rem;
+        position: relative;
+        background: var(--bg);
+    }
+    
+    .hero-content {
+        max-width: 1200px;
+        z-index: 10;
+        position: relative;
+    }
+    
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.2rem 2.5rem;
+        background: rgba(0, 102, 255, 0.08);
+        border: 1px solid rgba(0, 102, 255, 0.3);
+        border-radius: 60px;
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: clamp(2rem, 6vh, 4rem);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 30px rgba(0, 102, 255, 0.2);
+    }
+    
+    .hero-title {
+        font-size: clamp(4rem, 12vw, 10rem);
+        font-weight: 900;
+        line-height: 0.85;
+        margin-bottom: clamp(2rem, 6vh, 4rem);
+        color: #ffffff;
+        letter-spacing: -0.05em;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+    }
+    
+    .hero-title .highlight {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease-in-out infinite alternate;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: clamp(3rem, 8vh, 5rem);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 400;
+        line-height: 1.4;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* REVOLUTIONARY 3D WEBGL FACE ID CANVAS */
+    .face-id-3d-container {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        margin: 6rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        perspective: 1000px;
+    }
+    
+    #faceId3DCanvas {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow: 
+            0 0 60px var(--glow-primary),
+            0 0 120px rgba(0, 102, 255, 0.3),
+            inset 0 0 40px rgba(0, 102, 255, 0.1);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    .face-id-3d-container:hover #faceId3DCanvas {
+        box-shadow: 
+            0 0 80px var(--glow-secondary),
+            0 0 160px rgba(0, 255, 136, 0.4),
+            inset 0 0 60px rgba(0, 255, 136, 0.2);
+        transform: scale(1.05);
+    }
+    
+    .face-id-3d-container.scanning #faceId3DCanvas {
+        box-shadow: 
+            0 0 100px var(--glow-accent),
+            0 0 200px rgba(255, 0, 102, 0.5),
+            inset 0 0 80px rgba(255, 0, 102, 0.3);
+        transform: scale(1.1);
+        animation: scanPulse 2s ease-in-out;
+    }
+    
+    .face-id-info {
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 500;
+        opacity: 0.8;
+        transition: all 0.4s ease;
+        text-align: center;
+        letter-spacing: 0.025em;
+        text-rendering: optimizeLegibility;
+    }
+    
+    .face-id-3d-container:hover .face-id-info {
+        color: var(--secondary);
+        opacity: 1;
+        text-shadow: 0 0 15px var(--glow-secondary);
+    }
+    
+    .face-id-3d-container.scanning .face-id-info {
+        color: var(--accent);
+        opacity: 1;
+        text-shadow: 0 0 20px var(--glow-accent);
+    }
+    
+    /* Buttons */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 20px 40px;
+        border: none;
+        border-radius: 20px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        min-height: 60px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.8s ease;
+    }
+    
+    .btn:hover::before {
+        left: 100%;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        box-shadow: 0 10px 40px rgba(0, 102, 255, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-6px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 102, 255, 0.5);
+    }
+    
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
+    }
+    
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--primary);
+        transform: translateY(-6px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 102, 255, 0.2);
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: clamp(4rem, 10vh, 6rem);
+    }
+    
+    /* Features */
+    .section {
+        padding: 8rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .section-title {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.03em;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+    }
+    
+    .section-subtitle {
+        font-size: 1.5rem;
+        color: var(--text-muted);
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 5rem;
+        line-height: 1.5;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+    }
+    
+    .feature-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        padding: 3rem;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-12px) rotateX(5deg);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(0, 102, 255, 0.4);
+        box-shadow: 0 40px 80px rgba(0, 102, 255, 0.2);
+    }
+    
+    .feature-card:hover::before {
+        opacity: 0.05;
+    }
+    
+    .feature-icon {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+        display: block;
+        filter: drop-shadow(0 0 20px var(--glow-primary));
+    }
+    
+    .feature-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: var(--text);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    
+    .feature-description {
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-size: 1.1rem;
+    }
+    
+    /* REVOLUTIONARY ANIMATIONS */
+    @keyframes gradientShift {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
+    }
+    
+    @keyframes particleShift {
+        0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+        25% { transform: translateX(20px) translateY(-20px) scale(1.1); }
+        50% { transform: translateX(0) translateY(-40px) scale(1.2); }
+        75% { transform: translateX(-20px) translateY(-20px) scale(1.1); }
+    }
+    
+    @keyframes scanPulse {
+        0%, 100% { transform: scale(1.1) rotateZ(0deg); }
+        50% { transform: scale(1.15) rotateZ(180deg); }
+    }
+    
+    /* Mobile Perfect Responsiveness */
+    @media (max-width: 480px) {
+        .hero {
+            padding: 6rem 1rem 4rem;
+            min-height: 100vh;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 9vw, 4rem);
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+            margin-bottom: 3rem;
+        }
+        
+        .face-id-3d-container {
+            width: 280px;
+            height: 280px;
+            margin: 3rem auto;
+        }
+        
+        .hero-badge {
+            padding: 0.8rem 2rem;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            font-size: 1rem;
+            min-height: 52px;
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+        }
+        
+        .section {
+            padding: 4rem 1rem;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 7vw, 3rem);
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .nav {
+            padding: 0.8rem 1rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav {
+            padding: 1rem;
+        }
+        
+        .nav-links {
+            display: none;
+        }
+        
+        .hero {
+            padding: 7rem 1rem 5rem;
+        }
+        
+        .face-id-3d-container {
+            width: 350px;
+            height: 350px;
+        }
+        
+        .section {
+            padding: 5rem 1rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+    }
+    
+    /* Touch Optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        .btn {
+            min-height: 48px;
+            padding: 18px 36px;
+            border-radius: 24px;
+        }
+        
+        .btn:hover {
+            transform: scale(0.98);
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease;
+        }
+        
+        .nav-links a {
+            padding: 12px;
+            margin: -12px;
+        }
+        
+        .face-id-3d-container {
+            cursor: default;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .feature-card:active {
+            transform: scale(0.98);
+        }
+    }
+    
+    /* Landscape Mobile */
+    @media (max-width: 926px) and (orientation: landscape) and (max-height: 430px) {
+        .hero {
+            padding: 4rem 2rem 3rem;
+            min-height: 100vh;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+        }
+        
+        .face-id-3d-container {
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+        }
+        
+        .hero-buttons {
+            flex-direction: row;
+            gap: 1rem;
+        }
+        
+        .btn {
+            width: auto;
+            min-width: 140px;
+        }
+    }
+    
+    /* High DPI Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .hero-title {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        #faceId3DCanvas {
+            image-rendering: -webkit-optimize-contrast;
+        }
+    }
+    
+    /* Safe Area Support */
+    @supports (padding: max(0px)) {
+        .nav {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+            padding-top: max(1rem, env(safe-area-inset-top));
+        }
+        
+        .hero {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+        }
+        
+        .section {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+        }
+    }
+    
+    /* Small Mobile Optimized */
+    @media (max-width: 480px) {
+        .hero {
+            padding: 5rem 1rem 3rem;
+        }
+        
+        .hero-badge {
+            font-size: 0.9375rem;
+            padding: 0.875rem 1.75rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.25rem, 8vw, 3.5rem);
+            margin-bottom: clamp(1.25rem, 3vh, 2rem);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
+            margin-bottom: clamp(2rem, 5vh, 3rem);
+        }
+        
+        .face-id-3d-container {
+            width: 280px;
+            height: 280px;
+            margin: 2.5rem auto;
+        }
+        
+        .section {
+            padding: 3rem 1rem;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            font-size: 0.9375rem;
+            min-height: 52px;
+        }
+    }
+    
+    /* Tablet Optimized */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .hero-title {
+            font-size: clamp(4rem, 8vw, 6rem);
+            line-height: 0.85;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            max-width: 40ch;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+        }
+        
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .face-id-3d-container {
+            width: 400px;
+            height: 400px;
+        }
+    }
+    
+    /* Large Desktop Optimized */
+    @media (min-width: 1440px) {
+        .hero-title {
+            font-size: clamp(7rem, 10vw, 9rem);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+        }
+        
+        .section-title {
+            font-size: clamp(3.5rem, 5vw, 4.5rem);
+        }
+        
+        .section {
+            padding: 10rem 2rem;
+        }
+        
+        .hero {
+            padding: 12rem 2rem 10rem;
+        }
+    }
+    
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    
+    /* High Contrast Support */
+    @media (prefers-contrast: high) {
+        .hero-title .highlight {
+            background: none;
+            -webkit-text-fill-color: unset;
+            color: #ffffff;
+        }
+        
+        .section-title {
+            background: none;
+            -webkit-text-fill-color: unset;
+            color: #ffffff;
+        }
+        
+        .hero-subtitle,
+        .section-subtitle,
+        .feature-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+    }
+    
+    /* Focus Indicators */
+    *:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+    
+    .btn:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 3px;
+    }
+    
+    /* Mobile Performance Optimizations */
+    .hero-content > * {
+        will-change: transform, opacity;
+    }
+    
+    #faceId3DCanvas {
+        will-change: transform, box-shadow;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+    
+    /* Mobile-Specific Performance */
+    @media (max-width: 768px) {
+        .bg-particles {
+            opacity: 0.02;
+            transform: scale(0.8);
+        }
+        
+        .feature-card::before {
+            display: none;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        input, textarea, [contenteditable] {
+            -webkit-user-select: auto;
+            -khtml-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
+    }
+    
+    /* Touch Feedback */
+    .btn, .feature-card, .face-id-3d-container {
+        -webkit-tap-highlight-color: rgba(0, 102, 255, 0.2);
+    }
+    
+    /* Smooth Scrolling Enhancement */
+    html {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* iOS Bounce Fix */
+    body {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Skip Link */
+    .skip-link:focus {
+        position: absolute;
+        top: var(--safe-area-inset-top, 6px);
+        left: var(--safe-area-inset-left, 6px);
+        background: var(--primary);
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 10000;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-particles"></div>
+    
+    <!-- Minimal Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">FacePay</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#download" class="btn btn-primary">Get Beta</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- REVOLUTIONARY 3D WEBGL HERO -->
+    <main id="main">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🚀</span>
+                    <span>Live on StarkNet</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Send crypto like<br>
+                    <span class="highlight">@john → @sarah</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    The world's first crypto app with Face ID authentication. 
+                    Send to @usernames, not wallet addresses. Zero gas fees.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <span>Get FacePay</span>
+                        <span>→</span>
+                    </a>
+                    <a href="#demo" class="btn btn-secondary">
+                        <span>Watch Demo</span>
+                        <span>▶</span>
+                    </a>
+                </div>
+                
+                <!-- REVOLUTIONARY 3D WEBGL FACE ID ANIMATION -->
+                <div class="face-id-3d-container" id="faceId3DContainer">
+                    <canvas id="faceId3DCanvas"></canvas>
+                    <div class="face-id-info" id="faceIdInfo">Click to Scan Face ID</div>
+                </div>
+                
+                <!-- Trust -->
+                <div style="font-size: 1rem; color: rgba(255, 255, 255, 0.65); margin-top: 3.5rem; opacity: 0.9; font-weight: 500; letter-spacing: 0.025em; text-rendering: optimizeLegibility;">
+                    <p>🔒 Self-custodial • 🚀 Zero gas fees • ⚡ Instant transfers</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="section">
+            <h2 class="section-title">Revolutionary Crypto Payments</h2>
+            <p class="section-subtitle">
+                Face ID authentication meets username-based payments on StarkNet
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3 class="feature-title">Face ID Security</h3>
+                    <p class="feature-description">
+                        Your face is your private key. Advanced biometric encryption 
+                        that's safer than any password or seed phrase.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">@</div>
+                    <h3 class="feature-title">@Username Payments</h3>
+                    <p class="feature-description">
+                        Send to @sarah instead of 0x742d35Cc6576C3. 
+                        Human-readable addresses that make crypto accessible to everyone.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Zero Gas Fees</h3>
+                    <p class="feature-description">
+                        Built on StarkNet's Layer 2 technology. Send any amount 
+                        with zero transaction fees. Keep more of your money.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="download" style="background: rgba(255, 255, 255, 0.03); padding: 5rem 2rem; text-align: center; margin: 5rem 0; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(25px); box-shadow: 0 0 60px rgba(0, 102, 255, 0.08);">
+            <h2 style="font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 700; margin-bottom: 1.5rem; color: var(--text); letter-spacing: -0.025em; text-shadow: 0 0 30px rgba(255, 255, 255, 0.15); text-rendering: optimizeLegibility; line-height: 1.1; text-wrap: balance;">
+                Ready for the Future?
+            </h2>
+            <p style="font-size: clamp(1.125rem, 2.5vw, 1.25rem); color: rgba(255, 255, 255, 0.75); margin-bottom: 2.5rem; max-width: 40ch; margin-left: auto; margin-right: auto; font-weight: 400; line-height: 1.5; text-wrap: balance;">
+                Join the Face ID crypto payment revolution
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary" style="font-size: 1.25rem; padding: 20px 40px; min-height: 60px;">
+                    <span>Join Beta Now</span>
+                    <span>🚀</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // REVOLUTIONARY 3D WEBGL FACE ID ANIMATION ENGINE
+    class FaceID3DEngine {
+        constructor() {
+            this.canvas = document.getElementById('faceId3DCanvas');
+            this.container = document.getElementById('faceId3DContainer');
+            this.info = document.getElementById('faceIdInfo');
+            this.isScanning = false;
+            this.animationId = null;
+            
+            // Three.js core objects
+            this.scene = null;
+            this.camera = null;
+            this.renderer = null;
+            
+            // 3D Objects
+            this.faceGeometry = null;
+            this.faceMesh = null;
+            this.scanBeams = [];
+            this.particles = [];
+            this.ambientParticles = [];
+            
+            // Animation properties
+            this.time = 0;
+            this.scanProgress = 0;
+            this.mouseX = 0;
+            this.mouseY = 0;
+            
+            this.init();
+        }
+        
+        init() {
+            this.setupThreeJS();
+            this.createFaceGeometry();
+            this.createScanBeams();
+            this.createParticles();
+            this.setupLighting();
+            this.setupEventListeners();
+            this.animate();
+            this.setupEntranceAnimation();
+        }
+        
+        setupThreeJS() {
+            // Scene
+            this.scene = new THREE.Scene();
+            this.scene.background = new THREE.Color(0x000000);
+            
+            // Camera
+            this.camera = new THREE.PerspectiveCamera(
+                50, 
+                this.canvas.offsetWidth / this.canvas.offsetHeight, 
+                0.1, 
+                1000
+            );
+            this.camera.position.z = 5;
+            
+            // Renderer
+            this.renderer = new THREE.WebGLRenderer({
+                canvas: this.canvas,
+                antialias: true,
+                alpha: true,
+                powerPreference: "high-performance",
+                preserveDrawingBuffer: false
+            });
+            
+            this.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
+            // Mobile-optimized pixel ratio
+            if (window.innerWidth <= 768) {
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            } else {
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            }
+            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            this.renderer.outputEncoding = THREE.sRGBEncoding;
+            this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            this.renderer.toneMappingExposure = 1.2;
+        }
+        
+        createFaceGeometry() {
+            // Create advanced 3D face geometry
+            const faceGeometry = new THREE.BufferGeometry();
+            
+            // Define face vertices (simplified 3D face mesh)
+            const vertices = [];
+            const uvs = [];
+            const indices = [];
+            
+            // Create a more detailed face mesh
+            const segments = 32;
+            const rings = 16;
+            
+            for (let ring = 0; ring <= rings; ring++) {
+                const v = ring / rings;
+                const theta = v * Math.PI;
+                
+                for (let segment = 0; segment <= segments; segment++) {
+                    const u = segment / segments;
+                    const phi = u * Math.PI * 2;
+                    
+                    // Face-like shape with morphing
+                    let x = Math.sin(theta) * Math.cos(phi);
+                    let y = Math.cos(theta);
+                    let z = Math.sin(theta) * Math.sin(phi);
+                    
+                    // Add face-like deformations
+                    const faceDepth = 1 - Math.abs(x) * 0.3;
+                    z *= faceDepth;
+                    
+                    // Eye socket depressions
+                    if (Math.abs(x) > 0.2 && Math.abs(x) < 0.6 && y > 0.2 && y < 0.7) {
+                        z -= 0.15;
+                    }
+                    
+                    // Nose protrusion
+                    if (Math.abs(x) < 0.15 && y > -0.2 && y < 0.4) {
+                        z += 0.2;
+                    }
+                    
+                    vertices.push(x, y, z);
+                    uvs.push(u, v);
+                }
+            }
+            
+            // Create indices for triangles
+            for (let ring = 0; ring < rings; ring++) {
+                for (let segment = 0; segment < segments; segment++) {
+                    const a = ring * (segments + 1) + segment;
+                    const b = ring * (segments + 1) + segment + 1;
+                    const c = (ring + 1) * (segments + 1) + segment;
+                    const d = (ring + 1) * (segments + 1) + segment + 1;
+                    
+                    indices.push(a, b, c);
+                    indices.push(b, d, c);
+                }
+            }
+            
+            faceGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            faceGeometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+            faceGeometry.setIndex(indices);
+            faceGeometry.computeVertexNormals();
+            
+            // Create holographic material
+            const faceMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0.0 },
+                    scanProgress: { value: 0.0 },
+                    primaryColor: { value: new THREE.Color(0x0066FF) },
+                    secondaryColor: { value: new THREE.Color(0x00FF88) },
+                    accentColor: { value: new THREE.Color(0xFF0066) }
+                },
+                vertexShader: `
+                    varying vec3 vPosition;
+                    varying vec3 vNormal;
+                    varying vec2 vUv;
+                    uniform float time;
+                    
+                    void main() {
+                        vPosition = position;
+                        vNormal = normal;
+                        vUv = uv;
+                        
+                        vec3 pos = position;
+                        
+                        // Morphing animation
+                        pos.x += sin(time * 2.0 + position.y * 5.0) * 0.02;
+                        pos.z += cos(time * 1.5 + position.x * 3.0) * 0.01;
+                        
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vPosition;
+                    varying vec3 vNormal;
+                    varying vec2 vUv;
+                    uniform float time;
+                    uniform float scanProgress;
+                    uniform vec3 primaryColor;
+                    uniform vec3 secondaryColor;
+                    uniform vec3 accentColor;
+                    
+                    void main() {
+                        vec3 color = primaryColor;
+                        
+                        // Holographic effect
+                        float fresnel = pow(1.0 + dot(vNormal, vec3(0, 0, 1)), 2.0);
+                        
+                        // Scanning line effect
+                        float scanLine = smoothstep(0.02, 0.0, abs(vPosition.y - (scanProgress * 2.0 - 1.0)));
+                        color = mix(color, accentColor, scanLine);
+                        
+                        // Grid pattern
+                        float grid = sin(vUv.x * 40.0) * sin(vUv.y * 40.0);
+                        grid = smoothstep(-0.1, 0.1, grid) * 0.3;
+                        
+                        // Pulsing effect
+                        float pulse = sin(time * 3.0) * 0.5 + 0.5;
+                        
+                        color = mix(color, secondaryColor, pulse * 0.3);
+                        color += grid;
+                        
+                        float alpha = fresnel * 0.8 + scanLine * 0.5 + pulse * 0.2;
+                        
+                        gl_FragColor = vec4(color, alpha);
+                    }
+                `,
+                transparent: true,
+                side: THREE.DoubleSide,
+                blending: THREE.AdditiveBlending
+            });
+            
+            this.faceGeometry = faceGeometry;
+            this.faceMesh = new THREE.Mesh(faceGeometry, faceMaterial);
+            this.faceMesh.scale.set(1.2, 1.2, 1.2);
+            this.scene.add(this.faceMesh);
+        }
+        
+        createScanBeams() {
+            // Create scanning beams
+            for (let i = 0; i < 5; i++) {
+                const beamGeometry = new THREE.RingGeometry(1.5, 1.6, 32);
+                const beamMaterial = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0.0 },
+                        opacity: { value: 0.0 }
+                    },
+                    vertexShader: `
+                        varying vec2 vUv;
+                        void main() {
+                            vUv = uv;
+                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                        }
+                    `,
+                    fragmentShader: `
+                        varying vec2 vUv;
+                        uniform float time;
+                        uniform float opacity;
+                        
+                        void main() {
+                            float dist = length(vUv - 0.5) * 2.0;
+                            float ring = smoothstep(0.9, 1.0, dist) * smoothstep(1.0, 0.9, dist);
+                            
+                            vec3 color = vec3(0.0, 0.4, 1.0);
+                            if (opacity > 0.5) color = vec3(0.0, 1.0, 0.5);
+                            if (opacity > 0.8) color = vec3(1.0, 0.0, 0.4);
+                            
+                            float alpha = ring * opacity;
+                            gl_FragColor = vec4(color, alpha);
+                        }
+                    `,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    side: THREE.DoubleSide
+                });
+                
+                const beam = new THREE.Mesh(beamGeometry, beamMaterial);
+                beam.position.z = i * 0.1 - 0.2;
+                beam.userData = { delay: i * 0.2 };
+                this.scanBeams.push(beam);
+                this.scene.add(beam);
+            }
+        }
+        
+        createParticles() {
+            // Create scanning particles
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 300;
+            const positions = [];
+            const colors = [];
+            const sizes = [];
+            
+            for (let i = 0; i < particleCount; i++) {
+                // Random sphere distribution
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(1 - 2 * Math.random());
+                const radius = 2.5 + Math.random() * 1.5;
+                
+                positions.push(
+                    radius * Math.sin(phi) * Math.cos(theta),
+                    radius * Math.sin(phi) * Math.sin(theta),
+                    radius * Math.cos(phi)
+                );
+                
+                // Random colors
+                const colorChoice = Math.random();
+                if (colorChoice < 0.33) {
+                    colors.push(0, 0.4, 1); // Primary blue
+                } else if (colorChoice < 0.66) {
+                    colors.push(0, 1, 0.5); // Secondary green
+                } else {
+                    colors.push(1, 0, 0.4); // Accent pink
+                }
+                
+                sizes.push(Math.random() * 3 + 1);
+            }
+            
+            particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            particleGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            particleGeometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+            
+            const particleMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0.0 },
+                    scanProgress: { value: 0.0 }
+                },
+                vertexShader: `
+                    attribute float size;
+                    attribute vec3 color;
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    uniform float time;
+                    uniform float scanProgress;
+                    
+                    void main() {
+                        vColor = color;
+                        
+                        vec3 pos = position;
+                        
+                        // Orbit animation
+                        float angle = time * 0.5 + length(position) * 0.1;
+                        pos.x += sin(angle) * 0.1;
+                        pos.z += cos(angle) * 0.1;
+                        
+                        // Scan activation
+                        float dist = length(pos);
+                        vAlpha = scanProgress > 0.0 ? 1.0 : 0.3;
+                        
+                        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * (300.0 / -mvPosition.z) * scanProgress + 1.0;
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    
+                    void main() {
+                        float dist = length(gl_PointCoord - 0.5);
+                        if (dist > 0.5) discard;
+                        
+                        float alpha = (1.0 - dist * 2.0) * vAlpha;
+                        gl_FragColor = vec4(vColor, alpha);
+                    }
+                `,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                vertexColors: true
+            });
+            
+            this.particles = new THREE.Points(particleGeometry, particleMaterial);
+            this.scene.add(this.particles);
+        }
+        
+        setupLighting() {
+            // Ambient light
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+            this.scene.add(ambientLight);
+            
+            // Primary light
+            const primaryLight = new THREE.DirectionalLight(0x0066FF, 1.0);
+            primaryLight.position.set(2, 2, 2);
+            primaryLight.castShadow = true;
+            this.scene.add(primaryLight);
+            
+            // Secondary light
+            const secondaryLight = new THREE.DirectionalLight(0x00FF88, 0.8);
+            secondaryLight.position.set(-2, 1, 2);
+            this.scene.add(secondaryLight);
+            
+            // Accent light
+            const accentLight = new THREE.PointLight(0xFF0066, 0.6, 10);
+            accentLight.position.set(0, 0, 3);
+            this.scene.add(accentLight);
+        }
+        
+        setupEventListeners() {
+            // Touch-optimized interaction
+            const handleInteraction = (event) => {
+                event.preventDefault();
+                this.startFaceScan();
+            };
+            
+            this.container.addEventListener('click', handleInteraction);
+            this.container.addEventListener('touchend', handleInteraction);
+            
+            // Touch movement for parallax on mobile
+            let isTouch = false;
+            
+            this.container.addEventListener('touchstart', (event) => {
+                isTouch = true;
+                const touch = event.touches[0];
+                const rect = this.container.getBoundingClientRect();
+                this.mouseX = ((touch.clientX - rect.left) / rect.width - 0.5) * 2;
+                this.mouseY = ((touch.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+            
+            this.container.addEventListener('touchmove', (event) => {
+                if (!isTouch) return;
+                event.preventDefault();
+                const touch = event.touches[0];
+                const rect = this.container.getBoundingClientRect();
+                this.mouseX = ((touch.clientX - rect.left) / rect.width - 0.5) * 2;
+                this.mouseY = ((touch.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+            
+            this.container.addEventListener('touchend', () => {
+                isTouch = false;
+            });
+            
+            // Mouse movement for parallax on desktop
+            this.container.addEventListener('mousemove', (event) => {
+                if (isTouch) return;
+                const rect = this.container.getBoundingClientRect();
+                this.mouseX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+                this.mouseY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+            
+            // Optimized resize handling with debounce
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    this.handleResize();
+                }, 100);
+            });
+            
+            // Orientation change handling
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => {
+                    this.handleResize();
+                }, 300);
+            });
+        }
+        
+        startFaceScan() {
+            if (this.isScanning) return;
+            
+            this.isScanning = true;
+            this.container.classList.add('scanning');
+            this.info.textContent = 'Scanning Face ID...';
+            
+            // Animate scan progress
+            const startTime = Date.now();
+            const duration = 3000; // 3 seconds
+            
+            const animateScan = () => {
+                const elapsed = Date.now() - startTime;
+                this.scanProgress = Math.min(elapsed / duration, 1);
+                
+                // Update info text
+                if (this.scanProgress < 0.3) {
+                    this.info.textContent = 'Initializing Scanner...';
+                } else if (this.scanProgress < 0.6) {
+                    this.info.textContent = 'Reading Biometric Data...';
+                } else if (this.scanProgress < 0.9) {
+                    this.info.textContent = 'Verifying Identity...';
+                } else if (this.scanProgress >= 1.0) {
+                    this.info.textContent = 'Face ID Verified ✓';
+                    
+                    // Reset after success
+                    setTimeout(() => {
+                        this.isScanning = false;
+                        this.scanProgress = 0;
+                        this.container.classList.remove('scanning');
+                        this.info.textContent = 'Click to Scan Face ID';
+                    }, 2000);
+                    return;
+                }
+                
+                requestAnimationFrame(animateScan);
+            };
+            
+            animateScan();
+        }
+        
+        handleResize() {
+            const width = this.canvas.offsetWidth;
+            const height = this.canvas.offsetHeight;
+            
+            this.camera.aspect = width / height;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(width, height);
+            
+            // Mobile optimization
+            if (window.innerWidth <= 768) {
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            } else {
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            }
+        }
+        
+        animate() {
+            this.animationId = requestAnimationFrame(() => this.animate());
+            
+            this.time += 0.016;
+            
+            // Update face mesh material
+            if (this.faceMesh && this.faceMesh.material.uniforms) {
+                this.faceMesh.material.uniforms.time.value = this.time;
+                this.faceMesh.material.uniforms.scanProgress.value = this.scanProgress;
+            }
+            
+            // Rotate face mesh
+            if (this.faceMesh) {
+                this.faceMesh.rotation.y = Math.sin(this.time * 0.2) * 0.3 + this.mouseX * 0.5;
+                this.faceMesh.rotation.x = Math.sin(this.time * 0.15) * 0.1 + this.mouseY * 0.3;
+                
+                // Scale on hover/scan
+                const targetScale = this.isScanning ? 1.4 : 1.2;
+                this.faceMesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.05);
+            }
+            
+            // Update scan beams
+            this.scanBeams.forEach((beam, index) => {
+                if (beam.material.uniforms) {
+                    beam.material.uniforms.time.value = this.time;
+                    beam.material.uniforms.opacity.value = this.scanProgress;
+                }
+                
+                beam.rotation.z = this.time * (0.5 + index * 0.1);
+                beam.scale.setScalar(1 + Math.sin(this.time * 2 + index) * 0.1);
+            });
+            
+            // Update particles
+            if (this.particles && this.particles.material.uniforms) {
+                this.particles.material.uniforms.time.value = this.time;
+                this.particles.material.uniforms.scanProgress.value = this.scanProgress;
+            }
+            
+            // Camera movement
+            this.camera.position.x = this.mouseX * 0.5;
+            this.camera.position.y = -this.mouseY * 0.5;
+            this.camera.lookAt(0, 0, 0);
+            
+            this.renderer.render(this.scene, this.camera);
+        }
+        
+        setupEntranceAnimation() {
+            // Animate elements on load
+            const elements = document.querySelectorAll('.hero-badge, .hero-title, .hero-subtitle, .hero-buttons, .face-id-3d-container');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(60px)';
+                
+                setTimeout(() => {
+                    el.style.transition = 'all 1.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        }
+        
+        destroy() {
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+            }
+            
+            if (this.renderer) {
+                this.renderer.dispose();
+            }
+        }
+    }
+    
+    // Initialize the 3D engine
+    let faceID3D = null;
+    
+    function init3DEngine() {
+        if (typeof THREE !== 'undefined') {
+            faceID3D = new FaceID3DEngine();
+        } else {
+            console.warn('Three.js not loaded, falling back to CSS animation');
+        }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init3DEngine);
+    } else {
+        init3DEngine();
+    }
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (faceID3D) {
+            faceID3D.destroy();
+        }
+    });
+    
+    // Additional smooth navigation
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                const navHeight = 90;
+                const targetPosition = target.offsetTop - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

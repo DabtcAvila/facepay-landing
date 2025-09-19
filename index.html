@@ -78,17 +78,39 @@
         overflow-x: hidden;
     }
     
-    /* Perfect Navigation */
+    /* RADICAL Glassmorphism Navigation */
     .navbar {
         position: fixed;
         top: 0;
         width: 100%;
         padding: 1rem 2rem;
-        background: rgba(15, 23, 42, 0.95);
-        backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        background: 
+            linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+            linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+        backdrop-filter: blur(25px) saturate(1.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0 0 20px 20px;
+        box-shadow: 
+            0 8px 32px rgba(99, 102, 241, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
         z-index: 1000;
-        transition: var(--transition);
+        transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    
+    .navbar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(99, 102, 241, 0.1) 50%, 
+            transparent 100%);
+        animation: navGlow 4s ease-in-out infinite;
+        border-radius: 0 0 20px 20px;
     }
     
     .nav-container {
@@ -202,7 +224,7 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
     
-    /* WOW Hero */
+    /* RADICAL Matrix Hero */
     .hero {
         min-height: 100vh;
         display: flex;
@@ -212,10 +234,44 @@
         padding: 6rem 2rem 4rem;
         position: relative;
         background: 
-            radial-gradient(ellipse 800px 600px at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse 600px 800px at 80% 100%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-            linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.8) 100%);
+            radial-gradient(ellipse 1200px 800px at 20% 0%, rgba(99, 102, 241, 0.2) 0%, transparent 70%),
+            radial-gradient(ellipse 800px 1200px at 80% 100%, rgba(139, 92, 246, 0.15) 0%, transparent 70%),
+            radial-gradient(ellipse 1000px 600px at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+            linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.4) 0px, transparent 3px),
+            radial-gradient(circle at 75% 25%, rgba(139, 92, 246, 0.3) 0px, transparent 3px),
+            radial-gradient(circle at 25% 75%, rgba(6, 182, 212, 0.3) 0px, transparent 3px),
+            radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.2) 0px, transparent 2px);
+        background-size: 150px 150px, 200px 200px, 120px 120px, 180px 180px;
+        animation: matrixGrid 15s linear infinite;
+        opacity: 0.8;
+        z-index: 1;
+    }
+    
+    .hero::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+        background: 
+            linear-gradient(45deg, transparent 48%, rgba(99, 102, 241, 0.03) 49%, rgba(99, 102, 241, 0.03) 51%, transparent 52%),
+            linear-gradient(-45deg, transparent 48%, rgba(139, 92, 246, 0.02) 49%, rgba(139, 92, 246, 0.02) 51%, transparent 52%);
+        background-size: 60px 60px;
+        animation: diagonalSweep 20s linear infinite;
+        z-index: 2;
     }
     
     .hero::before {
@@ -285,23 +341,52 @@
         margin-bottom: 3rem;
     }
     
-    /* WOW Face Scanner */
+    /* RADICAL 3D Hologram Face Scanner */
     .face-scanner-demo {
         position: relative;
-        width: 280px;
-        height: 280px;
-        margin: 3rem auto;
+        width: 350px;
+        height: 350px;
+        margin: 4rem auto;
         border-radius: 50%;
         background: 
-            radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.6) 0%, transparent 50%),
-            radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.4) 0%, transparent 50%),
-            conic-gradient(from 0deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.1) 50%, rgba(99, 102, 241, 0.1) 100%);
+            conic-gradient(from 0deg, #6366f1 0%, #8b5cf6 25%, #06b6d4 50%, #10b981 75%, #6366f1 100%),
+            radial-gradient(circle at 50%, rgba(0,0,0,0.8) 30%, transparent 70%);
         display: flex;
         align-items: center;
         justify-content: center;
-        animation: scannerPulse 3s ease-in-out infinite;
-        filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
-        overflow: hidden;
+        animation: hologramRotate 4s linear infinite;
+        filter: drop-shadow(0 0 50px rgba(99, 102, 241, 0.8)) drop-shadow(0 0 100px rgba(139, 92, 246, 0.4));
+        overflow: visible;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+    
+    .face-scanner-demo::before {
+        content: '';
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, 
+            transparent 0%, rgba(99, 102, 241, 0.8) 25%, 
+            transparent 50%, rgba(16, 185, 129, 0.8) 75%, 
+            transparent 100%);
+        animation: scannerSpin 2s linear infinite;
+        filter: blur(2px);
+    }
+    
+    .face-scanner-demo::after {
+        content: '';
+        position: absolute;
+        width: 140%;
+        height: 140%;
+        border-radius: 50%;
+        background: conic-gradient(from 180deg, 
+            transparent 0%, rgba(139, 92, 246, 0.6) 25%, 
+            transparent 50%, rgba(6, 182, 212, 0.6) 75%, 
+            transparent 100%);
+        animation: scannerSpin 3s linear infinite reverse;
+        filter: blur(3px);
     }
     
     .face-scanner-demo::before {
@@ -326,14 +411,40 @@
     }
     
     /* Scanning corners */
-    .face-scanner-demo .scan-corner {
+    .hologram-face {
+        position: relative;
+        z-index: 10;
+        font-size: 6rem;
+        background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: faceHologram 2s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 20px rgba(99, 102, 241, 1));
+        text-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+    }
+    
+    .scan-line {
         position: absolute;
-        width: 40px;
-        height: 40px;
-        border: 3px solid var(--secondary);
-        border-radius: 4px;
-        animation: cornerPulse 1.5s ease-in-out infinite alternate;
-        filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.8));
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #00ff88, transparent);
+        animation: scanLine 2s linear infinite;
+        filter: drop-shadow(0 0 10px #00ff88);
+        z-index: 5;
+    }
+    
+    .hologram-grid {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        border-radius: 50%;
+        animation: gridPulse 3s ease-in-out infinite;
+        z-index: 1;
     }
     
     .face-scanner-demo .corner-tl {
@@ -387,9 +498,60 @@
         100% { transform: rotate(360deg) scale(1); opacity: 1; }
     }
     
-    @keyframes cornerPulse {
-        0% { opacity: 0.4; transform: scale(0.9); }
-        100% { opacity: 1; transform: scale(1.1); }
+    @keyframes hologramRotate {
+        0% { transform: rotateY(0deg) rotateX(5deg); filter: hue-rotate(0deg); }
+        25% { transform: rotateY(90deg) rotateX(10deg); filter: hue-rotate(90deg); }
+        50% { transform: rotateY(180deg) rotateX(5deg); filter: hue-rotate(180deg); }
+        75% { transform: rotateY(270deg) rotateX(10deg); filter: hue-rotate(270deg); }
+        100% { transform: rotateY(360deg) rotateX(5deg); filter: hue-rotate(360deg); }
+    }
+    
+    @keyframes scannerSpin {
+        0% { transform: rotate(0deg) scale(1); opacity: 0.8; }
+        50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
+        100% { transform: rotate(360deg) scale(1); opacity: 0.8; }
+    }
+    
+    @keyframes faceHologram {
+        0% { 
+            transform: scale(1) rotateY(0deg);
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 1)) hue-rotate(0deg);
+        }
+        50% { 
+            transform: scale(1.1) rotateY(180deg);
+            filter: drop-shadow(0 0 40px rgba(139, 92, 246, 1)) hue-rotate(180deg);
+        }
+        100% { 
+            transform: scale(1) rotateY(360deg);
+            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 1)) hue-rotate(360deg);
+        }
+    }
+    
+    @keyframes scanLine {
+        0% { top: 0%; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+    
+    @keyframes gridPulse {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    
+    @keyframes matrixGrid {
+        0% { transform: translateX(0) translateY(0); }
+        100% { transform: translateX(-50px) translateY(-50px); }
+    }
+    
+    @keyframes diagonalSweep {
+        0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+        100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+    }
+    
+    @keyframes navGlow {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.8; }
     }
     
     @keyframes starsMove {
@@ -402,11 +564,29 @@
         100% { background-position: 100% 50%; }
     }
     
-    @keyframes floatUp {
-        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    @keyframes radicalFloat {
+        0% { 
+            transform: translateY(100vh) rotate(0deg) scale(0.5);
+            opacity: 0;
+            filter: blur(2px) hue-rotate(0deg);
+        }
+        10% { 
+            opacity: 1;
+            filter: blur(0.5px) hue-rotate(36deg);
+        }
+        50% {
+            transform: translateY(50vh) rotate(180deg) scale(1.2);
+            filter: blur(0px) hue-rotate(180deg);
+        }
+        90% { 
+            opacity: 1;
+            filter: blur(0.5px) hue-rotate(324deg);
+        }
+        100% { 
+            transform: translateY(-100px) rotate(360deg) scale(0.5);
+            opacity: 0;
+            filter: blur(2px) hue-rotate(360deg);
+        }
     }
     
     /* Perfect Sections */
@@ -658,24 +838,31 @@
         }
     }
     
-    /* Floating Particles */
+    /* RADICAL Interactive Particles */
     .particle {
         position: fixed;
         pointer-events: none;
         z-index: 1;
         border-radius: 50%;
         background: var(--primary);
-        animation: floatUp 12s linear infinite;
+        animation: radicalFloat 12s linear infinite;
+        filter: blur(0.5px);
+        box-shadow: 0 0 10px currentColor;
     }
     
     .particle:nth-child(odd) {
-        background: var(--secondary);
-        animation-duration: 15s;
+        animation: radicalFloat 15s linear infinite;
+        background: linear-gradient(45deg, #8b5cf6, #06b6d4);
     }
     
     .particle:nth-child(3n) {
-        background: rgba(99, 102, 241, 0.6);
-        animation-duration: 10s;
+        animation: radicalFloat 10s linear infinite;
+        background: linear-gradient(135deg, #10b981, #6366f1);
+    }
+    
+    .particle:nth-child(4n) {
+        animation: radicalFloat 18s linear infinite;
+        background: radial-gradient(circle, #8b5cf6, #06b6d4);
     }
     </style>
 </head>
@@ -725,12 +912,11 @@
                     </a>
                 </div>
                 
-                <!-- Face ID Demo -->
-                <div class="face-scanner-demo" role="img" aria-label="Face ID scanner animation">
-                    <div class="scan-corner corner-tl"></div>
-                    <div class="scan-corner corner-tr"></div>
-                    <div class="scan-corner corner-bl"></div>
-                    <div class="scan-corner corner-br"></div>
+                <!-- RADICAL Hologram Face ID -->
+                <div class="face-scanner-demo" role="img" aria-label="3D Hologram Face ID scanner">
+                    <div class="hologram-grid"></div>
+                    <div class="scan-line"></div>
+                    <div class="hologram-face">👤</div>
                 </div>
                 
                 <!-- Trust Indicators -->
@@ -955,20 +1141,25 @@
         createFloatingParticles() {
             if (window.innerWidth < 768) return; // Skip on mobile for performance
             
-            const particleCount = 15;
+            const particleCount = 25; // More particles for radical effect
             
             for (let i = 0; i < particleCount; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     
-                    const size = Math.random() * 4 + 2;
+                    const size = Math.random() * 6 + 3;
                     particle.style.width = size + 'px';
                     particle.style.height = size + 'px';
                     particle.style.left = Math.random() * window.innerWidth + 'px';
-                    particle.style.opacity = Math.random() * 0.6 + 0.2;
-                    particle.style.animationDelay = Math.random() * 12 + 's';
-                    particle.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                    particle.style.opacity = Math.random() * 0.8 + 0.3;
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                    
+                    // Add random colors
+                    const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.boxShadow = `0 0 10px ${colors[Math.floor(Math.random() * colors.length)]}`;
                     
                     document.body.appendChild(particle);
                     

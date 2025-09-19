@@ -1,0 +1,1013 @@
+/* 
+ * FACEPAY PROFESSIONAL ANIMATIONS - APPLE LEVEL
+ * Ultra-smooth animations with hardware acceleration
+ * Optimized for 60fps performance
+ */
+
+:root {
+  /* Animation Timings */
+  --timing-ultra-fast: 0.15s;
+  --timing-fast: 0.3s;
+  --timing-medium: 0.6s;
+  --timing-slow: 1.2s;
+  --timing-ultra-slow: 2.4s;
+  
+  /* Easing Curves - Apple-style */
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-in-apple: cubic-bezier(0.42, 0, 1, 1);
+  --ease-out-apple: cubic-bezier(0, 0, 0.58, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Colors for effects */
+  --particle-color: #10b981;
+  --liquid-primary: #059669;
+  --liquid-secondary: #34d399;
+  --glow-color: rgba(16, 185, 129, 0.6);
+}
+
+/* HARDWARE ACCELERATION BASE */
+* {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* MORPHING LOGO ANIMATION */
+@keyframes morphLogo {
+  0% { 
+    transform: scale(1) rotate(0deg); 
+    border-radius: 1rem;
+  }
+  25% { 
+    transform: scale(1.1) rotate(5deg); 
+    border-radius: 2rem;
+  }
+  50% { 
+    transform: scale(1.05) rotate(-3deg); 
+    border-radius: 50%;
+  }
+  75% { 
+    transform: scale(1.15) rotate(2deg); 
+    border-radius: 1.5rem;
+  }
+  100% { 
+    transform: scale(1) rotate(0deg); 
+    border-radius: 1rem;
+  }
+}
+
+.logo-morph {
+  animation: morphLogo 8s var(--ease-apple) infinite;
+  will-change: transform, border-radius;
+}
+
+/* LIQUID LOADING ANIMATION */
+@keyframes liquidWave {
+  0% { transform: translateX(-100%) scaleY(1); }
+  50% { transform: translateX(0%) scaleY(1.2); }
+  100% { transform: translateX(100%) scaleY(1); }
+}
+
+@keyframes liquidPulse {
+  0%, 100% { 
+    transform: scale(1) scaleY(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1) scaleY(1.3);
+    opacity: 0.8;
+  }
+}
+
+.liquid-container {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--liquid-primary), var(--liquid-secondary));
+}
+
+.liquid-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 25%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    transparent 100%
+  );
+  animation: liquidWave 3s var(--ease-smooth) infinite;
+}
+
+.liquid-pulse {
+  animation: liquidPulse 2s var(--ease-apple) infinite;
+}
+
+/* ADVANCED PARALLAX SCROLLING */
+.parallax-container {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 1px;
+}
+
+.parallax-element {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.parallax-back {
+  transform: translateZ(-1px) scale(2);
+}
+
+.parallax-mid {
+  transform: translateZ(-0.5px) scale(1.5);
+}
+
+.parallax-front {
+  transform: translateZ(0);
+}
+
+/* PARTICLE SYSTEM */
+@keyframes particleFloat {
+  0% { 
+    transform: translateY(100vh) rotate(0deg) scale(0); 
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) rotate(18deg) scale(0.3);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(50vh) rotate(180deg) scale(1);
+  }
+  90% {
+    opacity: 0.3;
+    transform: translateY(10vh) rotate(324deg) scale(0.5);
+  }
+  100% { 
+    transform: translateY(-10vh) rotate(360deg) scale(0); 
+    opacity: 0;
+  }
+}
+
+@keyframes particleGlow {
+  0%, 100% { 
+    box-shadow: 0 0 10px var(--glow-color);
+    filter: brightness(1);
+  }
+  50% { 
+    box-shadow: 0 0 30px var(--glow-color), 0 0 60px var(--glow-color);
+    filter: brightness(1.5);
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--particle-color);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.particle-system {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* MAGNETIC MOUSE TRACKING */
+.magnetic-element {
+  transition: transform var(--timing-fast) var(--ease-apple);
+  will-change: transform;
+}
+
+.magnetic-element:hover {
+  transform: scale(1.05);
+}
+
+/* ADVANCED 3D CARD FLIP */
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+  height: 300px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform var(--timing-medium) var(--ease-apple);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--liquid-primary), var(--liquid-secondary));
+}
+
+/* ADVANCED TEXT ANIMATIONS */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCaret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--particle-color); }
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--particle-color);
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: 
+    typewriter 3.5s steps(40, end),
+    blinkCaret 0.75s step-end infinite;
+}
+
+/* MORPHING SVG ANIMATIONS */
+@keyframes morphPath {
+  0% { d: path("M10,10 L50,10 L50,50 L10,50 Z"); }
+  50% { d: path("M10,25 Q30,5 50,25 Q30,45 10,25 Z"); }
+  100% { d: path("M10,10 L50,10 L50,50 L10,50 Z"); }
+}
+
+.morph-svg path {
+  animation: morphPath 4s var(--ease-apple) infinite;
+  fill: var(--particle-color);
+}
+
+/* ADVANCED SCROLL ANIMATIONS */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%) rotateY(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%) rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%) rotateX(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft var(--timing-medium) var(--ease-apple) forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight var(--timing-medium) var(--ease-apple) forwards;
+}
+
+.slide-in-up {
+  animation: slideInUp var(--timing-medium) var(--ease-apple) forwards;
+}
+
+.slide-in-down {
+  animation: slideInDown var(--timing-medium) var(--ease-apple) forwards;
+}
+
+/* ADVANCED HOVER EFFECTS */
+.hover-lift {
+  transition: all var(--timing-fast) var(--ease-apple);
+}
+
+.hover-lift:hover {
+  transform: translateY(-20px) rotateX(15deg);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 50px var(--glow-color);
+}
+
+.hover-squeeze {
+  transition: transform var(--timing-ultra-fast) var(--ease-bounce);
+}
+
+.hover-squeeze:active {
+  transform: scale(0.95);
+}
+
+/* GLASSMORPHISM ADVANCED */
+.glass-advanced {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* LOADING SPINNER ADVANCED */
+@keyframes spinPulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.spinner-advanced {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(16, 185, 129, 0.3);
+  border-top: 3px solid var(--particle-color);
+  border-radius: 50%;
+  animation: spinPulse 1.5s var(--ease-apple) infinite;
+}
+
+/* STAGGERED ANIMATIONS */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp var(--timing-medium) var(--ease-apple) forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* BREATHING ANIMATION */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.breathe {
+  animation: breathe 3s var(--ease-apple) infinite;
+}
+
+/* WAVE TEXT EFFECT */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  75% { transform: translateY(-5px); }
+}
+
+.wave-text span {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+
+.wave-text span:nth-child(1) { animation-delay: 0s; }
+.wave-text span:nth-child(2) { animation-delay: 0.1s; }
+.wave-text span:nth-child(3) { animation-delay: 0.2s; }
+.wave-text span:nth-child(4) { animation-delay: 0.3s; }
+.wave-text span:nth-child(5) { animation-delay: 0.4s; }
+
+/* GLOW PULSE EFFECT */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--glow-color);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px var(--glow-color),
+      0 0 50px var(--glow-color),
+      0 0 70px var(--glow-color);
+    filter: brightness(1.3);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s var(--ease-apple) infinite;
+}
+
+/* FLOATING ISLANDS EFFECT */
+@keyframes floatIsland {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(-0.5deg);
+  }
+}
+
+.floating-island {
+  animation: floatIsland 6s var(--ease-apple) infinite;
+}
+
+/* RIPPLE EFFECT */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s linear;
+}
+
+/* PERFORMANCE OPTIMIZATIONS */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* REDUCED MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* HIGH CONTRAST MODE SUPPORT */
+@media (prefers-contrast: high) {
+  :root {
+    --particle-color: #ffffff;
+    --liquid-primary: #ffffff;
+    --liquid-secondary: #ffffff;
+    --glow-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* CSS HOUDINI PROPERTIES */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --liquid-morph {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: false;
+}
+
+@property --glow-intensity {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+@property --particle-density {
+  syntax: '<number>';
+  initial-value: 1;
+  inherits: false;
+}
+
+/* WEBGL SHADER EFFECTS */
+.shader-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    var(--gradient-angle, 45deg),
+    rgba(16, 185, 129, 0.1) 0%,
+    rgba(52, 211, 153, 0.05) 50%,
+    rgba(16, 185, 129, 0.1) 100%
+  );
+  animation: shaderRotate 20s linear infinite;
+}
+
+@keyframes shaderRotate {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+/* LIQUID MORPHING EFFECTS */
+.liquid-morph-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--liquid-primary) 0%,
+    var(--liquid-secondary) 100%
+  );
+}
+
+.liquid-morph-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% calc(50% + var(--liquid-morph) * 1px),
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 70%
+  );
+  animation: liquidMorph 8s ease-in-out infinite;
+}
+
+@keyframes liquidMorph {
+  0%, 100% {
+    --liquid-morph: 0%;
+    border-radius: 2rem;
+  }
+  25% {
+    --liquid-morph: 30%;
+    border-radius: 3rem 1rem 2rem 4rem;
+  }
+  50% {
+    --liquid-morph: -20%;
+    border-radius: 1rem 4rem 2rem 1rem;
+  }
+  75% {
+    --liquid-morph: 15%;
+    border-radius: 4rem 2rem 3rem 1rem;
+  }
+}
+
+/* ADVANCED GLASSMORPHISM WITH CSS HOUDINI */
+.glass-houdini {
+  background: rgba(255, 255, 255, calc(0.05 + var(--glow-intensity) * 0.03));
+  backdrop-filter: blur(calc(15px + var(--glow-intensity) * 5px)) saturate(180%);
+  -webkit-backdrop-filter: blur(calc(15px + var(--glow-intensity) * 5px)) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, calc(0.1 + var(--glow-intensity) * 0.1));
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, calc(0.1 + var(--glow-intensity) * 0.1)),
+    0 0 calc(20px * var(--glow-intensity)) rgba(16, 185, 129, calc(0.2 * var(--glow-intensity)));
+  animation: glowIntensityPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowIntensityPulse {
+  0%, 100% { --glow-intensity: 1; }
+  50% { --glow-intensity: 1.8; }
+}
+
+/* NEURAL NETWORK ANIMATION */
+@keyframes neuralPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.neural-network {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.neural-node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    var(--particle-color) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+.neural-connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--particle-color) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  animation: neuralFlow 2s linear infinite;
+}
+
+@keyframes neuralFlow {
+  0% { transform: scaleX(0); transform-origin: left; }
+  50% { transform: scaleX(1); transform-origin: left; }
+  51% { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+
+/* HOLOGRAPHIC EFFECTS */
+.holographic-surface {
+  position: relative;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(16, 185, 129, 0.1) 50%,
+    transparent 70%
+  );
+  background-size: 20px 20px;
+  animation: holographicScan 3s linear infinite;
+}
+
+.holographic-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: holographicSweep 4s ease-in-out infinite;
+}
+
+@keyframes holographicScan {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+@keyframes holographicSweep {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* QUANTUM DOTS EFFECT */
+.quantum-dots {
+  position: relative;
+  overflow: hidden;
+}
+
+.quantum-dots::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, var(--particle-color) 2px, transparent 2px),
+    radial-gradient(circle at 60% 40%, rgba(52, 211, 153, 0.8) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, var(--particle-color) 3px, transparent 3px),
+    radial-gradient(circle at 30% 80%, rgba(52, 211, 153, 0.6) 2px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 200px 200px, 120px 120px;
+  animation: quantumDrift 15s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes quantumDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-10px, -5px) rotate(120deg); }
+  66% { transform: translate(5px, -10px) rotate(240deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* ENERGY FIELD ANIMATION */
+.energy-field {
+  position: relative;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(16, 185, 129, 0.2) 0%,
+    rgba(52, 211, 153, 0.1) 50%,
+    transparent 100%
+  );
+  animation: energyPulse 6s ease-in-out infinite;
+}
+
+.energy-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--particle-color) 45deg,
+    transparent 90deg,
+    var(--particle-color) 135deg,
+    transparent 180deg,
+    var(--particle-color) 225deg,
+    transparent 270deg,
+    var(--particle-color) 315deg,
+    transparent 360deg
+  );
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: energySpin 8s linear infinite;
+  mask: radial-gradient(
+    circle,
+    transparent 60%,
+    black 70%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+@keyframes energyPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes energySpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* FACE SCAN EFFECT */
+.face-scan-overlay {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--particle-color);
+  border-radius: 50%;
+}
+
+.face-scan-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--particle-color) 50%,
+    transparent 100%
+  );
+  animation: faceScan 2s ease-in-out infinite;
+}
+
+@keyframes faceScan {
+  0% { 
+    top: 0;
+    opacity: 0;
+    box-shadow: 0 0 20px var(--particle-color);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 40px var(--particle-color);
+  }
+  100% { 
+    top: calc(100% - 4px);
+    opacity: 0;
+    box-shadow: 0 0 20px var(--particle-color);
+  }
+}
+
+/* CRYPTO WALLET EFFECT */
+.crypto-wallet-glow {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    rgba(52, 211, 153, 0.05) 100%
+  );
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.crypto-wallet-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(
+    from 0deg,
+    var(--particle-color),
+    rgba(52, 211, 153, 0.8),
+    var(--particle-color)
+  );
+  border-radius: inherit;
+  z-index: -1;
+  animation: cryptoWalletRotate 6s linear infinite;
+}
+
+@keyframes cryptoWalletRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* DATA STREAM EFFECT */
+.data-stream {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(16, 185, 129, 0.05) 50%,
+    transparent 100%
+  );
+}
+
+.data-stream::before {
+  content: '01110100 01101000 01110010 01100101 01100101 01101010 01110011';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: var(--particle-color);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  opacity: 0.3;
+  white-space: nowrap;
+  animation: dataFlow 8s linear infinite;
+  transform: rotate(90deg);
+  transform-origin: left top;
+}
+
+@keyframes dataFlow {
+  0% { transform: rotate(90deg) translateX(-100%); }
+  100% { transform: rotate(90deg) translateX(100vw); }
+}
+
+/* BIOMETRIC SCANNER EFFECT */
+.biometric-scanner {
+  position: relative;
+  border: 2px solid rgba(16, 185, 129, 0.5);
+  border-radius: 8px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 70%
+  );
+  animation: biometricPulse 3s ease-in-out infinite;
+}
+
+.biometric-scanner::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--particle-color);
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 0 20px rgba(16, 185, 129, 0.3),
+    0 0 30px rgba(16, 185, 129, 0.2);
+  animation: biometricScanLine 2s ease-in-out infinite;
+}
+
+@keyframes biometricPulse {
+  0%, 100% { 
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+  50% { 
+    border-color: rgba(16, 185, 129, 1);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+  }
+}
+
+@keyframes biometricScanLine {
+  0% { box-shadow: inset 0 0 0 rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: inset 0 -100% 20px rgba(16, 185, 129, 0.6); }
+  100% { box-shadow: inset 0 0 0 rgba(16, 185, 129, 0.3); }
+}
+
+/* PERFORMANCE OPTIMIZATIONS FOR COMPLEX ANIMATIONS */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.composite-layer {
+  isolation: isolate;
+  contain: layout style paint;
+}
+
+/* HARDWARE ACCELERATION HINTS */
+.animate-transform {
+  will-change: transform;
+}
+
+.animate-opacity {
+  will-change: opacity;
+}
+
+.animate-filter {
+  will-change: filter;
+}
+
+.animate-complete {
+  will-change: auto;
+}
+
+/* DARK MODE ENHANCEMENTS */
+@media (prefers-color-scheme: dark) {
+  .glass-advanced {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .shader-background {
+    opacity: 0.8;
+  }
+  
+  .neural-node {
+    filter: brightness(1.2);
+  }
+}

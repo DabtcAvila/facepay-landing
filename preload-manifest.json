@@ -1,0 +1,158 @@
+{
+  "version": "2.1.0",
+  "timestamp": "2024-01-01T00:00:00Z",
+  "critical_resources": [
+    {
+      "url": "/critical.css",
+      "type": "style",
+      "priority": "high",
+      "crossorigin": "anonymous",
+      "media": "screen",
+      "inline": true,
+      "size": 15240
+    },
+    {
+      "url": "/performance.js",
+      "type": "script",
+      "priority": "high",
+      "async": true,
+      "defer": false,
+      "size": 28650
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap",
+      "type": "style",
+      "priority": "high",
+      "crossorigin": "anonymous",
+      "media": "screen"
+    }
+  ],
+  "preload_resources": [
+    {
+      "url": "/facepay-demo.mp4",
+      "type": "video",
+      "priority": "low",
+      "as": "video",
+      "condition": "viewport_interaction"
+    },
+    {
+      "url": "/video-poster.jpg",
+      "type": "image",
+      "priority": "medium",
+      "as": "image",
+      "format": "webp",
+      "fallback": "jpg"
+    },
+    {
+      "url": "/icon-192.png",
+      "type": "image",
+      "priority": "low",
+      "as": "image",
+      "format": "webp",
+      "fallback": "png"
+    }
+  ],
+  "prefetch_resources": [
+    {
+      "url": "/chunks/testimonials.js",
+      "type": "script",
+      "condition": "scroll_50_percent"
+    },
+    {
+      "url": "/chunks/features.js",
+      "type": "script",
+      "condition": "section_visible"
+    },
+    {
+      "url": "/chunks/demo.js",
+      "type": "script",
+      "condition": "demo_button_hover"
+    },
+    {
+      "url": "/chunks/conversion.js",
+      "type": "script",
+      "condition": "cta_button_hover"
+    }
+  ],
+  "dns_prefetch": [
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.youtube.com",
+    "www.google-analytics.com",
+    "cdn.tailwindcss.com"
+  ],
+  "preconnect": [
+    {
+      "url": "https://fonts.googleapis.com",
+      "crossorigin": "anonymous"
+    },
+    {
+      "url": "https://fonts.gstatic.com",
+      "crossorigin": "anonymous"
+    }
+  ],
+  "modulepreload": [
+    {
+      "url": "/chunks/testimonials.js",
+      "condition": "intersection_observer"
+    },
+    {
+      "url": "/chunks/features.js",
+      "condition": "intersection_observer"
+    }
+  ],
+  "http2_push": [
+    {
+      "url": "/critical.css",
+      "type": "style",
+      "weight": 256
+    },
+    {
+      "url": "/performance.js",
+      "type": "script",
+      "weight": 220
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap",
+      "type": "style",
+      "weight": 180
+    }
+  ],
+  "resource_hints_config": {
+    "enable_intersection_observer": true,
+    "enable_idle_callback": true,
+    "enable_network_information": true,
+    "adaptive_loading": {
+      "slow_3g": {
+        "disable_non_critical_preloads": true,
+        "reduce_image_quality": true,
+        "defer_videos": true
+      },
+      "fast_3g": {
+        "enable_prefetch": true,
+        "preload_next_section": true
+      },
+      "4g": {
+        "enable_all_optimizations": true,
+        "aggressive_prefetch": true
+      }
+    }
+  },
+  "performance_budgets": {
+    "max_initial_bundle_size": 100000,
+    "max_total_bundle_size": 500000,
+    "max_image_size": 200000,
+    "max_video_size": 5000000,
+    "max_font_size": 50000
+  },
+  "optimization_flags": {
+    "enable_brotli": true,
+    "enable_gzip": true,
+    "enable_webp": true,
+    "enable_avif": true,
+    "enable_http2": true,
+    "enable_service_worker": true,
+    "enable_prefetch_on_hover": true,
+    "enable_intersection_loading": true
+  }
+}

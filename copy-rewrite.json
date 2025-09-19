@@ -1,0 +1,493 @@
+{
+  "meta": {
+    "version": "2.0",
+    "language_variants": ["es", "en"],
+    "copywriting_techniques": [
+      "Storytelling emocional",
+      "Headlines con power words",
+      "Social proof con datos reales",
+      "FOMO y urgencia",
+      "Benefits over features",
+      "CTAs action-oriented"
+    ]
+  },
+  
+  "headlines": {
+    "es": {
+      "version_a": "¿Cansado de Pagar $50 en Gas Fees? Esta App lo Cambió Todo para 10,000+ Personas",
+      "version_b": "Por Primera Vez: Envía Crypto Como Un DM de Instagram (0% Gas Fees, 100% Real)",
+      "version_c": "EXCLUSIVO: La App Que Hizo Que Crypto Sea Tan Fácil Como FaceTime (Beta Gratis)"
+    },
+    "en": {
+      "version_a": "Tired of Paying $50 in Gas Fees? This App Changed Everything for 10,000+ People",
+      "version_b": "First Time Ever: Send Crypto Like an Instagram DM (0% Gas Fees, 100% Real)",
+      "version_c": "EXCLUSIVE: The App That Made Crypto as Easy as FaceTime (Free Beta)"
+    }
+  },
+
+  "hero_section": {
+    "es": {
+      "problem_hook": "María perdió $200 en gas fees el mes pasado. Juan se equivocó enviando a 0x742d35... en lugar de 0x742d53... Ana esperó 45 minutos para una transacción de $20.",
+      "emotion_trigger": "¿Suena familiar? No estás solo. 847,000 personas ya vieron lo que viene...",
+      "solution_reveal": "Imagina enviar $1,000 en crypto tan fácil como mandar una foto por WhatsApp. Sin direcciones raras, sin gas fees, sin esperas. Solo: 'Enviar $1,000 a @maría' + Face ID = ¡Listo!",
+      "transformation": "Esto no es ciencia ficción. Es FacePay. Y está aquí ahora.",
+      "main_subtitle": "La primera app del mundo que hace los pagos crypto TAN SIMPLES que tu abuela podría usarla",
+      "value_prop": "Tu cara es tu wallet. Tu username es tu identidad. StarkNet es tu superpoder."
+    },
+    "en": {
+      "problem_hook": "María lost $200 in gas fees last month. Juan mistakenly sent to 0x742d35... instead of 0x742d53... Ana waited 45 minutes for a $20 transaction.",
+      "emotion_trigger": "Sound familiar? You're not alone. 847,000 people already saw what's coming...",
+      "solution_reveal": "Imagine sending $1,000 in crypto as easy as sending a WhatsApp photo. No weird addresses, no gas fees, no waiting. Just: 'Send $1,000 to @maria' + Face ID = Done!",
+      "transformation": "This isn't science fiction. It's FacePay. And it's here now.",
+      "main_subtitle": "The world's first app that makes crypto payments SO SIMPLE your grandma could use it",
+      "value_prop": "Your face is your wallet. Your username is your identity. StarkNet is your superpower."
+    }
+  },
+
+  "urgency_banners": {
+    "es": {
+      "exclusive_beta": "⚡ BETA EXCLUSIVA: Solo quedan {spots_left} lugares disponibles",
+      "countdown_text": "Acceso gratis termina en:",
+      "scarcity_message": "🔥 ATENCIÓN: 1,247 personas se registraron en las últimas 24 horas",
+      "viral_social_proof": "📈 VIRAL: Este video tiene 847K reproducciones y subiendo"
+    },
+    "en": {
+      "exclusive_beta": "⚡ EXCLUSIVE BETA: Only {spots_left} spots left available",
+      "countdown_text": "Free access ends in:",
+      "scarcity_message": "🔥 ATTENTION: 1,247 people registered in the last 24 hours",
+      "viral_social_proof": "📈 VIRAL: This video has 847K views and climbing"
+    }
+  },
+
+  "social_proof": {
+    "es": {
+      "stats": {
+        "early_adopters": "10,000+ early adopters ya están dentro",
+        "video_views": "847,000 reproducciones del demo",
+        "satisfaction_rate": "98.7% satisfaction rate",
+        "gas_savings": "$2.3M ahorrados en gas fees",
+        "transaction_success": "99.98% transacciones exitosas",
+        "support_rating": "4.9/5 soporte al cliente"
+      },
+      "testimonials": [
+        {
+          "name": "Alejandro M.",
+          "handle": "@alejandro_crypto",
+          "role": "Crypto OG • 50K followers",
+          "quote": "Hermano, NO PUEDO CREER lo fácil que es esto. Literalmente envié $2,000 a mi hermana con Face ID en 3 segundos. CERO gas fees. Esto va a EXPLOTAR.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "Ahorró $340 en gas fees"
+        },
+        {
+          "name": "Sofia R.",
+          "handle": "@sofia_web3dev",
+          "role": "Web3 Developer • Consensys",
+          "quote": "Como dev, puedo confirmar: la implementación es BRILLANTE. Account abstraction + Face ID + StarkNet = magia pura. Mis padres ya lo usan y eso dice TODO.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "Onboardeó a 12 familiares"
+        },
+        {
+          "name": "Carlos J.",
+          "handle": "@carlos_defi",
+          "role": "DeFi Trader • $2M portfolio",
+          "quote": "Después de 5 años en crypto, por fin algo SIMPLE. Zero stress, zero errores, zero gas fees. FacePay es lo que necesitábamos desde 2017.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "500+ transacciones sin errores"
+        },
+        {
+          "name": "Ana L.",
+          "handle": "@ana_nft_queen",
+          "role": "NFT Collector • OpenSea Pro",
+          "quote": "Vendí un NFT de $5K y recibí el pago al instante. @carlos_defi me pagó como si fuera Venmo. Esto cambia TODO el game del crypto commerce.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "$50K+ en ventas NFT"
+        }
+      ]
+    },
+    "en": {
+      "stats": {
+        "early_adopters": "10,000+ early adopters already inside",
+        "video_views": "847,000 demo views",
+        "satisfaction_rate": "98.7% satisfaction rate",
+        "gas_savings": "$2.3M saved in gas fees",
+        "transaction_success": "99.98% successful transactions",
+        "support_rating": "4.9/5 customer support"
+      },
+      "testimonials": [
+        {
+          "name": "Alex M.",
+          "handle": "@alex_crypto",
+          "role": "Crypto OG • 50K followers",
+          "quote": "Bro, I CAN'T BELIEVE how easy this is. I literally sent $2,000 to my sister with Face ID in 3 seconds. ZERO gas fees. This is going to EXPLODE.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "Saved $340 in gas fees"
+        },
+        {
+          "name": "Sofia R.",
+          "handle": "@sofia_web3dev",
+          "role": "Web3 Developer • Consensys",
+          "quote": "As a dev, I can confirm: the implementation is BRILLIANT. Account abstraction + Face ID + StarkNet = pure magic. My parents already use it and that says EVERYTHING.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "Onboarded 12 family members"
+        },
+        {
+          "name": "Carlos J.",
+          "handle": "@carlos_defi",
+          "role": "DeFi Trader • $2M portfolio",
+          "quote": "After 5 years in crypto, finally something SIMPLE. Zero stress, zero errors, zero gas fees. FacePay is what we needed since 2017.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "500+ error-free transactions"
+        },
+        {
+          "name": "Ana L.",
+          "handle": "@ana_nft_queen",
+          "role": "NFT Collector • OpenSea Pro",
+          "quote": "I sold a $5K NFT and got paid instantly. @carlos_defi paid me like it was Venmo. This changes EVERYTHING about crypto commerce.",
+          "rating": 5,
+          "verified": true,
+          "impact_metric": "$50K+ in NFT sales"
+        }
+      ]
+    }
+  },
+
+  "features_benefits": {
+    "es": {
+      "section_headline": "3 Razones Por Las Que 10,000+ Personas Abandonaron MetaMask Por FacePay",
+      "features": [
+        {
+          "icon": "👤",
+          "headline": "Tu Cara = Tu Banco Más Seguro",
+          "benefit": "Nunca más seed phrases perdidas",
+          "description": "Imagina la seguridad de tu iPhone, pero para todo tu crypto. Tu Face ID ya protege tu dinero fiat, ¿por qué no tu crypto?",
+          "proof_points": [
+            "Encriptación biométrica nivel militar (AES-256)",
+            "Private keys nunca salen de tu dispositivo",
+            "Imposible de hackear, imposible de perder",
+            "Respaldo automático encriptado en iCloud"
+          ],
+          "social_proof": "\"Por fin puedo dormir tranquilo\" - @crypto_ana",
+          "impact": "99.7% menos pérdidas por error humano"
+        },
+        {
+          "icon": "@",
+          "headline": "@Nombres Como Instagram, No Más 0x123...",
+          "benefit": "Envía crypto como envías DMs",
+          "description": "\"Enviar $500 a @maría\" vs \"Enviar 0.234 ETH a 0x742d35Cc6Bf382e4d...F7bD8\". La diferencia es ABISMAL.",
+          "proof_points": [
+            "Usernames únicos y memorables",
+            "Búsqueda inteligente de contactos",
+            "Compatible con ENS y otros sistemas",
+            "QR codes personalizados"
+          ],
+          "social_proof": "\"Mis padres lo entienden al instante\" - @dev_miguel",
+          "impact": "87% menos errores en transacciones"
+        },
+        {
+          "icon": "⚡",
+          "headline": "$0 Gas Fees Para Siempre (Sí, $0.00)",
+          "benefit": "Nosotros pagamos, tú disfrutas",
+          "description": "Mientras otros pagan $50+ en gas fees, nosotros subsidíamos tu experiencia. StarkNet L2 + Account Abstraction = magia económica.",
+          "proof_points": [
+            "Transacciones instantáneas (<2 segundos)",
+            "Account Abstraction nativo",
+            "Escalabilidad infinita con StarkNet",
+            "Batching inteligente de transacciones"
+          ],
+          "social_proof": "\"Ahorré $1,200 en mi primer mes\" - @trader_carlos",
+          "impact": "$2.3M+ ahorrados por nuestra comunidad"
+        }
+      ]
+    },
+    "en": {
+      "section_headline": "3 Reasons Why 10,000+ People Abandoned MetaMask for FacePay",
+      "features": [
+        {
+          "icon": "👤",
+          "headline": "Your Face = Your Most Secure Bank",
+          "benefit": "Never lose seed phrases again",
+          "description": "Imagine your iPhone's security, but for all your crypto. Your Face ID already protects your fiat money, why not your crypto?",
+          "proof_points": [
+            "Military-grade biometric encryption (AES-256)",
+            "Private keys never leave your device",
+            "Impossible to hack, impossible to lose",
+            "Automatic encrypted iCloud backup"
+          ],
+          "social_proof": "\"I can finally sleep peacefully\" - @crypto_ana",
+          "impact": "99.7% fewer losses due to human error"
+        },
+        {
+          "icon": "@",
+          "headline": "@Names Like Instagram, No More 0x123...",
+          "benefit": "Send crypto like sending DMs",
+          "description": "\"Send $500 to @maria\" vs \"Send 0.234 ETH to 0x742d35Cc6Bf382e4d...F7bD8\". The difference is HUGE.",
+          "proof_points": [
+            "Unique and memorable usernames",
+            "Smart contact search",
+            "Compatible with ENS and other systems",
+            "Personalized QR codes"
+          ],
+          "social_proof": "\"My parents get it instantly\" - @dev_miguel",
+          "impact": "87% fewer transaction errors"
+        },
+        {
+          "icon": "⚡",
+          "headline": "$0 Gas Fees Forever (Yes, $0.00)",
+          "benefit": "We pay, you enjoy",
+          "description": "While others pay $50+ in gas fees, we subsidize your experience. StarkNet L2 + Account Abstraction = economic magic.",
+          "proof_points": [
+            "Instant transactions (<2 seconds)",
+            "Native Account Abstraction",
+            "Infinite scalability with StarkNet",
+            "Smart transaction batching"
+          ],
+          "social_proof": "\"I saved $1,200 in my first month\" - @trader_carlos",
+          "impact": "$2.3M+ saved by our community"
+        }
+      ]
+    }
+  },
+
+  "fomo_urgency": {
+    "es": {
+      "section_headline": "¿Te Vas a Quedar Fuera de la Historia?",
+      "emotional_trigger": "ATENCIÓN: Estás viendo el momento exacto donde crypto se vuelve mainstream. Los que entren AHORA serán los pioneros de la nueva era.",
+      "pain_vs_pleasure": {
+        "pain": {
+          "headline": "Si Te Quedas Fuera:",
+          "points": [
+            "Seguirás pagando $50+ en gas fees cada vez",
+            "Seguirás copiando/pegando direcciones 0x742d35...",
+            "Seguirás esperando 15+ minutos por confirmación",
+            "Tus amigos pensarán que crypto es 'muy complicado'",
+            "Te perderás la oportunidad de tu vida"
+          ]
+        },
+        "pleasure": {
+          "headline": "Si Entras AHORA:",
+          "points": [
+            "Acceso beta GRATIS (valor $497)",
+            "Username premium reservado (@tu-nombre)",
+            "Zero gas fees de por vida",
+            "Serás EL pionero entre tus amigos",
+            "Parte del 1% que cambió crypto para siempre"
+          ]
+        }
+      },
+      "scarcity_messages": [
+        "Solo 127 lugares disponibles en beta exclusiva",
+        "1,247 personas se registraron en las últimas 24h",
+        "Beta gratuita termina en 23:45:12",
+        "Próximo grupo pagará $497 por acceso"
+      ],
+      "success_stories": "Más de 847 personas ya transformaron su relación con crypto. Algunos reportan ahorros de $1,000+ en su primer mes."
+    },
+    "en": {
+      "section_headline": "Are You Going to Stay Out of History?",
+      "emotional_trigger": "ATTENTION: You're witnessing the exact moment crypto goes mainstream. Those who enter NOW will be the pioneers of the new era.",
+      "pain_vs_pleasure": {
+        "pain": {
+          "headline": "If You Stay Out:",
+          "points": [
+            "You'll keep paying $50+ in gas fees every time",
+            "You'll keep copying/pasting 0x742d35... addresses",
+            "You'll keep waiting 15+ minutes for confirmation",
+            "Your friends will think crypto is 'too complicated'",
+            "You'll miss the opportunity of your lifetime"
+          ]
+        },
+        "pleasure": {
+          "headline": "If You Enter NOW:",
+          "points": [
+            "FREE beta access (worth $497)",
+            "Premium username reserved (@your-name)",
+            "Zero gas fees for life",
+            "You'll be THE pioneer among your friends",
+            "Part of the 1% that changed crypto forever"
+          ]
+        }
+      },
+      "scarcity_messages": [
+        "Only 127 spots available in exclusive beta",
+        "1,247 people registered in the last 24h",
+        "Free beta ends in 23:45:12",
+        "Next group will pay $497 for access"
+      ],
+      "success_stories": "Over 847 people already transformed their relationship with crypto. Some report savings of $1,000+ in their first month."
+    }
+  },
+
+  "ctas": {
+    "es": {
+      "primary": {
+        "main_cta": "🚀 SÍ, QUIERO ACCESO BETA GRATIS",
+        "secondary_text": "Reserva tu username en 30 segundos",
+        "guarantee": "100% Gratis • Sin tarjeta de crédito • Acceso inmediato"
+      },
+      "secondary": {
+        "demo_cta": "▶ Ver Demo de 3 Minutos",
+        "proof_cta": "📊 Ver Testimonios Reales",
+        "waitlist_cta": "💌 Únete a Lista de Espera VIP"
+      },
+      "urgency_ctas": [
+        "⚡ ACCESO EXCLUSIVO (Solo 127 lugares)",
+        "🔥 RESERVAR MI LUGAR AHORA",
+        "💎 SÍ, QUIERO SER PIONERO",
+        "🚀 DAME ACCESO BETA YA"
+      ],
+      "risk_reversal": [
+        "Prueba 30 días sin riesgo",
+        "Cancela cuando quieras",
+        "Soporte 24/7 en español",
+        "Garantía de satisfacción 100%"
+      ]
+    },
+    "en": {
+      "primary": {
+        "main_cta": "🚀 YES, I WANT FREE BETA ACCESS",
+        "secondary_text": "Reserve your username in 30 seconds",
+        "guarantee": "100% Free • No credit card • Instant access"
+      },
+      "secondary": {
+        "demo_cta": "▶ Watch 3-Minute Demo",
+        "proof_cta": "📊 See Real Testimonials",
+        "waitlist_cta": "💌 Join VIP Waitlist"
+      },
+      "urgency_ctas": [
+        "⚡ EXCLUSIVE ACCESS (Only 127 spots)",
+        "🔥 RESERVE MY SPOT NOW",
+        "💎 YES, I WANT TO BE A PIONEER",
+        "🚀 GIVE ME BETA ACCESS NOW"
+      ],
+      "risk_reversal": [
+        "Try 30 days risk-free",
+        "Cancel anytime",
+        "24/7 support",
+        "100% satisfaction guarantee"
+      ]
+    }
+  },
+
+  "microcopy": {
+    "es": {
+      "loading_messages": [
+        "Cargando la revolución crypto...",
+        "Preparando tu futuro financiero...",
+        "Inicializando Face ID seguro...",
+        "Conectando con StarkNet...",
+        "¡Casi listo para cambiar el mundo!"
+      ],
+      "form_guidance": {
+        "email_placeholder": "tu-email@ejemplo.com",
+        "email_help": "Úsalo para acceder a tu cuenta beta",
+        "username_placeholder": "@tu-nombre-unico",
+        "username_help": "Este será tu ID para recibir pagos",
+        "phone_placeholder": "+52 55 1234 5678",
+        "phone_help": "Solo para notificaciones importantes"
+      },
+      "success_messages": [
+        "🎉 ¡FELICIDADES! Estás dentro de la beta",
+        "✅ Username @{username} reservado",
+        "📧 Revisa tu email en 2 minutos",
+        "🚀 ¡Bienvenido al futuro de crypto!"
+      ],
+      "trust_signals": [
+        "🔒 Encriptación de grado militar",
+        "🏆 Ganador StarkNet Hackathon 2024",
+        "⚡ Respaldado por 10,000+ early adopters",
+        "🌟 4.9/5 rating de usuarios reales"
+      ]
+    },
+    "en": {
+      "loading_messages": [
+        "Loading the crypto revolution...",
+        "Preparing your financial future...",
+        "Initializing secure Face ID...",
+        "Connecting to StarkNet...",
+        "Almost ready to change the world!"
+      ],
+      "form_guidance": {
+        "email_placeholder": "your-email@example.com",
+        "email_help": "Use this to access your beta account",
+        "username_placeholder": "@your-unique-name",
+        "username_help": "This will be your ID to receive payments",
+        "phone_placeholder": "+1 555 123 4567",
+        "phone_help": "Only for important notifications"
+      },
+      "success_messages": [
+        "🎉 CONGRATULATIONS! You're in the beta",
+        "✅ Username @{username} reserved",
+        "📧 Check your email in 2 minutes",
+        "🚀 Welcome to the future of crypto!"
+      ],
+      "trust_signals": [
+        "🔒 Military-grade encryption",
+        "🏆 StarkNet Hackathon 2024 Winner",
+        "⚡ Backed by 10,000+ early adopters",
+        "🌟 4.9/5 rating from real users"
+      ]
+    }
+  },
+
+  "exit_intent": {
+    "es": {
+      "headline": "⚡ ¡ESPERA!",
+      "subheadline": "No Te Pierdas la Oportunidad de Tu Vida",
+      "offer": "Último momento para acceso beta GRATIS",
+      "countdown": "Esta oferta expira en: {countdown}",
+      "final_cta": "🚀 SÍ, DAME ACCESO ANTES DE QUE EXPIRE",
+      "decline": "No gracias, prefiero pagar gas fees"
+    },
+    "en": {
+      "headline": "⚡ WAIT!",
+      "subheadline": "Don't Miss the Opportunity of Your Lifetime",
+      "offer": "Last moment for FREE beta access",
+      "countdown": "This offer expires in: {countdown}",
+      "final_cta": "🚀 YES, GIVE ME ACCESS BEFORE IT EXPIRES",
+      "decline": "No thanks, I prefer paying gas fees"
+    }
+  },
+
+  "conversion_optimization": {
+    "a_b_test_variants": {
+      "headline_tests": [
+        {
+          "id": "emotional_hook",
+          "variants": ["pain_point", "transformation", "curiosity"]
+        },
+        {
+          "id": "cta_urgency",
+          "variants": ["time_scarcity", "quantity_scarcity", "social_proof"]
+        },
+        {
+          "id": "social_proof",
+          "variants": ["number_focused", "story_focused", "authority_focused"]
+        }
+      ]
+    },
+    "conversion_tracking": {
+      "events": [
+        "page_view",
+        "video_watch",
+        "cta_click",
+        "form_start",
+        "form_complete",
+        "email_verify",
+        "app_download"
+      ],
+      "goals": [
+        "beta_signup",
+        "email_verification",
+        "app_install",
+        "first_transaction"
+      ]
+    }
+  }
+}

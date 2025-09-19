@@ -1,0 +1,189 @@
+{
+  "ab_testing_headlines": {
+    "version_a": {
+      "name": "Pain Point + Social Proof",
+      "es": {
+        "main_headline": "¿Cansado de Pagar $50 en Gas Fees?",
+        "sub_headline": "Esta App lo Cambió Todo para 10,000+ Personas",
+        "supporting_text": "Descubre por qué usuarios reales ahorraron $2.3M en gas fees con FacePay",
+        "psychological_trigger": "Pain avoidance + Social validation",
+        "target_emotion": "Frustration relief + FOMO"
+      },
+      "en": {
+        "main_headline": "Tired of Paying $50 in Gas Fees?", 
+        "sub_headline": "This App Changed Everything for 10,000+ People",
+        "supporting_text": "Discover why real users saved $2.3M in gas fees with FacePay",
+        "psychological_trigger": "Pain avoidance + Social validation",
+        "target_emotion": "Frustration relief + FOMO"
+      }
+    },
+    
+    "version_b": {
+      "name": "Transformation + Curiosity",
+      "es": {
+        "main_headline": "Por Primera Vez en la Historia:",
+        "sub_headline": "Envía Crypto Como Un DM de Instagram",
+        "supporting_text": "(0% Gas Fees, 100% Real, 847K+ personas ya lo vieron)",
+        "psychological_trigger": "Novelty + Social proof + Curiosity gap",
+        "target_emotion": "Excitement + Wonder + FOMO"
+      },
+      "en": {
+        "main_headline": "For the First Time in History:",
+        "sub_headline": "Send Crypto Like an Instagram DM", 
+        "supporting_text": "(0% Gas Fees, 100% Real, 847K+ people already saw it)",
+        "psychological_trigger": "Novelty + Social proof + Curiosity gap",
+        "target_emotion": "Excitement + Wonder + FOMO"
+      }
+    },
+    
+    "version_c": {
+      "name": "Exclusive Access + Authority",
+      "es": {
+        "main_headline": "BETA EXCLUSIVA:",
+        "sub_headline": "La App Que Hizo Crypto Tan Fácil Como FaceTime",
+        "supporting_text": "Solo 127 lugares disponibles • Ganador StarkNet Hackathon 2024",
+        "psychological_trigger": "Exclusivity + Authority + Scarcity",
+        "target_emotion": "Privilege + Trust + Urgency"
+      },
+      "en": {
+        "main_headline": "EXCLUSIVE BETA:",
+        "sub_headline": "The App That Made Crypto as Easy as FaceTime",
+        "supporting_text": "Only 127 spots available • StarkNet Hackathon 2024 Winner",
+        "psychological_trigger": "Exclusivity + Authority + Scarcity", 
+        "target_emotion": "Privilege + Trust + Urgency"
+      }
+    }
+  },
+
+  "storytelling_structure": {
+    "es": {
+      "act_1_problem": {
+        "character": "María, desarrolladora de 28 años, early adopter de crypto",
+        "pain": "El mes pasado perdió $200 en gas fees intentando hacer un swap de $300",
+        "frustration": "Se equivocó en una dirección y perdió $500 más",
+        "breaking_point": "'Crypto nunca será mainstream si es tan complicado', pensó",
+        "relatability": "¿Te ha pasado algo similar?"
+      },
+      
+      "act_2_discovery": {
+        "moment": "Un amigo le mostró un video de 3 minutos",
+        "reaction": "No podía creer lo que veía",
+        "transformation": "Una chica enviando $1,000 con Face ID como si fuera WhatsApp",
+        "realization": "'Esto cambiarIa todo', pensó María",
+        "social_proof": "847,000 personas habían visto el mismo video"
+      },
+      
+      "act_3_transformation": {
+        "new_reality": "María ya no copia direcciones 0x742d35...",
+        "new_behavior": "Ahora dice: 'Enviar $500 a @carlos' + Face ID",
+        "results": "En su primer mes ahorró $340 en gas fees", 
+        "social_impact": "Sus padres ya usan crypto gracias a FacePay",
+        "future_vision": "María se unió a la revolución que hizo crypto humano"
+      }
+    },
+    
+    "en": {
+      "act_1_problem": {
+        "character": "Maria, 28-year-old developer, crypto early adopter",
+        "pain": "Last month she lost $200 in gas fees trying to make a $300 swap",
+        "frustration": "She made an address mistake and lost $500 more",
+        "breaking_point": "'Crypto will never be mainstream if it's this complicated', she thought",
+        "relatability": "Has something similar happened to you?"
+      },
+      
+      "act_2_discovery": {
+        "moment": "A friend showed her a 3-minute video",
+        "reaction": "She couldn't believe what she was seeing",
+        "transformation": "A girl sending $1,000 with Face ID like it was WhatsApp",
+        "realization": "'This would change everything', Maria thought",
+        "social_proof": "847,000 people had seen the same video"
+      },
+      
+      "act_3_transformation": {
+        "new_reality": "Maria no longer copies 0x742d35... addresses",
+        "new_behavior": "Now she says: 'Send $500 to @carlos' + Face ID",
+        "results": "In her first month she saved $340 in gas fees",
+        "social_impact": "Her parents already use crypto thanks to FacePay", 
+        "future_vision": "Maria joined the revolution that made crypto human"
+      }
+    }
+  },
+
+  "emotional_hooks": {
+    "es": {
+      "pain_amplifiers": [
+        "¿Cuánto has perdido en gas fees este mes?",
+        "¿Cuántas veces has copiado mal una dirección 0x...?",
+        "¿Te da ansiedad enviar crypto a alguien nuevo?",
+        "¿Tus amigos piensan que crypto es 'muy complicado'?"
+      ],
+      "dream_outcomes": [
+        "Imagina enviar crypto tan fácil como un mensaje de WhatsApp",
+        "Nunca más gas fees de $50 por una transacción de $20",
+        "Tus padres usando crypto sin problemas",
+        "Ser el pionero de la nueva era digital"
+      ],
+      "transformation_moments": [
+        "El momento exacto donde crypto se vuelve mainstream",
+        "Cuando tu cara se convierte en tu wallet más seguro",
+        "La primera vez que dices @maria en lugar de 0x742d35...",
+        "Cuando realizas que eres parte de la historia"
+      ]
+    },
+    
+    "en": {
+      "pain_amplifiers": [
+        "How much have you lost in gas fees this month?",
+        "How many times have you mistyped a 0x... address?", 
+        "Does sending crypto to someone new give you anxiety?",
+        "Do your friends think crypto is 'too complicated'?"
+      ],
+      "dream_outcomes": [
+        "Imagine sending crypto as easy as a WhatsApp message",
+        "Never again $50 gas fees for a $20 transaction",
+        "Your parents using crypto without problems",
+        "Being the pioneer of the new digital era"
+      ],
+      "transformation_moments": [
+        "The exact moment crypto becomes mainstream",
+        "When your face becomes your most secure wallet",
+        "The first time you say @maria instead of 0x742d35...",
+        "When you realize you're part of history"
+      ]
+    }
+  },
+
+  "power_words_bank": {
+    "urgency": ["AHORA", "EXCLUSIVO", "LIMITADO", "ÚLTIMO", "TERMINA", "SOLO", "YA"],
+    "authority": ["GANADOR", "LÍDER", "PRIMERO", "OFICIAL", "CERTIFICADO", "EXPERTO"],  
+    "emotion": ["INCREÍBLE", "REVOLUCIONARIO", "TRANSFORMADOR", "ÚNICO", "ESPECIAL"],
+    "social": ["VIRAL", "TRENDING", "POPULAR", "MILLONES", "COMUNIDAD", "PIONEROS"],
+    "benefit": ["GRATIS", "INSTANTÁNEO", "FÁCIL", "SEGURO", "GARANTIZADO", "SIMPLE"],
+    "curiosity": ["SECRETO", "REVELADO", "DESCUBRE", "SORPRENDENTE", "NUNCA ANTES"]
+  },
+
+  "conversion_psychology": {
+    "cognitive_biases": [
+      {
+        "name": "Social Proof",
+        "implementation": "10,000+ usuarios, 847K video views, testimonios verificados",
+        "copy_example": "Únete a 10,000+ pioneros que ya transformaron su experiencia crypto"
+      },
+      {
+        "name": "Scarcity", 
+        "implementation": "Solo 127 lugares, beta termina en 23:45:12",
+        "copy_example": "ATENCIÓN: Solo quedan 127 lugares en la beta exclusiva"
+      },
+      {
+        "name": "Loss Aversion",
+        "implementation": "Énfasis en lo que pierdes al no actuar",
+        "copy_example": "¿Te vas a quedar pagando $50+ en gas fees para siempre?"
+      },
+      {
+        "name": "Authority",
+        "implementation": "Ganador StarkNet Hackathon, respaldado por expertos",
+        "copy_example": "Ganador del StarkNet Hackathon 2024 • Validado por 50+ expertos"
+      }
+    ]
+  }
+}

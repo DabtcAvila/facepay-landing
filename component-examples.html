@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component Library Examples</title>
+  <link rel="stylesheet" href="design-tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="utilities.css">
+</head>
+<body class="bg-background text-foreground">
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-4xl font-bold mb-8 text-center">Component Library Examples</h1>
+    
+    <!-- Button System - 12 Variants -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Button System (12 Variants)</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button class="btn btn-primary btn-md">Primary</button>
+        <button class="btn btn-secondary btn-md">Secondary</button>
+        <button class="btn btn-outline btn-md">Outline</button>
+        <button class="btn btn-ghost btn-md">Ghost</button>
+        <button class="btn btn-destructive btn-md">Destructive</button>
+        <button class="btn btn-success btn-md">Success</button>
+        <button class="btn btn-warning btn-md">Warning</button>
+        <button class="btn btn-info btn-md">Info</button>
+        <button class="btn btn-link btn-md">Link</button>
+        <button class="btn btn-gradient btn-md">Gradient</button>
+        <button class="btn btn-glass btn-md">Glass</button>
+        <button class="btn btn-icon-only btn-md">⚙️</button>
+      </div>
+      
+      <h3 class="text-lg font-medium mt-6 mb-3">Button Sizes</h3>
+      <div class="flex items-center gap-3">
+        <button class="btn btn-primary btn-xs">XS</button>
+        <button class="btn btn-primary btn-sm">SM</button>
+        <button class="btn btn-primary btn-md">MD</button>
+        <button class="btn btn-primary btn-lg">LG</button>
+        <button class="btn btn-primary btn-xl">XL</button>
+      </div>
+    </section>
+
+    <!-- Card Components - 8 Types -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Card Components (8 Types)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Basic Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-lg font-semibold">Basic Card</h3>
+          </div>
+          <div class="card-body">
+            <p class="text-foreground-muted">Default card with header and body.</p>
+          </div>
+        </div>
+
+        <!-- Elevated Card -->
+        <div class="card card-elevated">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Elevated</h3>
+            <p class="text-foreground-muted">Card with shadow and hover effect.</p>
+          </div>
+        </div>
+
+        <!-- Outlined Card -->
+        <div class="card card-outlined">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Outlined</h3>
+            <p class="text-foreground-muted">Card with strong border.</p>
+          </div>
+        </div>
+
+        <!-- Ghost Card -->
+        <div class="card card-ghost">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Ghost</h3>
+            <p class="text-foreground-muted">Transparent card with dashed border.</p>
+          </div>
+        </div>
+
+        <!-- Gradient Card -->
+        <div class="card card-gradient">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Gradient</h3>
+            <p class="text-foreground-muted">Card with gradient background.</p>
+          </div>
+        </div>
+
+        <!-- Glass Card -->
+        <div class="card card-glass">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Glass</h3>
+            <p class="text-foreground-muted">Glassmorphism effect card.</p>
+          </div>
+        </div>
+
+        <!-- Interactive Card -->
+        <div class="card card-interactive cursor-pointer">
+          <div class="card-body">
+            <h3 class="text-lg font-semibold mb-2">Interactive</h3>
+            <p class="text-foreground-muted">Clickable card with hover effects.</p>
+          </div>
+        </div>
+
+        <!-- Feature Card -->
+        <div class="card card-feature">
+          <div class="text-4xl mb-4">🚀</div>
+          <h3 class="text-lg font-semibold mb-2">Feature</h3>
+          <p class="text-foreground-muted">Centered content card.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Elements -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Form Elements</h2>
+      <div class="max-w-md space-y-4">
+        <!-- Text Input -->
+        <div class="form-group">
+          <label class="form-label form-label-required">Full Name</label>
+          <input type="text" class="form-input" placeholder="Enter your name" data-rules="required|min:2" data-name="Full Name">
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+          <label class="form-label form-label-required">Email</label>
+          <input type="email" class="form-input" placeholder="Enter your email" data-rules="required|email" data-name="Email">
+        </div>
+
+        <!-- Select -->
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <select class="form-select">
+            <option value="">Select country</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="ca">Canada</option>
+          </select>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Enter your message"></textarea>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-group">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>I agree to the terms and conditions</span>
+          </label>
+        </div>
+
+        <!-- Radio -->
+        <div class="form-group">
+          <label class="form-label">Preferred contact</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="contact" class="form-radio" value="email">
+              <span>Email</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="contact" class="form-radio" value="phone">
+              <span>Phone</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="form-group">
+          <label class="flex items-center justify-between">
+            <span>Enable notifications</span>
+            <label class="form-toggle">
+              <input type="checkbox">
+              <span class="form-toggle-slider"></span>
+            </label>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Patterns -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Navigation Patterns</h2>
+      
+      <!-- Tab Navigation -->
+      <div class="mb-8">
+        <h3 class="text-lg font-medium mb-3">Tabs</h3>
+        <div data-tabs>
+          <div class="tabs">
+            <div class="tabs-list">
+              <button class="tabs-trigger" data-tab-trigger>Overview</button>
+              <button class="tabs-trigger" data-tab-trigger>Analytics</button>
+              <button class="tabs-trigger" data-tab-trigger>Settings</button>
+            </div>
+          </div>
+          <div data-tab-content class="tabs-content">
+            <p>Overview content goes here.</p>
+          </div>
+          <div data-tab-content class="tabs-content">
+            <p>Analytics content goes here.</p>
+          </div>
+          <div data-tab-content class="tabs-content">
+            <p>Settings content goes here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="mb-8">
+        <h3 class="text-lg font-medium mb-3">Breadcrumb</h3>
+        <nav class="breadcrumb">
+          <span class="breadcrumb-item">Home</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-item">Products</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-item active">iPhone</span>
+        </nav>
+      </div>
+
+      <!-- Horizontal Navigation -->
+      <div class="mb-8">
+        <h3 class="text-lg font-medium mb-3">Horizontal Navigation</h3>
+        <nav class="nav">
+          <a href="#" class="nav-item active">Dashboard</a>
+          <a href="#" class="nav-item">Projects</a>
+          <a href="#" class="nav-item">Team</a>
+          <a href="#" class="nav-item">Calendar</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Loading States -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Loading States</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Spinners -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Spinners</h3>
+          <div class="flex items-center gap-4">
+            <div class="spinner spinner-sm"></div>
+            <div class="spinner"></div>
+            <div class="spinner spinner-lg"></div>
+          </div>
+        </div>
+
+        <!-- Skeleton Loading -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Skeleton</h3>
+          <div class="space-y-2">
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Progress Bar</h3>
+          <div class="progress">
+            <div class="progress-bar" style="width: 65%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty States -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Empty States</h2>
+      <div class="card">
+        <div class="empty-state">
+          <div class="empty-state-icon">📂</div>
+          <h3 class="empty-state-title">No files found</h3>
+          <p class="empty-state-description">
+            You haven't uploaded any files yet. Start by uploading your first file.
+          </p>
+          <div class="empty-state-action">
+            <button class="btn btn-primary">Upload File</button>
+            <button class="btn btn-secondary">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Examples -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Interactive Components</h2>
+      <div class="flex flex-wrap gap-4">
+        <!-- Modal Trigger -->
+        <button 
+          class="btn btn-primary" 
+          data-modal='{"title": "Welcome", "content": "This is a modal example!", "size": "md"}'>
+          Open Modal
+        </button>
+
+        <!-- Toast Triggers -->
+        <button 
+          class="btn btn-success" 
+          data-toast='{"title": "Success!", "message": "Operation completed successfully", "type": "success"}'>
+          Show Success Toast
+        </button>
+        
+        <button 
+          class="btn btn-destructive" 
+          data-toast='{"title": "Error!", "message": "Something went wrong", "type": "error"}'>
+          Show Error Toast
+        </button>
+
+        <!-- Loading Button -->
+        <button class="btn btn-info" data-loading="3000">
+          Loading Button (3s)
+        </button>
+
+        <!-- Tooltip Examples -->
+        <button class="btn btn-secondary" data-tooltip="This is a tooltip!" data-tooltip-position="top">
+          Hover for Tooltip
+        </button>
+      </div>
+    </section>
+
+    <!-- Utility Classes Examples -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Utility Classes</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Spacing -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Spacing</h3>
+          <div class="space-y-2">
+            <div class="bg-primary text-white p-2 rounded">p-2</div>
+            <div class="bg-primary text-white p-4 rounded">p-4</div>
+            <div class="bg-primary text-white p-6 rounded">p-6</div>
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Colors</h3>
+          <div class="space-y-2">
+            <div class="bg-primary text-white p-3 rounded">Primary</div>
+            <div class="bg-success text-white p-3 rounded">Success</div>
+            <div class="bg-warning text-white p-3 rounded">Warning</div>
+            <div class="bg-error text-white p-3 rounded">Error</div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Typography</h3>
+          <div class="space-y-2">
+            <div class="text-xs">Extra Small</div>
+            <div class="text-sm">Small</div>
+            <div class="text-base">Base</div>
+            <div class="text-lg">Large</div>
+            <div class="text-xl">Extra Large</div>
+          </div>
+        </div>
+
+        <!-- Flexbox -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Flexbox</h3>
+          <div class="flex items-center justify-between bg-background-subtle p-4 rounded">
+            <div>Left</div>
+            <div>Center</div>
+            <div>Right</div>
+          </div>
+        </div>
+
+        <!-- Grid -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Grid</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-background-subtle p-3 rounded text-center">1</div>
+            <div class="bg-background-subtle p-3 rounded text-center">2</div>
+            <div class="bg-background-subtle p-3 rounded text-center">3</div>
+            <div class="bg-background-subtle p-3 rounded text-center">4</div>
+          </div>
+        </div>
+
+        <!-- Shadows -->
+        <div>
+          <h3 class="text-lg font-medium mb-3">Shadows</h3>
+          <div class="space-y-4">
+            <div class="shadow-sm bg-background p-3 rounded">Shadow SM</div>
+            <div class="shadow-md bg-background p-3 rounded">Shadow MD</div>
+            <div class="shadow-lg bg-background p-3 rounded">Shadow LG</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Error Boundary Example -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold mb-6">Error Boundary</h2>
+      <div class="error-boundary">
+        <div class="error-boundary-icon">⚠️</div>
+        <h3 class="error-boundary-title">Something went wrong</h3>
+        <p class="error-boundary-description">
+          An unexpected error occurred. Please try refreshing the page or contact support if the problem persists.
+        </p>
+        <div class="error-boundary-actions">
+          <button class="btn btn-primary">Refresh Page</button>
+          <button class="btn btn-secondary">Contact Support</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="components.js"></script>
+  
+  <!-- Additional CSS for animations -->
+  <style>
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: inherit;
+    }
+    
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .loading-text {
+      font-size: var(--text-sm);
+      color: var(--color-foreground-muted);
+    }
+
+    /* Skip links */
+    .skip-links {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 100px;
+      left: var(--space-4);
+      background: var(--color-primary-600);
+      color: white;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: var(--font-medium);
+      transform: translateY(-100px);
+      transition: var(--transition-transform);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    /* Focus management */
+    .using-keyboard *:focus {
+      outline: 2px solid var(--color-primary-500);
+      outline-offset: 2px;
+    }
+
+    body:not(.using-keyboard) *:focus {
+      outline: none;
+    }
+  </style>
+</body>
+</html>

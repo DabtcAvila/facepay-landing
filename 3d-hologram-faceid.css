@@ -1,0 +1,870 @@
+/* 
+======================================================================
+🚀 INCREDIBLE CSS-ONLY 3D HOLOGRAM FACE ID EFFECT 🚀
+Perfect 60fps Performance | Sci-Fi Interface | Hardware Accelerated
+======================================================================
+*/
+
+:root {
+    /* 3D Hologram Color Palette */
+    --holo-primary: #00ff88;
+    --holo-secondary: #0088ff;
+    --holo-tertiary: #ff0088;
+    --holo-cyan: #00ffff;
+    --holo-purple: #8800ff;
+    --holo-orange: #ff8800;
+    
+    /* Hologram Gradients */
+    --holo-gradient-1: linear-gradient(45deg, var(--holo-primary), var(--holo-secondary));
+    --holo-gradient-2: linear-gradient(135deg, var(--holo-cyan), var(--holo-purple));
+    --holo-gradient-3: linear-gradient(90deg, var(--holo-tertiary), var(--holo-orange));
+    --holo-gradient-scan: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--holo-primary) 20%, 
+        var(--holo-cyan) 50%, 
+        var(--holo-primary) 80%, 
+        transparent 100%
+    );
+    
+    /* 3D Transform Properties */
+    --perspective: 1200px;
+    --transform-style: preserve-3d;
+    --backface-visibility: hidden;
+    
+    /* Performance Optimizations */
+    --will-change: transform, opacity, filter;
+    --transform-gpu: translateZ(0);
+    --filter-blur: blur(20px);
+    --filter-contrast: contrast(1.2);
+    
+    /* Animation Timings */
+    --holo-duration-fast: 0.3s;
+    --holo-duration-medium: 0.8s;
+    --holo-duration-slow: 2s;
+    --holo-easing: cubic-bezier(0.23, 1, 0.320, 1);
+    --holo-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 
+======================================================================
+🎯 MAIN HOLOGRAM CONTAINER - 3D PERSPECTIVE SETUP
+======================================================================
+*/
+.hologram-faceid-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 2rem auto;
+    perspective: var(--perspective);
+    perspective-origin: center center;
+    transform-style: var(--transform-style);
+    cursor: pointer;
+    user-select: none;
+    will-change: var(--will-change);
+    
+    /* Performance Optimizations */
+    contain: layout style paint;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive Scaling */
+@media (max-width: 768px) {
+    .hologram-faceid-container {
+        width: 280px;
+        height: 280px;
+        margin: 1.5rem auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hologram-faceid-container {
+        width: 240px;
+        height: 240px;
+        margin: 1rem auto;
+    }
+}
+
+/* 
+======================================================================
+🌟 3D HOLOGRAM BASE - MAIN FACE ID FRAME
+======================================================================
+*/
+.hologram-base {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: var(--transform-style);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0px);
+    will-change: var(--will-change);
+    transition: transform var(--holo-duration-medium) var(--holo-easing);
+}
+
+.hologram-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background: 
+        linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.05)),
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 50%);
+    backdrop-filter: var(--filter-blur);
+    -webkit-backdrop-filter: var(--filter-blur);
+    
+    /* Advanced Border Animation */
+    background-image: 
+        conic-gradient(from 0deg, 
+            var(--holo-primary) 0deg, 
+            var(--holo-secondary) 90deg, 
+            var(--holo-tertiary) 180deg, 
+            var(--holo-cyan) 270deg, 
+            var(--holo-primary) 360deg
+        );
+    background-size: 100% 100%;
+    background-clip: padding-box;
+    
+    /* 3D Transform */
+    transform: translateZ(20px);
+    will-change: var(--will-change);
+    
+    /* Holographic Glow */
+    box-shadow: 
+        inset 0 0 60px rgba(0, 255, 136, 0.1),
+        0 0 80px rgba(0, 255, 136, 0.2),
+        0 0 120px rgba(0, 136, 255, 0.15),
+        0 0 200px rgba(0, 255, 136, 0.08);
+    
+    /* Performance */
+    backface-visibility: var(--backface-visibility);
+    filter: var(--filter-contrast);
+}
+
+.hologram-frame::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+/* 
+======================================================================
+🔥 HOLOGRAPHIC SCAN LAYERS - MULTIPLE 3D DEPTH LEVELS
+======================================================================
+*/
+.holo-scan-layer-1,
+.holo-scan-layer-2,
+.holo-scan-layer-3,
+.holo-scan-layer-4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transform-origin: center;
+    will-change: var(--will-change);
+    opacity: 0.8;
+}
+
+.holo-scan-layer-1 {
+    transform: translate(-50%, -50%) translateZ(40px) rotateX(15deg);
+    border-image: var(--holo-gradient-1) 1;
+    animation: holoRotate1 8s linear infinite;
+}
+
+.holo-scan-layer-2 {
+    transform: translate(-50%, -50%) translateZ(30px) rotateY(15deg);
+    border-image: var(--holo-gradient-2) 1;
+    animation: holoRotate2 12s linear infinite reverse;
+    width: 90%;
+    height: 90%;
+}
+
+.holo-scan-layer-3 {
+    transform: translate(-50%, -50%) translateZ(50px) rotateX(-10deg) rotateY(10deg);
+    border-image: var(--holo-gradient-3) 1;
+    animation: holoRotate3 10s linear infinite;
+    width: 70%;
+    height: 70%;
+}
+
+.holo-scan-layer-4 {
+    transform: translate(-50%, -50%) translateZ(60px) rotateZ(45deg);
+    border-image: var(--holo-gradient-1) 1;
+    animation: holoRotate4 15s linear infinite reverse;
+    width: 110%;
+    height: 110%;
+    opacity: 0.4;
+}
+
+/* 
+======================================================================
+💫 3D ROTATION KEYFRAME ANIMATIONS - PERFECT 60FPS
+======================================================================
+*/
+@keyframes holoRotate1 {
+    0% { transform: translate(-50%, -50%) translateZ(40px) rotateX(15deg) rotateZ(0deg); }
+    100% { transform: translate(-50%, -50%) translateZ(40px) rotateX(15deg) rotateZ(360deg); }
+}
+
+@keyframes holoRotate2 {
+    0% { transform: translate(-50%, -50%) translateZ(30px) rotateY(15deg) rotateZ(0deg); }
+    100% { transform: translate(-50%, -50%) translateZ(30px) rotateY(15deg) rotateZ(360deg); }
+}
+
+@keyframes holoRotate3 {
+    0% { transform: translate(-50%, -50%) translateZ(50px) rotateX(-10deg) rotateY(10deg) rotateZ(0deg); }
+    100% { transform: translate(-50%, -50%) translateZ(50px) rotateX(-10deg) rotateY(10deg) rotateZ(360deg); }
+}
+
+@keyframes holoRotate4 {
+    0% { transform: translate(-50%, -50%) translateZ(60px) rotateZ(45deg) rotateY(0deg); }
+    100% { transform: translate(-50%, -50%) translateZ(60px) rotateZ(45deg) rotateY(360deg); }
+}
+
+/* 
+======================================================================
+🎭 HOLOGRAPHIC FACE OUTLINE - 3D BIOMETRIC DETECTION
+======================================================================
+*/
+.holo-face-outline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 45%;
+    height: 55%;
+    transform: translate(-50%, -50%) translateZ(70px) rotateX(5deg);
+    border: 2px solid var(--holo-primary);
+    border-radius: 50% 50% 60% 60%;
+    background: 
+        radial-gradient(ellipse at center, 
+            rgba(0, 255, 136, 0.05) 0%, 
+            transparent 70%
+        );
+    
+    /* Advanced Glow Effects */
+    box-shadow: 
+        inset 0 0 30px rgba(0, 255, 136, 0.2),
+        0 0 50px rgba(0, 255, 136, 0.4),
+        0 0 100px rgba(0, 255, 136, 0.2);
+    
+    will-change: var(--will-change);
+    animation: faceOutlinePulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes faceOutlinePulse {
+    0% { 
+        transform: translate(-50%, -50%) translateZ(70px) rotateX(5deg) scale(1);
+        opacity: 0.8;
+        filter: hue-rotate(0deg);
+    }
+    100% { 
+        transform: translate(-50%, -50%) translateZ(70px) rotateX(5deg) scale(1.05);
+        opacity: 1;
+        filter: hue-rotate(30deg);
+    }
+}
+
+/* 
+======================================================================
+✨ BIOMETRIC DOTS - 3D FLOATING PARTICLES
+======================================================================
+*/
+.holo-biometric-dots {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(80px);
+    will-change: var(--will-change);
+}
+
+.holo-bio-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--holo-primary);
+    border-radius: 50%;
+    transform-style: var(--transform-style);
+    will-change: var(--will-change);
+    
+    /* 3D Glow Effect */
+    box-shadow: 
+        0 0 20px var(--holo-primary),
+        0 0 40px rgba(0, 255, 136, 0.5),
+        0 0 60px rgba(0, 255, 136, 0.3);
+    
+    /* Individual 3D Transforms */
+    animation: bioFloating 4s ease-in-out infinite;
+}
+
+/* Unique 3D positions and animations for each dot */
+.holo-bio-dot:nth-child(1) { 
+    left: 50%; top: 20%; 
+    transform: translate(-50%, -50%) translateZ(90px) rotateX(10deg);
+    animation-delay: 0s;
+}
+.holo-bio-dot:nth-child(2) { 
+    left: 30%; top: 35%; 
+    transform: translate(-50%, -50%) translateZ(85px) rotateY(-15deg);
+    animation-delay: 0.5s;
+}
+.holo-bio-dot:nth-child(3) { 
+    left: 70%; top: 35%; 
+    transform: translate(-50%, -50%) translateZ(95px) rotateY(15deg);
+    animation-delay: 1s;
+}
+.holo-bio-dot:nth-child(4) { 
+    left: 25%; top: 50%; 
+    transform: translate(-50%, -50%) translateZ(88px) rotateZ(20deg);
+    animation-delay: 1.5s;
+}
+.holo-bio-dot:nth-child(5) { 
+    left: 75%; top: 50%; 
+    transform: translate(-50%, -50%) translateZ(92px) rotateZ(-20deg);
+    animation-delay: 2s;
+}
+.holo-bio-dot:nth-child(6) { 
+    left: 50%; top: 55%; 
+    transform: translate(-50%, -50%) translateZ(100px);
+    animation-delay: 2.5s;
+}
+.holo-bio-dot:nth-child(7) { 
+    left: 35%; top: 70%; 
+    transform: translate(-50%, -50%) translateZ(87px) rotateX(-10deg);
+    animation-delay: 3s;
+}
+.holo-bio-dot:nth-child(8) { 
+    left: 65%; top: 70%; 
+    transform: translate(-50%, -50%) translateZ(93px) rotateX(-10deg);
+    animation-delay: 3.5s;
+}
+.holo-bio-dot:nth-child(9) { 
+    left: 50%; top: 80%; 
+    transform: translate(-50%, -50%) translateZ(85px) rotateY(10deg);
+    animation-delay: 4s;
+}
+
+@keyframes bioFloating {
+    0%, 100% { 
+        opacity: 0.6;
+        transform: translate(-50%, -50%) translateZ(var(--z-pos, 90px)) scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) translateZ(calc(var(--z-pos, 90px) + 20px)) scale(1.5) rotate(180deg);
+        filter: hue-rotate(60deg);
+    }
+}
+
+/* 
+======================================================================
+⚡ HOLOGRAPHIC SCANNING LINE - ADVANCED 3D SWEEP
+======================================================================
+*/
+.holo-scanning-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    height: 3px;
+    background: var(--holo-gradient-scan);
+    transform-origin: center;
+    transform: translate(-50%, -50%) translateZ(110px);
+    will-change: var(--will-change);
+    
+    /* Advanced Glow */
+    box-shadow: 
+        0 0 20px var(--holo-primary),
+        0 0 40px var(--holo-cyan),
+        0 0 80px rgba(0, 255, 136, 0.3);
+    
+    /* 3D Scan Animation */
+    animation: holoScanLine 2s linear infinite;
+    opacity: 0.9;
+    border-radius: 2px;
+}
+
+.holo-scanning-line::before,
+.holo-scanning-line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--holo-primary), transparent 70%);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    animation: scanEndPoints 2s linear infinite;
+}
+
+.holo-scanning-line::before {
+    left: -10px;
+}
+
+.holo-scanning-line::after {
+    right: -10px;
+    animation-delay: 1s;
+}
+
+@keyframes holoScanLine {
+    0% { 
+        transform: translate(-50%, -50%) translateZ(110px) rotateZ(0deg);
+        opacity: 0.5;
+    }
+    25% { 
+        transform: translate(-50%, -50%) translateZ(120px) rotateZ(90deg);
+        opacity: 1;
+    }
+    50% { 
+        transform: translate(-50%, -50%) translateZ(110px) rotateZ(180deg);
+        opacity: 0.8;
+    }
+    75% { 
+        transform: translate(-50%, -50%) translateZ(105px) rotateZ(270deg);
+        opacity: 1;
+    }
+    100% { 
+        transform: translate(-50%, -50%) translateZ(110px) rotateZ(360deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes scanEndPoints {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.3; transform: translateY(-50%) scale(1.5); }
+}
+
+/* 
+======================================================================
+🌈 HOLOGRAPHIC PULSE RINGS - DEPTH WAVE EFFECTS
+======================================================================
+*/
+.holo-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px solid var(--holo-primary);
+    border-radius: 50%;
+    transform-origin: center;
+    will-change: var(--will-change);
+    opacity: 0;
+}
+
+.holo-pulse-ring:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%) translateZ(30px);
+    animation: holoPulse1 3s ease-out infinite;
+    border-color: var(--holo-primary);
+}
+
+.holo-pulse-ring:nth-child(2) {
+    width: 120%;
+    height: 120%;
+    transform: translate(-50%, -50%) translateZ(25px);
+    animation: holoPulse2 3s ease-out infinite;
+    animation-delay: 0.5s;
+    border-color: var(--holo-secondary);
+}
+
+.holo-pulse-ring:nth-child(3) {
+    width: 140%;
+    height: 140%;
+    transform: translate(-50%, -50%) translateZ(20px);
+    animation: holoPulse3 3s ease-out infinite;
+    animation-delay: 1s;
+    border-color: var(--holo-cyan);
+}
+
+.holo-pulse-ring:nth-child(4) {
+    width: 160%;
+    height: 160%;
+    transform: translate(-50%, -50%) translateZ(15px);
+    animation: holoPulse4 3s ease-out infinite;
+    animation-delay: 1.5s;
+    border-color: var(--holo-tertiary);
+}
+
+@keyframes holoPulse1 {
+    0% {
+        transform: translate(-50%, -50%) translateZ(30px) scale(0.8) rotateX(0deg);
+        opacity: 1;
+        border-width: 3px;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateZ(50px) scale(2) rotateX(360deg);
+        opacity: 0;
+        border-width: 1px;
+    }
+}
+
+@keyframes holoPulse2 {
+    0% {
+        transform: translate(-50%, -50%) translateZ(25px) scale(0.8) rotateY(0deg);
+        opacity: 1;
+        border-width: 2px;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateZ(45px) scale(1.8) rotateY(360deg);
+        opacity: 0;
+        border-width: 1px;
+    }
+}
+
+@keyframes holoPulse3 {
+    0% {
+        transform: translate(-50%, -50%) translateZ(20px) scale(0.8) rotateZ(0deg);
+        opacity: 1;
+        border-width: 2px;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateZ(40px) scale(1.6) rotateZ(360deg);
+        opacity: 0;
+        border-width: 0.5px;
+    }
+}
+
+@keyframes holoPulse4 {
+    0% {
+        transform: translate(-50%, -50%) translateZ(15px) scale(0.8) rotateX(180deg);
+        opacity: 1;
+        border-width: 1px;
+    }
+    100% {
+        transform: translate(-50%, -50%) translateZ(35px) scale(1.4) rotateX(540deg);
+        opacity: 0;
+        border-width: 0.5px;
+    }
+}
+
+/* 
+======================================================================
+💎 SUCCESS HOLOGRAPHIC CHECKMARK - 3D CELEBRATION
+======================================================================
+*/
+.holo-success-checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%) translateZ(120px) scale(0) rotateY(180deg);
+    opacity: 0;
+    will-change: var(--will-change);
+    transition: all var(--holo-duration-medium) var(--holo-bounce);
+}
+
+.holo-success-checkmark.show {
+    transform: translate(-50%, -50%) translateZ(120px) scale(1) rotateY(0deg);
+    opacity: 1;
+    animation: successCelebration 2s ease-out infinite;
+}
+
+.holo-checkmark-circle {
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--holo-primary);
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at center, 
+            rgba(0, 255, 136, 0.2) 0%, 
+            rgba(0, 255, 136, 0.05) 50%, 
+            transparent 100%
+        );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: var(--transform-style);
+    
+    /* Holographic Success Glow */
+    box-shadow: 
+        inset 0 0 30px rgba(0, 255, 136, 0.3),
+        0 0 50px var(--holo-primary),
+        0 0 100px rgba(0, 255, 136, 0.4),
+        0 0 150px rgba(0, 255, 136, 0.2);
+}
+
+.holo-checkmark-path {
+    width: 24px;
+    height: 24px;
+    stroke: var(--holo-primary);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    filter: drop-shadow(0 0 10px var(--holo-primary));
+}
+
+.holo-checkmark-path.animate {
+    animation: drawHoloCheckmark var(--holo-duration-medium) var(--holo-easing) forwards;
+}
+
+@keyframes drawHoloCheckmark {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes successCelebration {
+    0%, 100% { 
+        transform: translate(-50%, -50%) translateZ(120px) scale(1) rotateY(0deg);
+        filter: hue-rotate(0deg);
+    }
+    50% { 
+        transform: translate(-50%, -50%) translateZ(140px) scale(1.1) rotateY(180deg);
+        filter: hue-rotate(120deg);
+    }
+}
+
+/* 
+======================================================================
+🎮 INTERACTIVE HOVER & CLICK EFFECTS - PREMIUM FEEL
+======================================================================
+*/
+.hologram-faceid-container:hover .hologram-base {
+    transform: rotateX(10deg) rotateY(10deg) scale(1.05);
+}
+
+.hologram-faceid-container:hover .hologram-frame {
+    box-shadow: 
+        inset 0 0 80px rgba(0, 255, 136, 0.15),
+        0 0 100px rgba(0, 255, 136, 0.3),
+        0 0 150px rgba(0, 136, 255, 0.2),
+        0 0 250px rgba(0, 255, 136, 0.1);
+}
+
+.hologram-faceid-container:hover .holo-face-outline {
+    animation-duration: 1.5s;
+    box-shadow: 
+        inset 0 0 40px rgba(0, 255, 136, 0.3),
+        0 0 70px rgba(0, 255, 136, 0.5),
+        0 0 120px rgba(0, 255, 136, 0.3);
+}
+
+.hologram-faceid-container:active {
+    transform: scale(0.98);
+    transition: transform var(--holo-duration-fast) ease-out;
+}
+
+.hologram-faceid-container:active .hologram-base {
+    transform: rotateX(15deg) rotateY(15deg) scale(1.02);
+}
+
+/* 
+======================================================================
+📱 MOBILE OPTIMIZATION - TOUCH FRIENDLY
+======================================================================
+*/
+@media (hover: none) and (pointer: coarse) {
+    .hologram-faceid-container {
+        transform: scale(1);
+    }
+    
+    .hologram-faceid-container:active .hologram-base {
+        transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+    }
+}
+
+/* 
+======================================================================
+⚡ PERFORMANCE OPTIMIZATIONS - PERFECT 60FPS
+======================================================================
+*/
+.hologram-faceid-container,
+.hologram-faceid-container * {
+    /* Hardware Acceleration */
+    will-change: var(--will-change);
+    transform: var(--transform-gpu);
+    backface-visibility: var(--backface-visibility);
+    
+    /* Rendering Optimizations */
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: var(--perspective);
+    
+    /* Font Smoothing */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layer Promotion for GPU */
+.hologram-frame,
+.holo-scan-layer-1,
+.holo-scan-layer-2,
+.holo-scan-layer-3,
+.holo-scan-layer-4,
+.holo-scanning-line {
+    transform: translateZ(0);
+}
+
+/* 
+======================================================================
+♿ ACCESSIBILITY & REDUCED MOTION
+======================================================================
+*/
+@media (prefers-reduced-motion: reduce) {
+    .hologram-faceid-container * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .hologram-base {
+        transform: none !important;
+    }
+}
+
+/* 
+======================================================================
+🎨 STATUS TEXT - HOLOGRAPHIC DISPLAY
+======================================================================
+*/
+.holo-status-text {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(150px);
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--holo-primary);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    will-change: var(--will-change);
+    
+    /* Holographic Text Effect */
+    text-shadow: 
+        0 0 10px var(--holo-primary),
+        0 0 20px rgba(0, 255, 136, 0.5),
+        0 0 40px rgba(0, 255, 136, 0.3);
+    
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { 
+        opacity: 0.8;
+        filter: hue-rotate(0deg);
+        transform: translateX(-50%) translateZ(150px) scale(1);
+    }
+    100% { 
+        opacity: 1;
+        filter: hue-rotate(60deg);
+        transform: translateX(-50%) translateZ(155px) scale(1.02);
+    }
+}
+
+.holo-status-text.scanning {
+    color: var(--holo-cyan);
+    text-shadow: 
+        0 0 10px var(--holo-cyan),
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.holo-status-text.success {
+    color: var(--holo-primary);
+    animation: successTextPulse 1s ease-in-out 3;
+}
+
+@keyframes successTextPulse {
+    0%, 100% { 
+        transform: translateX(-50%) translateZ(150px) scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: translateX(-50%) translateZ(160px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* 
+======================================================================
+🎯 HIGH-IMPACT WOW FACTOR ADDITIONS
+======================================================================
+*/
+
+/* Holographic Particle System */
+.holo-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateZ(200px);
+}
+
+.holo-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--holo-primary);
+    border-radius: 50%;
+    animation: particleFloat 6s linear infinite;
+    opacity: 0;
+}
+
+.holo-particle:nth-child(odd) {
+    background: var(--holo-secondary);
+    animation-delay: -2s;
+}
+
+.holo-particle:nth-child(3n) {
+    background: var(--holo-cyan);
+    animation-delay: -4s;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px) translateX(50px) scale(1) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Energy Field Effect */
+.holo-energy-field {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 136, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 0, 136, 0.02) 0%, transparent 50%);
+    animation: energyField 8s ease-in-out infinite;
+    pointer-events: none;
+    transform: translateZ(-10px);
+}
+
+@keyframes energyField {
+    0%, 100% {
+        transform: translateZ(-10px) rotate(0deg) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateZ(-5px) rotate(180deg) scale(1.1);
+        opacity: 1;
+    }
+}

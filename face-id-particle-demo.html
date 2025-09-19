@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Face ID Particle Field Demo</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+    /* Base styles for demo */
+    :root {
+        --primary: #00FF88;
+        --secondary: #10B981;
+        --accent: #3B82F6;
+        --bg: #000000;
+        --text: #ffffff;
+        --text-muted: #888888;
+        --glass: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.2);
+        --success: #10B981;
+        --duration-base: 0.6s;
+        --duration-fast: 0.3s;
+        --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+    
+    .demo-container {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+    
+    .demo-content {
+        text-align: center;
+        z-index: 10;
+        max-width: 1200px;
+        width: 100%;
+        position: relative;
+    }
+    
+    .demo-title {
+        font-size: clamp(2rem, 8vw, 4rem);
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .demo-subtitle {
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .demo-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+    
+    .demo-button {
+        padding: 0.8rem 1.5rem;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        color: var(--text);
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(20px);
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .demo-button:hover {
+        background: rgba(0, 255, 136, 0.1);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+    }
+    
+    .demo-button.active {
+        background: var(--primary);
+        color: var(--bg);
+    }
+    
+    .demo-stats {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 1rem;
+        font-size: 0.8rem;
+        font-family: 'Courier New', monospace;
+        backdrop-filter: blur(20px);
+        z-index: 100;
+        min-width: 200px;
+    }
+    
+    .demo-stats h4 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .demo-stats div {
+        margin: 0.2rem 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .demo-stats .value {
+        color: var(--secondary);
+        font-weight: 600;
+    }
+    
+    .interaction-hint {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        backdrop-filter: blur(20px);
+        z-index: 100;
+        text-align: center;
+        animation: hintPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes hintPulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+    }
+    
+    /* Face ID positioned for demo */
+    #faceScanner {
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    @media (max-width: 768px) {
+        #faceScanner {
+            position: relative;
+            right: auto;
+            top: auto;
+            transform: none;
+            margin: 2rem auto;
+        }
+        
+        .demo-stats {
+            font-size: 0.7rem;
+            padding: 0.8rem;
+            min-width: 160px;
+        }
+        
+        .interaction-hint {
+            font-size: 0.8rem;
+            padding: 0.8rem 1.5rem;
+        }
+    }
+    
+    /* Loading animation */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+    }
+    
+    .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--glass-border);
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+    
+    <!-- Include the particle field CSS -->
+    <link rel="stylesheet" href="face-id-particle-field.css">
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Demo stats panel -->
+    <div class="demo-stats" id="demoStats">
+        <h4>🎯 Particle Field Stats</h4>
+        <div><span>FPS:</span> <span class="value" id="statsFPS">--</span></div>
+        <div><span>Particles:</span> <span class="value" id="statsParticles">--</span></div>
+        <div><span>Connections:</span> <span class="value" id="statsConnections">--</span></div>
+        <div><span>State:</span> <span class="value" id="statsState">idle</span></div>
+        <div><span>Performance:</span> <span class="value" id="statsPerformance">--</span></div>
+    </div>
+
+    <!-- Main demo container -->
+    <div class="demo-container">
+        <div class="demo-content">
+            <h1 class="demo-title">Face ID Particle Field</h1>
+            <p class="demo-subtitle">
+                Experience the mesmerizing particle system that surrounds and interacts with the Face ID scanner. 
+                Move your mouse around and click to see the particles respond!
+            </p>
+            
+            <!-- Demo controls -->
+            <div class="demo-controls">
+                <button class="demo-button active" onclick="setParticlePreset('balanced')">Balanced</button>
+                <button class="demo-button" onclick="setParticlePreset('minimal')">Minimal</button>
+                <button class="demo-button" onclick="setParticlePreset('premium')">Premium</button>
+                <button class="demo-button" onclick="setParticlePreset('ultra')">Ultra</button>
+            </div>
+            
+            <div class="demo-controls">
+                <button class="demo-button" onclick="triggerScanDemo()">🔍 Simulate Scan</button>
+                <button class="demo-button" onclick="triggerSuccessDemo()">✅ Simulate Success</button>
+                <button class="demo-button" onclick="createRandomBurst()">💥 Random Burst</button>
+                <button class="demo-button" onclick="toggleParticles()">⏸️ Toggle Particles</button>
+            </div>
+        </div>
+        
+        <!-- Face ID Scanner Component -->
+        <div class="face-scanner-hero" id="faceScanner">
+            <!-- Pulse Rings -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            
+            <!-- Main Scanner Frame -->
+            <div class="scanner-frame" id="scannerFrame">
+                <!-- Face Outline -->
+                <div class="face-outline" id="faceOutline"></div>
+                
+                <!-- Biometric Dots -->
+                <div class="biometric-dots" id="biometricDots"></div>
+                
+                <!-- Scanning Line -->
+                <div class="scanning-line" id="scanningLine"></div>
+                
+                <!-- Success Checkmark -->
+                <div class="success-checkmark" id="successCheckmark">
+                    <div class="checkmark-circle">
+                        <svg class="checkmark-path" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Text -->
+            <div class="status-text" id="statusText">Face ID Ready</div>
+        </div>
+    </div>
+
+    <!-- Interaction hint -->
+    <div class="interaction-hint">
+        💡 Move your mouse around, click anywhere, or interact with the Face ID scanner!
+    </div>
+
+    <!-- Include Face ID component styles and script -->
+    <style>
+    /* Face ID Scanner Styles */
+    .face-scanner-hero {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        cursor: pointer;
+        user-select: none;
+        z-index: 5;
+    }
+
+    @media (max-width: 768px) {
+        .face-scanner-hero {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    .face-scanner-hero .scanner-frame {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--glass-border);
+        border-radius: 50%;
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        box-shadow: 
+            inset 0 0 60px rgba(0, 255, 136, 0.05),
+            0 0 80px rgba(0, 0, 0, 0.3),
+            var(--shadow-glow);
+        transition: all var(--duration-base) var(--easing-smooth);
+        overflow: hidden;
+    }
+
+    .face-scanner-hero .scanner-frame.scanning {
+        border-color: var(--primary);
+        box-shadow: 
+            inset 0 0 60px rgba(0, 255, 136, 0.15),
+            0 0 120px rgba(0, 255, 136, 0.3),
+            0 0 200px rgba(0, 255, 136, 0.1);
+        animation: scannerPulse 2s ease-in-out infinite;
+    }
+
+    .face-scanner-hero .scanner-frame.success {
+        border-color: var(--success);
+        box-shadow: 
+            inset 0 0 60px rgba(16, 185, 129, 0.2),
+            0 0 120px rgba(16, 185, 129, 0.4),
+            0 0 200px rgba(16, 185, 129, 0.15);
+        transform: scale(1.05);
+    }
+
+    @keyframes scannerPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+    }
+
+    .face-scanner-hero .face-outline {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 42%;
+        height: 54%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50% 50% 60% 60%;
+        transition: all var(--duration-base) var(--easing-smooth);
+    }
+
+    .face-scanner-hero .face-outline.scanning {
+        border-color: var(--primary);
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+    }
+
+    .face-scanner-hero .face-outline.success {
+        border-color: var(--success);
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+    }
+
+    .face-scanner-hero .biometric-dots {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .face-scanner-hero .bio-dot {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        opacity: 0;
+        transition: all var(--duration-fast) var(--easing-smooth);
+        transform: translate(-50%, -50%);
+    }
+
+    .face-scanner-hero .bio-dot.active {
+        opacity: 1;
+        background: var(--primary);
+        box-shadow: 0 0 12px var(--primary);
+        transform: translate(-50%, -50%) scale(1.5);
+        animation: dotPulse 1.5s ease-in-out infinite;
+    }
+
+    .face-scanner-hero .bio-dot.success {
+        background: var(--success);
+        box-shadow: 0 0 12px var(--success);
+    }
+
+    @keyframes dotPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+    }
+
+    .face-scanner-hero .scanning-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            var(--primary) 20%, 
+            rgba(0, 255, 136, 0.8) 50%, 
+            var(--primary) 80%, 
+            transparent 100%);
+        transform-origin: center;
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 0;
+        box-shadow: 0 0 20px var(--primary);
+    }
+
+    .face-scanner-hero .scanning-line.active {
+        opacity: 1;
+        animation: rotateLine 3s linear infinite;
+    }
+
+    @keyframes rotateLine {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .face-scanner-hero .pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        border: 1px solid var(--primary);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        animation: pulseRing 2s ease-out infinite;
+    }
+
+    .face-scanner-hero .pulse-ring:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+
+    .face-scanner-hero .pulse-ring:nth-child(3) {
+        animation-delay: 1s;
+    }
+
+    @keyframes pulseRing {
+        0% {
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1.8);
+            opacity: 0;
+        }
+    }
+
+    .face-scanner-hero .success-checkmark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 50px;
+        height: 50px;
+        opacity: 0;
+        transition: all var(--duration-base) var(--easing-bounce);
+    }
+
+    .face-scanner-hero .success-checkmark.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    .face-scanner-hero .checkmark-circle {
+        width: 100%;
+        height: 100%;
+        border: 3px solid var(--success);
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+    }
+
+    .face-scanner-hero .checkmark-path {
+        width: 20px;
+        height: 20px;
+        stroke: var(--success);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        stroke-dasharray: 25;
+        stroke-dashoffset: 25;
+    }
+
+    .face-scanner-hero .checkmark-path.animate {
+        animation: drawCheckmark var(--duration-base) var(--easing-smooth) forwards;
+    }
+
+    @keyframes drawCheckmark {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    .face-scanner-hero .status-text {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+        transition: all var(--duration-base) var(--easing-smooth);
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .face-scanner-hero .status-text.scanning {
+        color: var(--primary);
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+
+    .face-scanner-hero .status-text.success {
+        color: var(--success);
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+
+    .face-scanner-hero:hover .scanner-frame {
+        border-color: rgba(0, 255, 136, 0.6);
+        box-shadow: 
+            inset 0 0 60px rgba(0, 255, 136, 0.1),
+            0 0 100px rgba(0, 255, 136, 0.2),
+            var(--shadow-glow);
+    }
+
+    .face-scanner-hero:hover .status-text {
+        color: var(--primary);
+    }
+    </style>
+
+    <!-- Scripts -->
+    <script src="face-id-particle-field.js"></script>
+    <script src="face-id-particle-integration.js"></script>
+
+    <script>
+    // Face ID Scanner Implementation for Demo
+    class FaceIDHeroScanner {
+        constructor(containerId) {
+            this.container = document.getElementById(containerId);
+            if (!this.container) return;
+            
+            this.scannerFrame = this.container.querySelector('.scanner-frame');
+            this.faceOutline = this.container.querySelector('.face-outline');
+            this.biometricDots = this.container.querySelector('.biometric-dots');
+            this.scanningLine = this.container.querySelector('.scanning-line');
+            this.successCheckmark = this.container.querySelector('.success-checkmark');
+            this.statusText = this.container.querySelector('.status-text');
+            
+            this.isScanning = false;
+            this.scanComplete = false;
+            
+            this.init();
+        }
+        
+        init() {
+            this.createBiometricDots();
+            this.bindEvents();
+        }
+        
+        createBiometricDots() {
+            const dotPositions = [
+                { x: '50%', y: '25%' }, { x: '35%', y: '40%' }, { x: '65%', y: '40%' },
+                { x: '30%', y: '55%' }, { x: '70%', y: '55%' }, { x: '50%', y: '60%' },
+                { x: '40%', y: '72%' }, { x: '60%', y: '72%' }, { x: '50%', y: '80%' },
+                { x: '42%', y: '48%' }, { x: '58%', y: '48%' }, { x: '50%', y: '65%' }, { x: '50%', y: '75%' }
+            ];
+            
+            this.biometricDots.innerHTML = '';
+            
+            dotPositions.forEach((pos, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'bio-dot';
+                dot.style.left = pos.x;
+                dot.style.top = pos.y;
+                dot.dataset.index = index;
+                this.biometricDots.appendChild(dot);
+            });
+        }
+        
+        bindEvents() {
+            this.container.addEventListener('click', () => {
+                this.handleInteraction();
+            });
+        }
+        
+        handleInteraction() {
+            if (this.scanComplete) {
+                this.reset();
+            } else if (!this.isScanning) {
+                this.startScan();
+            }
+        }
+        
+        startScan() {
+            if (this.isScanning) return;
+            
+            this.isScanning = true;
+            this.scanComplete = false;
+            
+            this.scannerFrame.classList.add('scanning');
+            this.faceOutline.classList.add('scanning');
+            this.scanningLine.classList.add('active');
+            this.statusText.classList.add('scanning');
+            this.statusText.textContent = 'Scanning Face...';
+            
+            this.animateBiometricDots();
+            
+            setTimeout(() => {
+                this.completeScan();
+            }, 3000);
+        }
+        
+        animateBiometricDots() {
+            const dots = this.biometricDots.querySelectorAll('.bio-dot');
+            
+            dots.forEach((dot, index) => {
+                setTimeout(() => {
+                    if (this.isScanning) {
+                        dot.classList.add('active');
+                        
+                        setTimeout(() => {
+                            if (this.scanComplete) {
+                                dot.classList.add('success');
+                            }
+                        }, 2500);
+                    }
+                }, index * 120 + Math.random() * 150);
+            });
+        }
+        
+        completeScan() {
+            this.isScanning = false;
+            this.scanComplete = true;
+            
+            this.scannerFrame.classList.remove('scanning');
+            this.scannerFrame.classList.add('success');
+            this.faceOutline.classList.remove('scanning');
+            this.faceOutline.classList.add('success');
+            this.scanningLine.classList.remove('active');
+            this.statusText.classList.remove('scanning');
+            this.statusText.classList.add('success');
+            this.statusText.textContent = 'Authenticated ✓';
+            
+            setTimeout(() => {
+                this.successCheckmark.classList.add('show');
+                const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+                if (checkmarkPath) {
+                    checkmarkPath.classList.add('animate');
+                }
+            }, 200);
+            
+            const dots = this.biometricDots.querySelectorAll('.bio-dot');
+            dots.forEach(dot => {
+                dot.classList.add('success');
+            });
+            
+            setTimeout(() => {
+                this.reset();
+            }, 3000);
+        }
+        
+        reset() {
+            this.isScanning = false;
+            this.scanComplete = false;
+            
+            this.scannerFrame.classList.remove('scanning', 'success');
+            this.faceOutline.classList.remove('scanning', 'success');
+            this.scanningLine.classList.remove('active');
+            this.successCheckmark.classList.remove('show');
+            this.statusText.classList.remove('scanning', 'success');
+            this.statusText.textContent = 'Face ID Ready';
+            
+            const dots = this.biometricDots.querySelectorAll('.bio-dot');
+            dots.forEach(dot => {
+                dot.classList.remove('active', 'success');
+            });
+            
+            const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+            if (checkmarkPath) {
+                checkmarkPath.classList.remove('animate');
+            }
+        }
+    }
+
+    // Demo control functions
+    let particlesToggled = true;
+
+    function setParticlePreset(preset) {
+        // Update button states
+        document.querySelectorAll('.demo-controls .demo-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // Apply preset
+        if (window.faceIdIntegrationControls) {
+            window.faceIdIntegrationControls.setMode(preset);
+        }
+        
+        console.log(`🎨 Set particle preset: ${preset}`);
+    }
+
+    function triggerScanDemo() {
+        if (window.faceIDScanner) {
+            window.faceIDScanner.startScan();
+        }
+    }
+
+    function triggerSuccessDemo() {
+        if (window.faceIDScanner && !window.faceIDScanner.isScanning) {
+            window.faceIDScanner.startScan();
+            // Force immediate success
+            setTimeout(() => {
+                if (window.faceIDScanner.isScanning) {
+                    window.faceIDScanner.completeScan();
+                }
+            }, 500);
+        }
+    }
+
+    function createRandomBurst() {
+        if (window.faceIdIntegrationControls) {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            window.faceIdIntegrationControls.triggerBurst(x, y, 1.5);
+        }
+    }
+
+    function toggleParticles() {
+        const button = event.target;
+        if (particlesToggled) {
+            if (window.faceIdParticleField) {
+                window.faceIdParticleField.pause();
+            }
+            button.textContent = '▶️ Resume Particles';
+            particlesToggled = false;
+        } else {
+            if (window.faceIdParticleField) {
+                window.faceIdParticleField.resume();
+            }
+            button.textContent = '⏸️ Pause Particles';
+            particlesToggled = true;
+        }
+    }
+
+    // Stats update
+    function updateStats() {
+        const statsElements = {
+            fps: document.getElementById('statsFPS'),
+            particles: document.getElementById('statsParticles'),
+            connections: document.getElementById('statsConnections'),
+            state: document.getElementById('statsState'),
+            performance: document.getElementById('statsPerformance')
+        };
+
+        if (window.faceIdIntegrationControls) {
+            try {
+                const stats = window.faceIdIntegrationControls.stats();
+                if (stats && stats.particleStats) {
+                    statsElements.fps.textContent = stats.particleStats.fps || '--';
+                    statsElements.particles.textContent = stats.particleStats.particleCount || '--';
+                    statsElements.connections.textContent = stats.particleStats.connections || '--';
+                    statsElements.state.textContent = stats.currentState || 'idle';
+                    statsElements.performance.textContent = stats.particleStats.performanceLevel || '--';
+                }
+            } catch (e) {
+                // Ignore stats errors
+            }
+        }
+    }
+
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Face ID scanner
+        window.faceIDScanner = new FaceIDHeroScanner('faceScanner');
+        
+        // Hide loading overlay after components are ready
+        setTimeout(() => {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('hidden');
+            
+            // Start stats updates
+            setInterval(updateStats, 1000);
+        }, 2000);
+    });
+    </script>
+</body>
+</html>

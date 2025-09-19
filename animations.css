@@ -996,6 +996,290 @@
   will-change: auto;
 }
 
+/* ADVANCED SCROLL-TRIGGERED ANIMATIONS */
+@keyframes parallaxFloat {
+  0%, 100% {
+    transform: translateY(0px) translateZ(0);
+  }
+  50% {
+    transform: translateY(-20px) translateZ(0);
+  }
+}
+
+@keyframes depthReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px) translateZ(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes stickyTransform {
+  0% {
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    transform: scale(1.02) rotateY(2deg);
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+@keyframes liquidProgress {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* PARALLAX DEPTH LAYERS */
+.parallax-depth-1 {
+  transform: translateZ(100px);
+  animation: parallaxFloat 8s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.parallax-depth-2 {
+  transform: translateZ(50px);
+  animation: parallaxFloat 12s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.parallax-depth-3 {
+  transform: translateZ(0px);
+  animation: parallaxFloat 16s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.parallax-depth-back {
+  transform: translateZ(-50px);
+  animation: parallaxFloat 20s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+/* PROGRESSIVE DISCLOSURE ANIMATIONS */
+.progressive-reveal {
+  animation: depthReveal 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.progressive-reveal-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.progressive-reveal-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.progressive-reveal-delay-3 {
+  animation-delay: 0.6s;
+}
+
+.progressive-reveal-delay-4 {
+  animation-delay: 0.8s;
+}
+
+/* STICKY ELEMENT TRANSFORMATIONS */
+.sticky-transform {
+  animation: stickyTransform 4s ease-in-out infinite;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sticky-transform:hover {
+  animation-play-state: paused;
+  transform: scale(1.05) rotateY(5deg);
+}
+
+/* LIQUID PROGRESS BARS */
+.liquid-progress {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+}
+
+.liquid-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--liquid-primary), var(--liquid-secondary));
+  border-radius: inherit;
+  animation: liquidProgress 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  position: relative;
+}
+
+.liquid-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%);
+  animation: liquidWave 2s ease-in-out infinite;
+}
+
+/* MOMENTUM SCROLL ENHANCEMENTS */
+.momentum-element {
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+.momentum-fast {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.momentum-slow {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* TOUCH GESTURE ENHANCEMENTS */
+.touch-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.touch-feedback::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+  pointer-events: none;
+}
+
+.touch-feedback:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* KEYBOARD NAVIGATION ENHANCEMENTS */
+.keyboard-focus {
+  position: relative;
+  outline: none;
+}
+
+.keyboard-focus:focus-visible {
+  outline: 2px solid var(--particle-color);
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}
+
+.keyboard-focus:focus-visible::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 2px solid var(--particle-color);
+  border-radius: inherit;
+  opacity: 0.5;
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+/* INTERSECTION OBSERVER ANIMATIONS */
+.io-fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.io-fade-in.observed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.io-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.io-slide-left.observed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.io-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.io-slide-right.observed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.io-scale-up {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.io-scale-up.observed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* SCROLL VELOCITY RESPONSIVE ANIMATIONS */
+.velocity-slow {
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.velocity-medium {
+  transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.velocity-fast {
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* DIRECTION AWARE ANIMATIONS */
+.scroll-up {
+  transform: translateY(-5px);
+}
+
+.scroll-down {
+  transform: translateY(5px);
+}
+
+/* ADVANCED MAGNETIC EFFECTS */
+.magnetic-strong {
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.magnetic-subtle {
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* SECTION TRANSITION OVERLAYS */
+.section-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--liquid-primary), var(--liquid-secondary));
+  z-index: 9999;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.section-overlay.active {
+  clip-path: circle(150% at 50% 50%);
+}
+
 /* DARK MODE ENHANCEMENTS */
 @media (prefers-color-scheme: dark) {
   .glass-advanced {
@@ -1009,5 +1293,11 @@
   
   .neural-node {
     filter: brightness(1.2);
+  }
+  
+  .parallax-depth-1,
+  .parallax-depth-2,
+  .parallax-depth-3 {
+    filter: brightness(1.1);
   }
 }

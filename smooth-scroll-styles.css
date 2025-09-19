@@ -1,0 +1,499 @@
+/**
+ * FACEPAY SMOOTH SCROLL STYLES - APPLE LEVEL
+ * Advanced CSS for buttery smooth scrolling experience
+ * Inspired by stripe.com, linear.app, framer.com, apple.com
+ */
+
+/* ===== SMOOTH SCROLL BASE ===== */
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+html.has-scroll-smooth {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+html.has-scroll-scrolling {
+    pointer-events: none;
+}
+
+html.has-scroll-scrolling * {
+    pointer-events: none !important;
+}
+
+/* ===== SCROLL SECTIONS ===== */
+.scroll-snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+    position: relative;
+    will-change: transform;
+}
+
+/* ===== SCROLL CONTAINER ===== */
+[data-scroll-container] {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== PARALLAX LAYERS ===== */
+.parallax-bg-layer {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ===== SMOOTH ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes liquidMorph {
+    0%, 100% {
+        border-radius: 2rem;
+        transform: scale(1);
+    }
+    25% {
+        border-radius: 3rem 1rem 2rem 4rem;
+        transform: scale(1.02);
+    }
+    50% {
+        border-radius: 1rem 4rem 2rem 1rem;
+        transform: scale(0.98);
+    }
+    75% {
+        border-radius: 4rem 2rem 3rem 1rem;
+        transform: scale(1.01);
+    }
+}
+
+/* ===== SCROLL TRIGGERED ANIMATIONS ===== */
+.animate-fade-in {
+    animation: fadeInUp 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-slide-up {
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-slide-left {
+    animation: slideInLeft 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-slide-right {
+    animation: slideInRight 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.animate-zoom-in {
+    animation: zoomIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* ===== LIQUID TRANSITIONS ===== */
+.liquid-transition {
+    transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    will-change: transform, opacity, border-radius;
+}
+
+.liquid-morph-active {
+    animation: liquidMorph 6s ease-in-out infinite;
+}
+
+/* ===== STICKY HEADER ENHANCEMENTS ===== */
+header[data-scroll-sticky] {
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.nav-link {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ===== PROGRESSIVE DISCLOSURE ===== */
+[data-scroll] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+[data-scroll].is-inview {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== MAGNETIC ELEMENTS ===== */
+.magnetic {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.magnetic::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.magnetic:hover {
+    transform: scale(1.05);
+}
+
+/* ===== DEPTH LAYERS ===== */
+.depth-layer-1 {
+    transform: translateZ(100px);
+    z-index: 10;
+}
+
+.depth-layer-2 {
+    transform: translateZ(50px);
+    z-index: 9;
+}
+
+.depth-layer-3 {
+    transform: translateZ(0px);
+    z-index: 8;
+}
+
+.depth-layer-back {
+    transform: translateZ(-50px);
+    z-index: 7;
+}
+
+/* ===== ADVANCED GLASSMORPHISM ===== */
+.glass-enhanced {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%) brightness(110%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(110%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-enhanced::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* ===== SCROLL INDICATORS ===== */
+.scroll-indicator {
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.scroll-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
+}
+
+.scroll-dot.active {
+    background: #10b981;
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+}
+
+.scroll-dot::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.scroll-dot.active::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Force hardware acceleration on scroll elements */
+[data-scroll] {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+.has-scroll-scrolling [data-scroll] {
+    pointer-events: none;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
+    .scroll-snap-section {
+        min-height: 100vh;
+        min-height: 100dvh; /* Dynamic viewport height */
+    }
+    
+    [data-scroll-speed] {
+        /* Reduce parallax speed on mobile for better performance */
+        transform: none !important;
+    }
+    
+    .magnetic {
+        /* Disable magnetic effects on touch devices */
+        pointer-events: auto;
+    }
+    
+    .parallax-bg-layer {
+        /* Simplify background layers on mobile */
+        will-change: auto;
+    }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+    }
+    
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    [data-scroll] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .parallax-bg-layer {
+        transform: none !important;
+    }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+    .glass-enhanced {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #ffffff;
+    }
+    
+    .scroll-dot {
+        background: #ffffff;
+        border: 1px solid #000000;
+    }
+    
+    .scroll-dot.active {
+        background: #ffffff;
+        box-shadow: 0 0 0 3px #000000;
+    }
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #10b981, #059669);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #34d399, #10b981);
+}
+
+/* ===== LOADING STATES ===== */
+.scroll-loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.scroll-loading * {
+    transition: none !important;
+    animation: none !important;
+}
+
+.scroll-loaded {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+/* ===== SECTION TRANSITIONS ===== */
+.section-transition-enter {
+    opacity: 0;
+    transform: translateY(100px);
+}
+
+.section-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.section-transition-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ===== MOMENTUM SCROLLING ENHANCEMENT ===== */
+html.has-scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+}
+
+body.has-scroll-smooth {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== WEBKIT SPECIFIC OPTIMIZATIONS ===== */
+@supports (-webkit-backdrop-filter: blur(20px)) {
+    .glass-enhanced {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(110%);
+    }
+    
+    header[data-scroll-sticky] {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+}
+
+/* ===== FIREFOX SPECIFIC OPTIMIZATIONS ===== */
+@-moz-document url-prefix() {
+    html.has-scroll-smooth {
+        scroll-behavior: auto;
+    }
+    
+    .parallax-bg-layer {
+        will-change: auto;
+    }
+}
+
+/* ===== SAFARI SPECIFIC OPTIMIZATIONS ===== */
+@media not all and (min-resolution: 0.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        html {
+            scroll-snap-type: none; /* Safari scroll-snap can be janky */
+        }
+        
+        .scroll-snap-section {
+            scroll-snap-align: none;
+        }
+    }
+}

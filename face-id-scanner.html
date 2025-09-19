@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FacePay - Premium Face ID Scanner</title>
+    <style>
+        /* Design Tokens */
+        :root {
+            --primary: #00ff88;
+            --secondary: #6366f1;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.25);
+            --duration-fast: 300ms;
+            --duration-base: 600ms;
+            --duration-slow: 1000ms;
+            --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Face ID Scanner Container */
+        .face-scanner-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Main Scanner Circle */
+        .scanner-frame {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border: 2px solid var(--glass-border);
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                inset 0 0 60px rgba(0, 255, 136, 0.05),
+                0 0 80px rgba(0, 0, 0, 0.3),
+                var(--shadow-glow);
+            transition: all var(--duration-base) var(--easing-smooth);
+            overflow: hidden;
+        }
+
+        .scanner-frame.scanning {
+            border-color: var(--primary);
+            box-shadow: 
+                inset 0 0 60px rgba(0, 255, 136, 0.15),
+                0 0 120px rgba(0, 255, 136, 0.3),
+                0 0 200px rgba(0, 255, 136, 0.1);
+        }
+
+        .scanner-frame.success {
+            border-color: var(--success);
+            box-shadow: 
+                inset 0 0 60px rgba(16, 185, 129, 0.2),
+                0 0 120px rgba(16, 185, 129, 0.4),
+                0 0 200px rgba(16, 185, 129, 0.15);
+            transform: scale(1.05);
+        }
+
+        /* Face Outline */
+        .face-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 150px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 60px 60px 80px 80px;
+            transition: all var(--duration-base) var(--easing-smooth);
+        }
+
+        .face-outline.scanning {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .face-outline.success {
+            border-color: var(--success);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Biometric Dots */
+        .biometric-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .bio-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all var(--duration-fast) var(--easing-smooth);
+        }
+
+        .bio-dot.active {
+            opacity: 1;
+            background: var(--primary);
+            box-shadow: 0 0 12px var(--primary);
+            transform: scale(1.5);
+        }
+
+        .bio-dot.success {
+            background: var(--success);
+            box-shadow: 0 0 12px var(--success);
+        }
+
+        /* Scanning Line */
+        .scanning-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--primary) 20%, 
+                rgba(0, 255, 136, 0.8) 50%, 
+                var(--primary) 80%, 
+                transparent 100%);
+            transform-origin: center;
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .scanning-line.active {
+            opacity: 1;
+            animation: rotateLine 3s linear infinite;
+        }
+
+        @keyframes rotateLine {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Pulse Effects */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 280px;
+            height: 280px;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: pulseRing 2s ease-out infinite;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .pulse-ring:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* Success Checkmark */
+        .success-checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 60px;
+            height: 60px;
+            opacity: 0;
+            transition: all var(--duration-base) var(--easing-bounce);
+        }
+
+        .success-checkmark.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .checkmark-circle {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--success);
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .checkmark-path {
+            width: 24px;
+            height: 24px;
+            stroke: var(--success);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 25;
+            stroke-dashoffset: 25;
+        }
+
+        .checkmark-path.animate {
+            animation: drawCheckmark var(--duration-base) var(--easing-smooth) forwards;
+        }
+
+        @keyframes drawCheckmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Status Text */
+        .status-text {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            transition: all var(--duration-base) var(--easing-smooth);
+            letter-spacing: 0.5px;
+        }
+
+        .status-text.scanning {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .status-text.success {
+            color: var(--success);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Touch Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.3);
+            transform: scale(0);
+            animation: rippleEffect var(--duration-base) ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .face-scanner-container {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .scanner-frame {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .scanning-line {
+                width: 160px;
+            }
+            
+            .status-text {
+                font-size: 14px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .scanning-line.active {
+                animation: none;
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            
+            .pulse-ring {
+                animation: none;
+                opacity: 0.3;
+            }
+            
+            .bio-dot {
+                transition: none;
+            }
+        }
+
+        /* Demo Container Styling */
+        .demo-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .demo-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .tap-instruction {
+            margin-top: 2rem;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">Face ID Scanner</h1>
+        <p class="demo-subtitle">Premium biometric authentication with Apple-style animations</p>
+        
+        <div class="face-scanner-container" id="faceScanner">
+            <!-- Pulse Rings -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            
+            <!-- Main Scanner Frame -->
+            <div class="scanner-frame" id="scannerFrame">
+                <!-- Face Outline -->
+                <div class="face-outline" id="faceOutline"></div>
+                
+                <!-- Biometric Dots -->
+                <div class="biometric-dots" id="biometricDots"></div>
+                
+                <!-- Scanning Line -->
+                <div class="scanning-line" id="scanningLine"></div>
+                
+                <!-- Success Checkmark -->
+                <div class="success-checkmark" id="successCheckmark">
+                    <div class="checkmark-circle">
+                        <svg class="checkmark-path" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Text -->
+            <div class="status-text" id="statusText">Tap to scan</div>
+        </div>
+        
+        <p class="tap-instruction">Tap the scanner to start biometric authentication</p>
+    </div>
+
+    <script>
+        class FaceIDScanner {
+            constructor(containerId) {
+                this.container = document.getElementById(containerId);
+                this.scannerFrame = document.getElementById('scannerFrame');
+                this.faceOutline = document.getElementById('faceOutline');
+                this.biometricDots = document.getElementById('biometricDots');
+                this.scanningLine = document.getElementById('scanningLine');
+                this.successCheckmark = document.getElementById('successCheckmark');
+                this.statusText = document.getElementById('statusText');
+                
+                this.isScanning = false;
+                this.scanComplete = false;
+                
+                this.init();
+            }
+            
+            init() {
+                this.createBiometricDots();
+                this.bindEvents();
+                
+                // Auto-demo after 3 seconds
+                setTimeout(() => {
+                    if (!this.isScanning && !this.scanComplete) {
+                        this.startScan();
+                    }
+                }, 3000);
+            }
+            
+            createBiometricDots() {
+                const dotPositions = [
+                    // Face perimeter dots
+                    { x: '50%', y: '20%' }, // forehead
+                    { x: '30%', y: '35%' }, // left temple
+                    { x: '70%', y: '35%' }, // right temple
+                    { x: '25%', y: '55%' }, // left cheek
+                    { x: '75%', y: '55%' }, // right cheek
+                    { x: '50%', y: '65%' }, // nose
+                    { x: '35%', y: '75%' }, // left jaw
+                    { x: '65%', y: '75%' }, // right jaw
+                    { x: '50%', y: '85%' }, // chin
+                    
+                    // Inner face dots
+                    { x: '40%', y: '45%' }, // left eye area
+                    { x: '60%', y: '45%' }, // right eye area
+                    { x: '50%', y: '58%' }, // nose bridge
+                    { x: '45%', y: '70%' }, // left mouth
+                    { x: '55%', y: '70%' }, // right mouth
+                    
+                    // Additional precision dots
+                    { x: '38%', y: '40%' }, // left eyebrow
+                    { x: '62%', y: '40%' }, // right eyebrow
+                    { x: '35%', y: '48%' }, // left eye outer
+                    { x: '65%', y: '48%' }, // right eye outer
+                    { x: '50%', y: '50%' }, // center face
+                    { x: '50%', y: '73%' }, // mouth center
+                ];
+                
+                dotPositions.forEach((pos, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'bio-dot';
+                    dot.style.left = pos.x;
+                    dot.style.top = pos.y;
+                    dot.style.transform = 'translate(-50%, -50%)';
+                    dot.dataset.index = index;
+                    this.biometricDots.appendChild(dot);
+                });
+            }
+            
+            bindEvents() {
+                this.container.addEventListener('click', (e) => {
+                    this.createRipple(e);
+                    
+                    if (this.scanComplete) {
+                        this.reset();
+                    } else if (!this.isScanning) {
+                        this.startScan();
+                    }
+                });
+                
+                // Touch events for mobile
+                this.container.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.createRipple(e.touches[0]);
+                    
+                    if (this.scanComplete) {
+                        this.reset();
+                    } else if (!this.isScanning) {
+                        this.startScan();
+                    }
+                });
+            }
+            
+            createRipple(event) {
+                const rect = this.container.getBoundingClientRect();
+                const ripple = document.createElement('div');
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.className = 'ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+                
+                this.container.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            }
+            
+            startScan() {
+                if (this.isScanning) return;
+                
+                this.isScanning = true;
+                this.scanComplete = false;
+                
+                // Update UI states
+                this.scannerFrame.classList.add('scanning');
+                this.faceOutline.classList.add('scanning');
+                this.scanningLine.classList.add('active');
+                this.statusText.classList.add('scanning');
+                this.statusText.textContent = 'Scanning...';
+                
+                // Animate biometric dots sequentially
+                this.animateBiometricDots();
+                
+                // Complete scan after 3 seconds
+                setTimeout(() => {
+                    this.completeScan();
+                }, 3000);
+            }
+            
+            animateBiometricDots() {
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                
+                dots.forEach((dot, index) => {
+                    setTimeout(() => {
+                        if (this.isScanning) {
+                            dot.classList.add('active');
+                            
+                            // Add pulse effect
+                            setTimeout(() => {
+                                if (this.scanComplete) {
+                                    dot.classList.add('success');
+                                }
+                            }, 2800);
+                        }
+                    }, index * 150 + Math.random() * 200);
+                });
+            }
+            
+            completeScan() {
+                this.isScanning = false;
+                this.scanComplete = true;
+                
+                // Update UI to success state
+                this.scannerFrame.classList.remove('scanning');
+                this.scannerFrame.classList.add('success');
+                this.faceOutline.classList.remove('scanning');
+                this.faceOutline.classList.add('success');
+                this.scanningLine.classList.remove('active');
+                this.statusText.classList.remove('scanning');
+                this.statusText.classList.add('success');
+                this.statusText.textContent = 'Authentication Success';
+                
+                // Show success checkmark
+                setTimeout(() => {
+                    this.successCheckmark.classList.add('show');
+                    const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+                    checkmarkPath.classList.add('animate');
+                }, 200);
+                
+                // Update biometric dots to success state
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                dots.forEach(dot => {
+                    dot.classList.add('success');
+                });
+                
+                // Haptic feedback (if supported)
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+            }
+            
+            reset() {
+                this.isScanning = false;
+                this.scanComplete = false;
+                
+                // Reset UI states
+                this.scannerFrame.classList.remove('scanning', 'success');
+                this.faceOutline.classList.remove('scanning', 'success');
+                this.scanningLine.classList.remove('active');
+                this.successCheckmark.classList.remove('show');
+                this.statusText.classList.remove('scanning', 'success');
+                this.statusText.textContent = 'Tap to scan';
+                
+                // Reset biometric dots
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                dots.forEach(dot => {
+                    dot.classList.remove('active', 'success');
+                });
+                
+                // Reset checkmark animation
+                const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+                checkmarkPath.classList.remove('animate');
+            }
+        }
+        
+        // Initialize Face ID Scanner
+        document.addEventListener('DOMContentLoaded', () => {
+            const scanner = new FaceIDScanner('faceScanner');
+            
+            // Add keyboard accessibility
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scanner.container.click();
+                }
+            });
+            
+            console.log('🔒 Face ID Scanner initialized with premium animations');
+        });
+        
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        
+        function monitorPerformance() {
+            const currentTime = performance.now();
+            frameCount++;
+            
+            if (currentTime >= lastTime + 1000) {
+                const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                
+                if (fps < 30) {
+                    // Reduce animation complexity for better performance
+                    document.documentElement.style.setProperty('--duration-fast', '600ms');
+                    document.documentElement.style.setProperty('--duration-base', '1000ms');
+                }
+                
+                frameCount = 0;
+                lastTime = currentTime;
+            }
+            
+            requestAnimationFrame(monitorPerformance);
+        }
+        
+        requestAnimationFrame(monitorPerformance);
+    </script>
+</body>
+</html>

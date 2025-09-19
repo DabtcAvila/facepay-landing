@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="/facepay-demo.mp4" as="video" type="video/mp4">
     
+    <!-- Premium Typography System -->
+    <link rel="stylesheet" href="/typography-premium.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Micro-Animations Premium System -->
+    <link rel="stylesheet" href="micro-animations.css">
+    <link rel="preload" href="micro-animations.js" as="script">
+    <link rel="preload" href="micro-animations-integration.js" as="script">
+    
     <!-- Meta Excellence -->
     <title>🚀 Crypto's iPhone Moment | FacePay StarkNet Winner</title>
     <meta name="description" content="Face ID beats gas fees. Join 10,000 early adopters using the future of crypto payments. Your face is your wallet.">
@@ -45,23 +55,39 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
         body {
-            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            font-family: var(--font-body, 'Inter', -apple-system, system-ui, sans-serif);
             background: #000;
-            color: #fff;
+            color: var(--text-primary, #fff);
             overflow-x: hidden;
             scroll-snap-type: y mandatory;
+            
+            /* Premium text rendering */
+            text-rendering: optimizeSpeed;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'kern' 1, 'liga' 1;
         }
         
-        /* Design Tokens */
+        /* Design Tokens - Premium Refined */
         :root {
-            --primary: #00ff94;
-            --secondary: #7c3aed;
+            --primary: #00ff88;
+            --secondary: #6366f1;
             --accent: #f59e0b;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --gradient-hero: radial-gradient(ellipse at center, rgba(0, 255, 148, 0.1) 0%, #000 70%);
-            --duration: 300ms;
-            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --text-tertiary: rgba(255, 255, 255, 0.6);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.06);
+            --gradient-hero: radial-gradient(ellipse at center, rgba(0, 255, 136, 0.08) 0%, rgba(99, 102, 241, 0.04) 40%, #000 80%);
+            --gradient-text: linear-gradient(135deg, #ffffff 0%, #00ff88 100%);
+            --shadow-glow: 0 0 40px rgba(0, 255, 136, 0.15);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --duration-fast: 200ms;
+            --duration-base: 400ms;
+            --duration-slow: 600ms;
+            --easing-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
         /* Section Base */
@@ -80,26 +106,82 @@
             background: var(--gradient-hero);
             text-align: center;
             padding: 0 1rem;
+            position: relative;
         }
         
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 8rem);
-            font-weight: 900;
-            line-height: 0.9;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, var(--primary));
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-hero-desktop, clamp(3.5rem, 9vw, 9rem));
+            font-weight: var(--font-bold, 700);
+            line-height: var(--leading-none, 0.85);
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary, var(--gradient-text));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: var(--tracking-tighter, -0.025em);
+            text-align: center;
+            
+            /* Premium typography features */
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1;
+            font-variant-numeric: oldstyle-nums;
+        }
+        
+        .hero h1 .word {
+            display: inline-block;
+            opacity: 0;
+            animation: wordReveal var(--duration-slow) var(--easing-smooth) forwards;
+        }
+        
+        .hero h1 .word:nth-child(1) { animation-delay: 0.1s; }
+        .hero h1 .word:nth-child(2) { animation-delay: 0.3s; }
+        .hero h1 .word:nth-child(3) { animation-delay: 0.5s; }
+        .hero h1 .word:nth-child(4) { animation-delay: 0.7s; }
+        
+        @keyframes wordReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .hero p {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-            max-width: 600px;
+            font-family: var(--font-body, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-body-large, clamp(1.125rem, 3vw, 1.375rem));
+            color: var(--text-secondary, rgba(255, 255, 255, 0.75));
+            margin-bottom: 3rem;
+            max-width: 45ch; /* Optimal reading width */
             margin-left: auto;
             margin-right: auto;
+            line-height: var(--leading-relaxed, 1.6);
+            font-weight: var(--font-normal, 400);
+            letter-spacing: var(--tracking-normal, 0);
+            opacity: 0;
+            animation: fadeInUp var(--duration-base) var(--easing-smooth) 1s forwards;
+            
+            /* Premium typography features */
+            text-rendering: optimizeSpeed;
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            text-wrap: balance; /* Better line breaks for readability */
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* 3D Scene Container */
@@ -138,26 +220,92 @@
             align-items: center;
             gap: 0.75rem;
             padding: 1rem 2rem;
-            font-size: 1.125rem;
-            font-weight: 600;
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-lg, 1.125rem);
+            font-weight: var(--font-semibold, 600);
+            letter-spacing: var(--tracking-wide, 0.025em);
             border: none;
             border-radius: 1rem;
             cursor: pointer;
-            transition: all var(--duration) var(--easing);
+            transition: all var(--duration-base) var(--easing-smooth);
             text-decoration: none;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+            backface-visibility: hidden;
+            
+            /* Premium typography features */
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: 'kern' 1, 'liga' 1;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #000;
-            box-shadow: 0 0 30px rgba(0, 255, 148, 0.3);
+            box-shadow: var(--shadow-glow), var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity var(--duration-fast) var(--easing-smooth);
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 50px rgba(0, 255, 148, 0.5);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 60px rgba(0, 255, 136, 0.4), 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Magnetic button enhancements */
+        .btn-magnetic {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .btn-magnetic[data-magnetic-indicator]::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px dashed rgba(0, 255, 136, 0.3);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity var(--duration-base) var(--easing-smooth);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .btn-magnetic[data-magnetic-indicator]:hover::before {
+            opacity: 1;
+            animation: magneticPulse 2s infinite;
+        }
+
+        @keyframes magneticPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: scale(1.05);
+                opacity: 0.6;
+            }
+        }
+
+        .btn-magnetic:hover {
+            z-index: 10;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
         }
         
         .btn-ghost {
@@ -179,19 +327,37 @@
         }
         
         .demo h2 {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 2rem;
-            color: var(--primary);
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-heading-1, clamp(2.5rem, 6vw, 4rem));
+            font-weight: var(--font-semibold, 600);
+            margin-bottom: 3rem;
+            background: var(--gradient-primary, var(--gradient-text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: var(--tracking-tight, -0.025em);
+            line-height: var(--leading-tight, 1.1);
+            
+            /* Premium typography features */
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
         }
         
         .video-container {
-            max-width: 800px;
-            margin: 0 auto 3rem;
+            max-width: 900px;
+            margin: 0 auto 4rem;
             position: relative;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3), 0 0 80px rgba(0, 255, 136, 0.1);
+            transition: all var(--duration-base) var(--easing-smooth);
+        }
+        
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.4), 0 0 120px rgba(0, 255, 136, 0.15);
         }
         
         .demo-video {
@@ -213,18 +379,30 @@
         }
         
         .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-5xl, 3rem);
+            font-weight: var(--font-black, 900);
+            color: var(--text-brand-primary, var(--primary));
+            line-height: var(--leading-none, 1);
             margin-bottom: 0.5rem;
+            
+            /* Tabular numbers for better alignment */
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: 'tnum' 1, 'kern' 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
         
         .stat-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.875rem;
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            color: var(--text-tertiary, rgba(255, 255, 255, 0.7));
+            font-size: var(--text-xs, 0.875rem);
+            font-weight: var(--font-medium, 500);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: var(--tracking-widest, 0.1em);
+            
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
         
         /* CTA Section */
@@ -235,15 +413,35 @@
         }
         
         .cta h2 {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 800;
+            font-family: var(--font-display, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-heading-1, clamp(2rem, 6vw, 4rem));
+            font-weight: var(--font-extrabold, 800);
             margin-bottom: 1rem;
+            color: var(--text-primary, #ffffff);
+            letter-spacing: var(--tracking-tight, -0.025em);
+            line-height: var(--leading-tight, 1.1);
+            
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
         }
         
         .cta p {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.8);
+            font-family: var(--font-body, 'Inter', -apple-system, system-ui, sans-serif);
+            font-size: var(--text-body-large, 1.25rem);
+            color: var(--text-secondary, rgba(255, 255, 255, 0.8));
             margin-bottom: 3rem;
+            line-height: var(--leading-relaxed, 1.6);
+            letter-spacing: var(--tracking-normal, 0);
+            max-width: 50ch;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+            
+            text-rendering: optimizeSpeed;
+            -webkit-font-smoothing: antialiased;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            text-wrap: balance;
         }
         
         .cta-buttons {
@@ -269,8 +467,17 @@
             padding: 0.75rem 1.5rem;
             background: var(--glass);
             border-radius: 2rem;
-            font-size: 0.875rem;
-            color: var(--accent);
+            font-family: var(--font-mono, 'SF Mono', Monaco, monospace);
+            font-size: var(--text-sm, 0.875rem);
+            font-weight: var(--font-bold, 700);
+            letter-spacing: var(--tracking-wide, 0.025em);
+            color: var(--text-brand-accent, var(--accent));
+            
+            /* Tabular numbers for consistent spacing */
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: 'tnum' 1, 'kern' 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
         
         .pulse {
@@ -296,13 +503,335 @@
             33% { transform: translateY(-10px) rotate(1deg); }
             66% { transform: translateY(-5px) rotate(-1deg); }
         }
+
+        /* Face ID Scanner Styles */
+        .face-scanner-hero {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 280px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 5;
+        }
+
+        @media (max-width: 1200px) {
+            .face-scanner-hero {
+                right: 5%;
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .face-scanner-hero {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin: 2rem auto 0;
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Scanner Frame */
+        .face-scanner-hero .scanner-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--glass-border);
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                inset 0 0 60px rgba(0, 255, 136, 0.05),
+                0 0 80px rgba(0, 0, 0, 0.3),
+                var(--shadow-glow);
+            transition: all var(--duration-base) var(--easing-smooth);
+            overflow: hidden;
+        }
+
+        .face-scanner-hero .scanner-frame.scanning {
+            border-color: var(--primary);
+            box-shadow: 
+                inset 0 0 60px rgba(0, 255, 136, 0.15),
+                0 0 120px rgba(0, 255, 136, 0.3),
+                0 0 200px rgba(0, 255, 136, 0.1);
+            animation: scannerPulse 2s ease-in-out infinite;
+        }
+
+        .face-scanner-hero .scanner-frame.success {
+            border-color: #10b981;
+            box-shadow: 
+                inset 0 0 60px rgba(16, 185, 129, 0.2),
+                0 0 120px rgba(16, 185, 129, 0.4),
+                0 0 200px rgba(16, 185, 129, 0.15);
+            transform: scale(1.05);
+        }
+
+        @keyframes scannerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Face Outline */
+        .face-scanner-hero .face-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 42%;
+            height: 54%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50% 50% 60% 60%;
+            transition: all var(--duration-base) var(--easing-smooth);
+        }
+
+        .face-scanner-hero .face-outline.scanning {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .face-scanner-hero .face-outline.success {
+            border-color: #10b981;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Biometric Dots */
+        .face-scanner-hero .biometric-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .face-scanner-hero .bio-dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all var(--duration-fast) var(--easing-smooth);
+        }
+
+        .face-scanner-hero .bio-dot.active {
+            opacity: 1;
+            background: var(--primary);
+            box-shadow: 0 0 12px var(--primary);
+            transform: scale(1.5);
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .face-scanner-hero .bio-dot.success {
+            background: #10b981;
+            box-shadow: 0 0 12px #10b981;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Scanning Line */
+        .face-scanner-hero .scanning-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--primary) 20%, 
+                rgba(0, 255, 136, 0.8) 50%, 
+                var(--primary) 80%, 
+                transparent 100%);
+            transform-origin: center;
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 0;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .face-scanner-hero .scanning-line.active {
+            opacity: 1;
+            animation: rotateLine 3s linear infinite;
+        }
+
+        @keyframes rotateLine {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Pulse Rings */
+        .face-scanner-hero .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: pulseRing 2s ease-out infinite;
+        }
+
+        .face-scanner-hero .pulse-ring:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .face-scanner-hero .pulse-ring:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* Success Checkmark */
+        .face-scanner-hero .success-checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 50px;
+            height: 50px;
+            opacity: 0;
+            transition: all var(--duration-base) var(--easing-bounce);
+        }
+
+        .face-scanner-hero .success-checkmark.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .face-scanner-hero .checkmark-circle {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #10b981;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .face-scanner-hero .checkmark-path {
+            width: 20px;
+            height: 20px;
+            stroke: #10b981;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 25;
+            stroke-dashoffset: 25;
+        }
+
+        .face-scanner-hero .checkmark-path.animate {
+            animation: drawCheckmark var(--duration-base) var(--easing-smooth) forwards;
+        }
+
+        @keyframes drawCheckmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Status Text */
+        .face-scanner-hero .status-text {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            transition: all var(--duration-base) var(--easing-smooth);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .face-scanner-hero .status-text.scanning {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .face-scanner-hero .status-text.success {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Touch Ripple Effect */
+        .face-scanner-hero .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.3);
+            transform: scale(0);
+            animation: rippleEffect var(--duration-base) ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Hover Effects */
+        .face-scanner-hero:hover .scanner-frame {
+            border-color: rgba(0, 255, 136, 0.6);
+            box-shadow: 
+                inset 0 0 60px rgba(0, 255, 136, 0.1),
+                0 0 100px rgba(0, 255, 136, 0.2),
+                var(--shadow-glow);
+        }
+
+        .face-scanner-hero:hover .status-text {
+            color: var(--primary);
+        }
         
         /* Mobile Optimizations */
         @media (max-width: 768px) {
-            .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
-            .btn { padding: 0.875rem 1.5rem; font-size: 1rem; }
+            .hero h1 { 
+                font-size: var(--text-hero-mobile, clamp(2.5rem, 10vw, 4rem));
+                line-height: var(--leading-tight, 1.1);
+                letter-spacing: var(--tracking-normal, 0);
+            }
+            .hero p {
+                font-size: var(--text-body-medium, 1rem);
+                line-height: var(--leading-normal, 1.5);
+                max-width: 90%;
+            }
+            .btn { 
+                padding: 0.875rem 1.5rem; 
+                font-size: var(--text-base, 1rem);
+                letter-spacing: var(--tracking-normal, 0);
+            }
             .stats { gap: 1rem; }
-            .stat-number { font-size: 2rem; }
+            .stat-number { 
+                font-size: var(--text-4xl, 2rem);
+                line-height: var(--leading-none, 1);
+            }
+            .demo h2, .cta h2 {
+                font-size: var(--text-heading-2, clamp(1.5rem, 8vw, 2.5rem));
+                letter-spacing: var(--tracking-normal, 0);
+            }
         }
         
         /* Reduced Motion */
@@ -318,18 +847,56 @@
             <canvas id="three-scene"></canvas>
         </div>
         
+        <!-- Face ID Scanner -->
+        <div class="face-scanner-hero" id="faceScanner">
+            <!-- Pulse Rings -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            
+            <!-- Main Scanner Frame -->
+            <div class="scanner-frame" id="scannerFrame">
+                <!-- Face Outline -->
+                <div class="face-outline" id="faceOutline"></div>
+                
+                <!-- Biometric Dots -->
+                <div class="biometric-dots" id="biometricDots"></div>
+                
+                <!-- Scanning Line -->
+                <div class="scanning-line" id="scanningLine"></div>
+                
+                <!-- Success Checkmark -->
+                <div class="success-checkmark" id="successCheckmark">
+                    <div class="checkmark-circle">
+                        <svg class="checkmark-path" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Text -->
+            <div class="status-text" id="statusText">Face ID Ready</div>
+        </div>
+
         <div class="hero-content">
-            <h1 class="float">Face ID Beats Gas Fees</h1>
-            <p>Send crypto like @juan → @maria. Your face is your wallet. Zero gas fees on StarkNet.</p>
+            <h1 class="hero-title" data-text-reveal='{"type": "char", "stagger": 50}'>
+                <span class="word">Face</span>
+                <span class="word">ID</span>
+                <span class="word">Beats</span>
+                <span class="word">Gas</span>
+                <span class="word">Fees</span>
+            </h1>
+            <p class="text-container-narrow text-reveal-typewriter" data-text-reveal='{"type": "typewriter", "typingSpeed": 60}'>Send crypto like @juan → @maria. Your face is your wallet. Zero gas fees on StarkNet.</p>
             
             <div class="cta-buttons">
-                <a href="#demo" class="btn btn-primary">
+                <a href="#demo" class="btn btn-primary btn-micro-bounce micro-bounce" data-magnetic-indicator>
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
                     See The Magic
                 </a>
-                <a href="#cta" class="btn btn-ghost">
+                <a href="#cta" class="btn btn-ghost btn-micro-bounce micro-bounce">
                     Get Beta Access
                 </a>
             </div>
@@ -337,31 +904,31 @@
     </section>
     
     <!-- Demo Section -->
-    <section class="section demo" id="demo">
+    <section class="section demo scroll-reveal-depth" id="demo" data-scroll-reveal='{"type": "depth", "duration": 800}'>
         <div>
-            <h2>@usernames. Face ID. Zero Gas.</h2>
+            <h2 class="text-display-2 text-reveal-matrix" data-text-reveal='{"type": "matrix", "stagger": 80}'>Simple as @username</h2>
             
-            <div class="video-container">
+            <div class="video-container scroll-reveal-magnetic" data-scroll-reveal='{"type": "magnetic", "duration": 600}'>
                 <video class="demo-video" autoplay muted loop playsinline preload="metadata">
                     <source src="/facepay-demo.mp4" type="video/mp4">
                     Your browser doesn't support video. <a href="/facepay-demo.mp4">Download the video</a>.
                 </video>
             </div>
             
-            <div class="stats">
-                <div class="stat">
+            <div class="stats scroll-cascade" data-scroll-reveal='{"type": "cascade", "duration": 400}'>
+                <div class="stat cascade-item">
                     <div class="stat-number" data-count="10000">0</div>
                     <div class="stat-label">Early Adopters</div>
                 </div>
-                <div class="stat">
+                <div class="stat cascade-item">
                     <div class="stat-number" data-count="847">0</div>
                     <div class="stat-label">K Video Views</div>
                 </div>
-                <div class="stat">
+                <div class="stat cascade-item">
                     <div class="stat-number">3s</div>
                     <div class="stat-label">Average Payment</div>
                 </div>
-                <div class="stat">
+                <div class="stat cascade-item">
                     <div class="stat-number">$0</div>
                     <div class="stat-label">Gas Fees</div>
                 </div>
@@ -370,32 +937,39 @@
     </section>
     
     <!-- CTA Section -->
-    <section class="section cta" id="cta">
+    <section class="section cta scroll-reveal-magnetic" id="cta" data-scroll-reveal='{"type": "magnetic", "duration": 700}'>
         <div>
-            <h2>Join Revolution</h2>
-            <p>Send to @maria, not 0x742d35Cc6...</p>
+            <h2 class="cta-headline text-reveal-char" data-text-reveal='{"type": "char", "stagger": 60}'>Join Revolution</h2>
+            <p class="cta-description text-reveal-typewriter" data-text-reveal='{"type": "typewriter", "typingSpeed": 70}'>Send to @maria, not 0x742d35Cc6...</p>
             
             <div class="cta-buttons">
-                <button onclick="downloadApp()" class="btn btn-primary">
+                <button onclick="downloadApp()" class="btn btn-primary btn-micro-bounce micro-bounce" data-magnetic-indicator>
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                     </svg>
                     Download Now
                 </button>
-                <button onclick="joinBeta()" class="btn btn-ghost">
+                <button onclick="joinBeta()" class="btn btn-ghost btn-micro-bounce micro-bounce">
                     TestFlight Beta
                 </button>
             </div>
             
             <div class="countdown">
                 <div class="pulse"></div>
-                <span>Beta ending in <span id="countdown-timer">23:45:12</span></span>
+                <span>Beta ending in <span id="countdown-timer" class="countdown-timer">23:45:12</span></span>
             </div>
         </div>
     </section>
     
     <!-- Scripts -->
+    <script src="/typography-performance.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="magnetic-buttons.js" defer></script>
+    
+    <!-- Micro-Animations System -->
+    <script src="micro-animations.js" defer></script>
+    <script src="micro-animations-integration.js" defer></script>
     <script defer>
         // Performance-optimized initialization
         let isHighPerformance = navigator.hardwareConcurrency >= 4;
@@ -433,7 +1007,7 @@
         }
         
         function createCryptoSymbols() {
-            const symbols = ['$', '₿', 'Ξ', '⚡', '🔒'];
+            const symbols = ['@', '👤', '⚡', '✨', '🚀'];
             const geometry = new THREE.PlaneGeometry(0.5, 0.5);
             
             symbols.forEach((symbol, i) => {
@@ -441,7 +1015,9 @@
                 canvas.width = 64;
                 canvas.height = 64;
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#00ff94';
+                ctx.fillStyle = '#00ff88';
+                ctx.shadowColor = '#00ff88';
+                ctx.shadowBlur = 10;
                 ctx.font = '32px Arial';
                 ctx.textAlign = 'center';
                 ctx.fillText(symbol, 32, 40);
@@ -554,6 +1130,198 @@
             }
         }
         
+        // Face ID Scanner Component Class
+        class FaceIDHeroScanner {
+            constructor(containerId) {
+                this.container = document.getElementById(containerId);
+                if (!this.container) return;
+                
+                this.scannerFrame = this.container.querySelector('.scanner-frame');
+                this.faceOutline = this.container.querySelector('.face-outline');
+                this.biometricDots = this.container.querySelector('.biometric-dots');
+                this.scanningLine = this.container.querySelector('.scanning-line');
+                this.successCheckmark = this.container.querySelector('.success-checkmark');
+                this.statusText = this.container.querySelector('.status-text');
+                
+                this.isScanning = false;
+                this.scanComplete = false;
+                this.autoStartTimer = null;
+                
+                this.init();
+            }
+            
+            init() {
+                this.createBiometricDots();
+                this.bindEvents();
+                this.startAutoDemo();
+            }
+            
+            createBiometricDots() {
+                const dotPositions = [
+                    { x: '50%', y: '25%' }, { x: '35%', y: '40%' }, { x: '65%', y: '40%' },
+                    { x: '30%', y: '55%' }, { x: '70%', y: '55%' }, { x: '50%', y: '60%' },
+                    { x: '40%', y: '72%' }, { x: '60%', y: '72%' }, { x: '50%', y: '80%' },
+                    { x: '42%', y: '48%' }, { x: '58%', y: '48%' }, { x: '50%', y: '65%' }, { x: '50%', y: '75%' },
+                ];
+                
+                this.biometricDots.innerHTML = '';
+                dotPositions.forEach((pos, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'bio-dot';
+                    dot.style.left = pos.x;
+                    dot.style.top = pos.y;
+                    dot.style.transform = 'translate(-50%, -50%)';
+                    dot.dataset.index = index;
+                    this.biometricDots.appendChild(dot);
+                });
+            }
+            
+            bindEvents() {
+                this.container.addEventListener('click', (e) => {
+                    this.createRipple(e);
+                    this.handleInteraction();
+                });
+                
+                this.container.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.createRipple(e.touches[0]);
+                    this.handleInteraction();
+                });
+                
+                if (window.IntersectionObserver) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                this.startAutoDemo();
+                            } else {
+                                this.clearAutoDemo();
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    observer.observe(this.container);
+                }
+            }
+            
+            handleInteraction() {
+                if (this.scanComplete) {
+                    this.reset();
+                } else if (!this.isScanning) {
+                    this.clearAutoDemo();
+                    this.startScan();
+                }
+            }
+            
+            createRipple(event) {
+                const rect = this.container.getBoundingClientRect();
+                const ripple = document.createElement('div');
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.className = 'ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+                
+                this.container.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            }
+            
+            startAutoDemo() {
+                this.clearAutoDemo();
+                this.autoStartTimer = setTimeout(() => {
+                    if (!this.isScanning && !this.scanComplete) {
+                        this.startScan();
+                    }
+                }, 4000);
+            }
+            
+            clearAutoDemo() {
+                if (this.autoStartTimer) {
+                    clearTimeout(this.autoStartTimer);
+                    this.autoStartTimer = null;
+                }
+            }
+            
+            startScan() {
+                if (this.isScanning) return;
+                
+                this.isScanning = true;
+                this.scanComplete = false;
+                
+                this.scannerFrame.classList.add('scanning');
+                this.faceOutline.classList.add('scanning');
+                this.scanningLine.classList.add('active');
+                this.statusText.classList.add('scanning');
+                this.statusText.textContent = 'Scanning Face...';
+                
+                this.animateBiometricDots();
+                setTimeout(() => this.completeScan(), 3000);
+            }
+            
+            animateBiometricDots() {
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                dots.forEach((dot, index) => {
+                    setTimeout(() => {
+                        if (this.isScanning) {
+                            dot.classList.add('active');
+                            setTimeout(() => {
+                                if (this.scanComplete) {
+                                    dot.classList.add('success');
+                                }
+                            }, 2500);
+                        }
+                    }, index * 120 + Math.random() * 150);
+                });
+            }
+            
+            completeScan() {
+                this.isScanning = false;
+                this.scanComplete = true;
+                
+                this.scannerFrame.classList.remove('scanning');
+                this.scannerFrame.classList.add('success');
+                this.faceOutline.classList.remove('scanning');
+                this.faceOutline.classList.add('success');
+                this.scanningLine.classList.remove('active');
+                this.statusText.classList.remove('scanning');
+                this.statusText.classList.add('success');
+                this.statusText.textContent = 'Authenticated ✓';
+                
+                setTimeout(() => {
+                    this.successCheckmark.classList.add('show');
+                    const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+                    if (checkmarkPath) checkmarkPath.classList.add('animate');
+                }, 200);
+                
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                dots.forEach(dot => dot.classList.add('success'));
+                
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                
+                setTimeout(() => {
+                    this.reset();
+                    this.startAutoDemo();
+                }, 4000);
+            }
+            
+            reset() {
+                this.isScanning = false;
+                this.scanComplete = false;
+                
+                this.scannerFrame.classList.remove('scanning', 'success');
+                this.faceOutline.classList.remove('scanning', 'success');
+                this.scanningLine.classList.remove('active');
+                this.successCheckmark.classList.remove('show');
+                this.statusText.classList.remove('scanning', 'success');
+                this.statusText.textContent = 'Face ID Ready';
+                
+                const dots = this.biometricDots.querySelectorAll('.bio-dot');
+                dots.forEach(dot => dot.classList.remove('active', 'success'));
+                
+                const checkmarkPath = this.successCheckmark.querySelector('.checkmark-path');
+                if (checkmarkPath) checkmarkPath.classList.remove('animate');
+            }
+        }
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -577,6 +1345,27 @@
             
             // Start countdown
             updateCountdown();
+            
+            // Initialize magnetic buttons with premium settings
+            setTimeout(() => {
+                if (window.initMagneticButtons) {
+                    const magneticButtons = initMagneticButtons({
+                        magneticRadius: 140,
+                        magneticStrength: 0.5,
+                        dampening: 0.8,
+                        stiffness: 0.12,
+                        rippleDuration: 800,
+                        rippleScale: 3,
+                        touchScale: 0.92,
+                        throttleFPS: isHighPerformance ? 60 : 30
+                    });
+                    
+                    console.log('🧲 Magnetic buttons loaded:', magneticButtons.getStats());
+                }
+            }, 200);
+            
+            // Initialize Face ID Scanner
+            window.faceIDScanner = new FaceIDHeroScanner('faceScanner');
             
             console.log('🚀 FacePay loaded. Crypto\'s iPhone moment is here.');
         });

@@ -1,0 +1,254 @@
+/* FacePay Premium Styles - Final Integration */
+
+/* Face ID Scanner Premium */
+.face-scan {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 200px;
+    height: 200px;
+    z-index: 15;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .face-scan {
+        top: 15%;
+        right: 50%;
+        transform: translateX(50%);
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.face-scan-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50%;
+    animation: faceScanPulse 3s ease-in-out infinite;
+}
+
+.scan-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 80%;
+    background: linear-gradient(180deg, transparent, var(--primary), transparent);
+    transform: translate(-50%, -50%);
+    animation: scanRotate 3s linear infinite;
+}
+
+.scan-dots {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+}
+
+.scan-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.scan-dot:nth-child(1) { top: 10%; left: 50%; animation: dotPulse 3s 0.1s ease-in-out infinite; }
+.scan-dot:nth-child(2) { top: 30%; right: 25%; animation: dotPulse 3s 0.2s ease-in-out infinite; }
+.scan-dot:nth-child(3) { top: 50%; right: 10%; animation: dotPulse 3s 0.3s ease-in-out infinite; }
+.scan-dot:nth-child(4) { bottom: 30%; right: 25%; animation: dotPulse 3s 0.4s ease-in-out infinite; }
+.scan-dot:nth-child(5) { bottom: 10%; left: 50%; animation: dotPulse 3s 0.5s ease-in-out infinite; }
+.scan-dot:nth-child(6) { bottom: 30%; left: 25%; animation: dotPulse 3s 0.6s ease-in-out infinite; }
+.scan-dot:nth-child(7) { top: 50%; left: 10%; animation: dotPulse 3s 0.7s ease-in-out infinite; }
+.scan-dot:nth-child(8) { top: 30%; left: 25%; animation: dotPulse 3s 0.8s ease-in-out infinite; }
+
+@keyframes faceScanPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes scanRotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Magnetic Button Premium */
+.btn-magnetic {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-magnetic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-magnetic:hover::before {
+    opacity: 1;
+}
+
+.micro-bounce {
+    transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.micro-bounce:active {
+    transform: scale(0.96);
+}
+
+/* Text Reveal Premium */
+[data-text-reveal] {
+    overflow: hidden;
+}
+
+[data-text-reveal] .char {
+    display: inline-block;
+    opacity: 0;
+    animation: charReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes charReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) rotateX(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Premium Gradients */
+.text-primary {
+    color: var(--primary);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Enhanced Glass Effects */
+.glass-premium {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Success States */
+.success-checkmark {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    position: relative;
+    animation: successBounce 0.6s ease-out;
+}
+
+.success-checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@keyframes successBounce {
+    0% { transform: scale(0) rotate(180deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(180deg); }
+}
+
+/* Enhanced Video Container */
+.video-premium {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 
+        0 40px 100px rgba(0, 0, 0, 0.25),
+        0 0 80px rgba(0, 255, 136, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-premium:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 60px 120px rgba(0, 0, 0, 0.3),
+        0 0 120px rgba(0, 255, 136, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Stats Animation Enhanced */
+.stat-enhanced {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stat-enhanced:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(0, 255, 136, 0.2);
+}
+
+.stat-number-enhanced {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: 'SF Mono', 'Monaco', monospace;
+}
+
+/* Premium Spacing System */
+.space-premium {
+    padding: clamp(1rem, 4vw, 3rem);
+}
+
+.mb-premium {
+    margin-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+/* Enhanced Responsive */
+@media (max-width: 768px) {
+    .face-scan {
+        opacity: 0.4;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .btn-magnetic {
+        min-height: 48px;
+        font-size: 1rem;
+    }
+    
+    .stat-number-enhanced {
+        font-size: 2.5rem;
+    }
+}

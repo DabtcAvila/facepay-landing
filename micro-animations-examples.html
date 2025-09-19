@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 FacePay Micro-Animations Showcase</title>
+    
+    <!-- Include our micro-animations CSS -->
+    <link rel="stylesheet" href="micro-animations.css">
+    
+    <!-- Base styles for demo -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .showcase-section {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            backdrop-filter: blur(20px);
+        }
+        
+        .showcase-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .showcase-description {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .demo-item {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+        
+        .demo-btn {
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #00ff88, #6366f1);
+            color: #000;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .demo-text {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+        
+        .demo-large-text {
+            font-size: 3rem;
+            margin: 2rem 0;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .loader-demo {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-demo {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .scroll-demo {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(99, 102, 241, 0.1));
+            border-radius: 0.5rem;
+        }
+        
+        .progress-demo {
+            margin: 2rem 0;
+        }
+        
+        .cascade-item {
+            padding: 1rem;
+            margin: 0.5rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        /* Design tokens */
+        :root {
+            --primary: #00ff88;
+            --secondary: #6366f1;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --success-glow: rgba(34, 197, 94, 0.8);
+            --glow-primary: rgba(0, 255, 136, 0.6);
+            
+            --micro-ultra-fast: 0.08s;
+            --micro-fast: 0.15s;
+            --micro-medium: 0.25s;
+            --micro-slow: 0.4s;
+            
+            --ease-micro: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce-micro: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            --ease-elastic-micro: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header style="text-align: center; margin: 4rem 0;">
+            <h1 class="demo-large-text" id="main-title">FacePay Micro-Animations</h1>
+            <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.7);">
+                Deliciosas animaciones que crean experiencias memorables
+            </p>
+        </header>
+
+        <!-- 1. TEXT REVEALS -->
+        <section class="showcase-section">
+            <h2 class="showcase-title">1. Text Reveals - Character por Character</h2>
+            <p class="showcase-description">
+                Animaciones de texto que revelan cada caracter con timing perfecto y efectos naturales.
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Character Reveal</h3>
+                    <div class="demo-text" id="char-demo">¡Hola FacePay!</div>
+                    <button class="demo-btn" onclick="demoCharReveal()">Animar Caracteres</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Matrix Effect</h3>
+                    <div class="demo-text" id="matrix-demo">Crypto Revolution</div>
+                    <button class="demo-btn" onclick="demoMatrixReveal()">Efecto Matrix</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Typewriter</h3>
+                    <div class="demo-text" id="typewriter-demo">Face ID beats gas fees</div>
+                    <button class="demo-btn" onclick="demoTypewriter()">Máquina Escribir</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BUTTON STATES -->
+        <section class="showcase-section">
+            <h2 class="showcase-title">2. Button States - Bounce Perfecto</h2>
+            <p class="showcase-description">
+                Botones con micro-interacciones que responden perfectamente al usuario.
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Micro Bounce</h3>
+                    <button class="demo-btn micro-bounce-demo" onclick="alert('¡Micro bounce perfecto!')">
+                        Hover & Click Me
+                    </button>
+                    <button class="demo-btn" onclick="enhanceBounceButton()">Activar Bounce</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Magnetic Button</h3>
+                    <button class="demo-btn magnetic-demo" onclick="alert('¡Efecto magnético!')">
+                        Magnetic Effect
+                    </button>
+                    <button class="demo-btn" onclick="addMagneticEffect()">Activar Magnético</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Loading State</h3>
+                    <button class="demo-btn" id="loading-btn" onclick="demoLoadingState()">
+                        Click for Loading
+                    </button>
+                    <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.7;">
+                        Demuestra el estado de carga suave
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LOADING STATES -->
+        <section class="showcase-section">
+            <h2 class="showcase-title">3. Loading States - Hipnotizantes</h2>
+            <p class="showcase-description">
+                Estados de carga que mantienen al usuario enganchado mientras espera.
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Liquid Loader</h3>
+                    <div class="loader-demo" id="liquid-loader-demo"></div>
+                    <button class="demo-btn" onclick="showLiquidLoader()">Mostrar Liquid</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Dancing Dots</h3>
+                    <div class="loader-demo" id="dots-loader-demo"></div>
+                    <button class="demo-btn" onclick="showDotsLoader()">Mostrar Dots</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Progress Liquid</h3>
+                    <div class="progress-demo">
+                        <div id="progress-demo"></div>
+                        <p style="margin-top: 1rem;">Progreso: <span id="progress-text">0%</span></p>
+                    </div>
+                    <button class="demo-btn" onclick="demoProgressLiquid()">Simular Progreso</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SCROLL REVEALS -->
+        <section class="showcase-section">
+            <h2 class="showcase-title">4. Scroll Reveals - Sorprendentes</h2>
+            <p class="showcase-description">
+                Elementos que se revelan al hacer scroll con efectos que sorprenden.
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Depth Reveal</h3>
+                    <div class="scroll-demo scroll-reveal-depth">
+                        <div>Scroll para ver el efecto 3D</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Magnetic Reveal</h3>
+                    <div class="scroll-demo scroll-reveal-magnetic">
+                        <div>Atracción magnética</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Cascade Effect</h3>
+                    <div class="scroll-demo scroll-cascade">
+                        <div class="cascade-item">Item 1</div>
+                        <div class="cascade-item">Item 2</div>
+                        <div class="cascade-item">Item 3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SUCCESS STATES -->
+        <section class="showcase-section">
+            <h2 class="showcase-title">5. Success States - Satisfactorios</h2>
+            <p class="showcase-description">
+                Animaciones de éxito que generan satisfacción y confirman las acciones.
+            </p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Success Checkmark</h3>
+                    <div class="success-demo" id="success-checkmark-demo"></div>
+                    <button class="demo-btn" onclick="showSuccessCheckmark()">Mostrar Éxito</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Success Toast</h3>
+                    <div class="success-demo">
+                        <div style="opacity: 0.7;">El toast aparecerá en la esquina</div>
+                    </div>
+                    <button class="demo-btn" onclick="showSuccessToast()">Mostrar Toast</button>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Celebration</h3>
+                    <div class="success-demo" id="celebration-demo"></div>
+                    <button class="demo-btn" onclick="showCelebration()">¡Celebrar!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTROLS -->
+        <section class="showcase-section" style="text-align: center;">
+            <h2 class="showcase-title">Controles Globales</h2>
+            <div>
+                <button class="demo-btn" onclick="pauseAllAnimations()">Pausar Todo</button>
+                <button class="demo-btn" onclick="resumeAllAnimations()">Reanudar Todo</button>
+                <button class="demo-btn" onclick="resetAllDemos()">Reset Demos</button>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 0.5rem;">
+                <p style="font-size: 0.875rem; opacity: 0.8;">
+                    <strong>Accessibility:</strong> Las animaciones respetan las preferencias de movimiento reducido.<br>
+                    <strong>Performance:</strong> Optimizado para 60fps con aceleración GPU.<br>
+                    <strong>Timing:</strong> Duraciones perfectas para cada tipo de animación.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include our micro-animations JavaScript -->
+    <script src="micro-animations.js"></script>
+    
+    <!-- Demo Scripts -->
+    <script>
+        // Wait for the micro-animations engine to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize main title animation
+            setTimeout(() => {
+                if (window.microAnimations) {
+                    window.microAnimations.createTextReveal(
+                        document.getElementById('main-title'),
+                        { type: 'char', delay: 500, stagger: 50 }
+                    );
+                }
+            }, 1000);
+
+            // Setup scroll reveals
+            setupScrollRevealDemos();
+            
+            // Auto-enhance buttons
+            enhanceAllButtons();
+        });
+
+        // Text Reveal Demos
+        function demoCharReveal() {
+            const element = document.getElementById('char-demo');
+            element.textContent = '¡Animación perfecta!';
+            window.microAnimations?.createTextReveal(element, {
+                type: 'char',
+                stagger: 30,
+                delay: 100
+            });
+        }
+
+        function demoMatrixReveal() {
+            const element = document.getElementById('matrix-demo');
+            element.textContent = 'BLOCKCHAIN FUTURE';
+            window.microAnimations?.createMatrixReveal(element, {
+                stagger: 40,
+                delay: 50
+            });
+        }
+
+        function demoTypewriter() {
+            const element = document.getElementById('typewriter-demo');
+            window.microAnimations?.createTypewriterReveal(element, {
+                typingSpeed: 80,
+                showCursor: true
+            });
+        }
+
+        // Button Enhancement Demos
+        function enhanceBounceButton() {
+            const btn = document.querySelector('.micro-bounce-demo');
+            window.microAnimations?.enhanceButton(btn, {
+                bounceIntensity: 1.2,
+                rippleEnabled: true
+            });
+        }
+
+        function addMagneticEffect() {
+            const btn = document.querySelector('.magnetic-demo');
+            window.microAnimations?.enhanceButton(btn, {
+                magneticStrength: 0.4,
+                bounceIntensity: 1.1
+            });
+        }
+
+        function demoLoadingState() {
+            const btn = document.getElementById('loading-btn');
+            const enhancement = window.microAnimations?.enhanceButton(btn);
+            
+            enhancement?.setLoading(true);
+            
+            setTimeout(() => {
+                enhancement?.setLoading(false);
+                window.microAnimations?.showSuccessToast('¡Loading completado!');
+            }, 3000);
+        }
+
+        // Loading State Demos
+        function showLiquidLoader() {
+            const container = document.getElementById('liquid-loader-demo');
+            container.innerHTML = '';
+            
+            const loader = window.microAnimations?.createLiquidLoader(container, {
+                size: 50,
+                colors: ['#00ff88', '#6366f1']
+            });
+
+            setTimeout(() => loader?.destroy(), 5000);
+        }
+
+        function showDotsLoader() {
+            const container = document.getElementById('dots-loader-demo');
+            container.innerHTML = '';
+            
+            const loader = window.microAnimations?.createDotsLoader(container, {
+                dotCount: 4,
+                dotSize: 10,
+                spacing: 6
+            });
+
+            setTimeout(() => loader?.destroy(), 5000);
+        }
+
+        function demoProgressLiquid() {
+            const container = document.getElementById('progress-demo');
+            const textElement = document.getElementById('progress-text');
+            container.innerHTML = '';
+            
+            const progress = window.microAnimations?.createProgressLiquid(container, {
+                height: 8,
+                colors: ['#00ff88', '#6366f1'],
+                animated: true
+            });
+
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += 2;
+                progress?.setProgress(percent);
+                textElement.textContent = `${percent}%`;
+                
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        window.microAnimations?.showSuccessToast('¡Progreso completado!');
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // Scroll Reveal Setup
+        function setupScrollRevealDemos() {
+            if (!window.microAnimations) return;
+
+            document.querySelectorAll('.scroll-reveal-depth').forEach(element => {
+                window.microAnimations.observeScrollReveal(element, {
+                    type: 'depth',
+                    duration: 800,
+                    reset: true
+                });
+            });
+
+            document.querySelectorAll('.scroll-reveal-magnetic').forEach(element => {
+                window.microAnimations.observeScrollReveal(element, {
+                    type: 'magnetic',
+                    duration: 600,
+                    reset: true
+                });
+            });
+
+            document.querySelectorAll('.scroll-cascade').forEach(element => {
+                window.microAnimations.observeScrollReveal(element, {
+                    type: 'cascade',
+                    duration: 400,
+                    reset: true
+                });
+            });
+        }
+
+        // Success State Demos
+        function showSuccessCheckmark() {
+            const container = document.getElementById('success-checkmark-demo');
+            container.innerHTML = '';
+            
+            window.microAnimations?.createSuccessAnimation(container, {
+                type: 'checkmark',
+                size: 60,
+                particles: true
+            });
+        }
+
+        function showSuccessToast() {
+            window.microAnimations?.showSuccessToast('¡Operación exitosa! 🎉', {
+                position: 'top-right',
+                duration: 4000
+            });
+        }
+
+        function showCelebration() {
+            const container = document.getElementById('celebration-demo');
+            container.innerHTML = '';
+            
+            window.microAnimations?.createSuccessAnimation(container, {
+                type: 'celebration',
+                size: 80,
+                particles: true
+            }).then(() => {
+                // Add extra celebration effects
+                window.microAnimations?.showSuccessToast('🎊 ¡Increíble! ¡Celebremos juntos!', {
+                    position: 'bottom-right'
+                });
+            });
+        }
+
+        // Global Controls
+        function pauseAllAnimations() {
+            window.microAnimations?.pauseAll();
+        }
+
+        function resumeAllAnimations() {
+            window.microAnimations?.resumeAll();
+        }
+
+        function resetAllDemos() {
+            // Reset all demo content
+            document.getElementById('char-demo').textContent = '¡Hola FacePay!';
+            document.getElementById('matrix-demo').textContent = 'Crypto Revolution';
+            document.getElementById('typewriter-demo').textContent = 'Face ID beats gas fees';
+            
+            // Clear loaders
+            ['liquid-loader-demo', 'dots-loader-demo', 'progress-demo', 'success-checkmark-demo', 'celebration-demo'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = '';
+            });
+            
+            document.getElementById('progress-text').textContent = '0%';
+        }
+
+        // Auto-enhance buttons with classes
+        function enhanceAllButtons() {
+            if (!window.microAnimations) return;
+            
+            document.querySelectorAll('.demo-btn').forEach(btn => {
+                window.microAnimations.enhanceButton(btn, {
+                    bounceIntensity: 1,
+                    rippleEnabled: true,
+                    magneticStrength: 0.2
+                });
+            });
+        }
+    </script>
+</body>
+</html>
